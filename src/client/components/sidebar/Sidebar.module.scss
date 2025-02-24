@@ -1,0 +1,9 @@
+@use '../../styles/variables.scss' as *;
+
+.sidebar {
+  background-color: $surface-sidebar;
+  height: 100vh;
+  width: 20vw;
+  min-width: 200px;
+  border-right: 1px solid $text-secondary;
+}

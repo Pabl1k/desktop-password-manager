@@ -1,9 +1,10 @@
-import Sidebar from './Components/sidebar/Sidebar';
+import styles from './styles/App.module.scss';
+import Main from './views/main/Main';
 
 const App = () => {
   return (
-    <div className="">
-      <Sidebar />
+    <div className={styles.app}>
+      <Main />
     </div>
   );
 };

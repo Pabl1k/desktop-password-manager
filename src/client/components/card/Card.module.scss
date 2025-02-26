@@ -1,0 +1,44 @@
+@use '../../styles/variables.scss' as *;
+
+.card {
+  width: 280px;
+  min-height: 300px;
+  background-color: #282828;
+  border-radius: $border-radius;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cardHeader {
+  border-bottom: 1px solid $border;
+}
+
+.cardTitle {
+  //color: $green-primary;
+}
+
+.cardSite {
+  color: $green-primary;
+}
+
+.cardCredentials {
+  background-color: $background;
+  border: 1px solid $border;
+}
+
+.cardDivider {
+  height: 1px;
+  background-color: $border;
+}
+
+.cardButton {
+  border: 1px solid $border;
+  background-color: $background;
+  height: 40px;
+  width: 200px;
+
+  &:hover {
+    background-color: $surface-hover;
+  }
+}

@@ -1,11 +1,15 @@
 import Sidebar from '../../components/sidebar/Sidebar';
 import Toolbar from '../../components/toolbar/Toolbar';
+import Content from '../../components/content/Content';
 
 const Main = () => {
   return (
     <div className="flex">
       <Sidebar />
-      <Toolbar />
+      <div className="w-full">
+        <Toolbar />
+        <Content />
+      </div>
     </div>
   );
 };

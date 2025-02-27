@@ -1,7 +1,11 @@
 module.exports = {
   content: ['./index.html', './src/client/**/*.{ts,tsx}'],
   theme: {
-    extend: {}
+    extend: {
+      overflow: {
+        hidden: 'hidden'
+      }
+    }
   },
   plugins: []
 };

@@ -1,8 +1,8 @@
 @use '../../styles/variables.scss' as *;
 
 .card {
-  width: 280px;
-  min-height: 300px;
+  width: $card-width;
+  height: $card-height;
   background-color: #282828;
   border-radius: $border-radius;
   display: flex;
@@ -12,10 +12,6 @@
 
 .cardHeader {
   border-bottom: 1px solid $border;
-}
-
-.cardTitle {
-  //color: $green-primary;
 }
 
 .cardSite {
@@ -35,8 +31,9 @@
 .cardButton {
   border: 1px solid $border;
   background-color: $background;
-  height: 40px;
+  height: $button-height;
   width: 200px;
+  user-select: none;
 
   &:hover {
     background-color: $surface-hover;

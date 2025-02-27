@@ -1,7 +1,7 @@
 @use '../../styles/variables.scss' as *;
 
 .toolbar {
-  height: 85px;
+  height: $toolbar-height;
   background-color: $surface-toolbar;
   border-bottom: 1px solid $text-secondary;
 }

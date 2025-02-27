@@ -1,7 +1,7 @@
-@use "variables" as *;
+@use 'variables' as *;
 
 .app {
   background-color: $background;
   color: $text-primary;
-  height: 100vh;
+  overflow: hidden;
 }

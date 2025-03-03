@@ -1,0 +1,26 @@
+@use '../../styles/variables.scss' as *;
+
+.button {
+  height: $field-height;
+  cursor: pointer;
+  user-select: none;
+  border-radius: $button-radius;
+  padding: 0 24px;
+}
+
+.buttonCancel {
+  border: 1px solid $border;
+  background-color: $background;
+
+  &:hover {
+    background-color: $surface-hover;
+  }
+}
+
+.buttonAdd {
+  background-color: $green-primary;
+
+  &:hover {
+    background-color: $green-hover;
+  }
+}

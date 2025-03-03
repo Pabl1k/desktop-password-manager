@@ -1,6 +1,7 @@
-import clsx from 'clsx';
-import styles from './Card.module.scss';
 import { FC, useState } from 'react';
+import clsx from 'clsx';
+import Button from '../button/Button';
+import styles from './Card.module.scss';
 
 interface Props {
   title: string;
@@ -22,7 +23,7 @@ const Card: FC<Props> = ({ title, link, login, password }) => {
     <div className={styles.card}>
       <div className={clsx(styles.cardHeader, 'flex flex-col p-4')}>
         <span className="text-2xl truncate">{title}</span>
-        <span className={clsx(styles.cardSite, 'text-sm truncate')}>{link}</span>
+        <span className={clsx(styles.cardWebsite, 'text-sm truncate')}>{link}</span>
       </div>
       <div className={clsx(styles.cardCredentials, 'flex flex-col mx-4 rounded-lg text-lg')}>
         <span className="p-2">{login}</span>
@@ -33,9 +34,7 @@ const Card: FC<Props> = ({ title, link, login, password }) => {
         </div>
       </div>
       <div className="w-full flex justify-center">
-        <button className={clsx(styles.cardButton, 'mb-4 rounded-lg cursor-pointer')}>
-          Open in browser
-        </button>
+        <Button className="mb-4">Open in browser</Button>
       </div>
     </div>
   );

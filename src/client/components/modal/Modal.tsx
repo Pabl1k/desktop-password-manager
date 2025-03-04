@@ -1,6 +1,7 @@
 import { FC, ReactNode } from 'react';
-import styles from './Modal.module.scss';
+import ReactDOM from 'react-dom';
 import clsx from 'clsx';
+import styles from './Modal.module.scss';
 
 interface Props {
   open: boolean;
@@ -14,10 +15,11 @@ const Modal: FC<Props> = ({ open, className, children }) => {
     return null;
   }
 
-  return (
+  return ReactDOM.createPortal(
     <div className={styles.modalOverlay}>
       <div className={clsx(styles.modal, className)}>{children}</div>
-    </div>
+    </div>,
+    document.getElementById('portal-root') as HTMLElement
   );
 };
 

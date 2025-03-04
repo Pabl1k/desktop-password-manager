@@ -1,7 +1,7 @@
-import Modal from '../modal/Modal';
-import Input from '../input/Input';
 import { useState } from 'react';
 import Button from '../button/Button';
+import Input from '../input/Input';
+import Modal from '../modal/Modal';
 
 interface CardData {
   title?: string;

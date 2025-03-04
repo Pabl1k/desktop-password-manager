@@ -1,6 +1,6 @@
+import Content from '../../components/content/Content';
 import Sidebar from '../../components/sidebar/Sidebar';
 import Toolbar from '../../components/toolbar/Toolbar';
-import Content from '../../components/content/Content';
 
 const Main = () => {
   return (

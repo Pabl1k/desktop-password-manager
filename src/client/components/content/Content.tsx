@@ -1,5 +1,5 @@
-import Card from '../card/Card';
 import clsx from 'clsx';
+import Card from '../card/Card';
 import styles from './Content.module.scss';
 
 const items = [

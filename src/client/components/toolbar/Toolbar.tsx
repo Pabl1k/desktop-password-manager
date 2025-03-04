@@ -1,6 +1,6 @@
 import clsx from 'clsx';
-import styles from './Toolbar.module.scss';
 import CreateCard from '../createCard/CreateCard';
+import styles from './Toolbar.module.scss';
 
 const Toolbar = () => {
   return (

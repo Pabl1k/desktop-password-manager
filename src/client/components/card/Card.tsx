@@ -8,13 +8,14 @@ interface Props {
   link: string;
   login: string;
   password: string;
+  onDelete?: () => void;
 }
 
 const hiddenPassword = Array.from({ length: 16 }).map((_, i) => (
   <span key={i.toString()}>&#x2022;</span>
 ));
 
-const Card: FC<Props> = ({ title, link, login, password }) => {
+const Card: FC<Props> = ({ title, link, login, password, onDelete }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const displayPasswordFieldValue = showPassword ? password : hiddenPassword;
@@ -25,6 +26,7 @@ const Card: FC<Props> = ({ title, link, login, password }) => {
         <span className="text-2xl truncate">{title}</span>
         <span className={clsx(styles.cardWebsite, 'text-sm truncate')}>{link}</span>
       </div>
+      <button onClick={onDelete}>delete</button>
       <div className={clsx(styles.cardCredentials, 'flex flex-col mx-4 rounded-lg text-lg')}>
         <span className="p-2">{login}</span>
         <div className={styles.cardDivider} />

@@ -1,31 +1,36 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
+import { WebsiteCard } from '../../types/types';
 import Button from '../button/Button';
 import Input from '../input/Input';
 import Modal from '../modal/Modal';
 
-interface CardData {
-  title?: string;
-  website: string;
-  login: string;
-  password: string;
+interface Props {
+  onSave: (newCard: WebsiteCard) => Promise<void>;
 }
 
-const initialCardData: CardData = {
-  title: '',
-  website: '',
+const initialCardData: WebsiteCard = {
+  id: '',
+  sourceName: '',
   login: '',
-  password: ''
+  password: '',
+  url: '',
+  notes: ''
 };
 
-const CreateCard = () => {
+const CreateCard: FC<Props> = ({ onSave }) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [newCardData, setNewCardData] = useState<CardData>(initialCardData);
+  const [newCardData, setNewCardData] = useState(initialCardData);
 
-  const handleChange = (key: keyof CardData, value: string) => {
+  const handleChange = (key: keyof WebsiteCard, value: string) => {
     setNewCardData((prevData) => ({
       ...prevData,
       [key]: value
     }));
+  };
+
+  const handleSave = async () => {
+    await onSave(newCardData);
+    setModalOpen(false);
   };
 
   return (
@@ -37,16 +42,16 @@ const CreateCard = () => {
               <div key={fieldName} className="flex flex-col">
                 <span className="capitalize mb-1">{fieldName}</span>
                 <Input
-                  value={newCardData[fieldName as keyof CardData] ?? ''}
+                  value={newCardData[fieldName as keyof WebsiteCard] ?? ''}
                   placeholder={`Enter ${fieldName}`}
-                  onChange={(newValue) => handleChange(fieldName as keyof CardData, newValue)}
+                  onChange={(newValue) => handleChange(fieldName as keyof WebsiteCard, newValue)}
                 />
               </div>
             );
           })}
         </div>
         <div className="flex justify-end pr-4 mb-4">
-          <Button type="add" onClick={() => console.log('add')}>
+          <Button type="add" onClick={handleSave}>
             Add
           </Button>
           <Button className="ml-3" onClick={() => setModalOpen(false)}>

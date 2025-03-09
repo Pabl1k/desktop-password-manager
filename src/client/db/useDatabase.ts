@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { WebsiteCard } from '../types/types';
+import { uniqueId } from '../common/utils';
+import { WebsiteCard, WebsiteCardCreate } from '../types/types';
 import { DB_KEYS } from './keys';
 
 export const useDatabase = <T = WebsiteCard>() => {
@@ -48,7 +49,7 @@ export const useDatabase = <T = WebsiteCard>() => {
     }
   };
 
-  const add = async (item: T) => {
+  const add = async <D = WebsiteCardCreate>(item: D) => {
     setLoading(true);
 
     try {
@@ -57,7 +58,8 @@ export const useDatabase = <T = WebsiteCard>() => {
       const store = transaction.objectStore(DB_KEYS.STORE_NAME);
 
       await new Promise((_, reject) => {
-        const request = store.add(item);
+        const dbItem = { ...item, id: uniqueId(), createdAt: Date.now() };
+        const request = store.add(dbItem);
 
         request.onsuccess = () => loadData();
         request.onerror = () => reject(request.error);

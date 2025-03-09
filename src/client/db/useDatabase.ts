@@ -57,11 +57,11 @@ export const useDatabase = <T = WebsiteCard>() => {
       const transaction = db.transaction(DB_KEYS.STORE_NAME, 'readwrite');
       const store = transaction.objectStore(DB_KEYS.STORE_NAME);
 
-      await new Promise((_, reject) => {
+      await new Promise((resolve, reject) => {
         const dbItem = { ...item, id: uniqueId(), createdAt: Date.now() };
         const request = store.add(dbItem);
 
-        request.onsuccess = () => loadData();
+        request.onsuccess = () => resolve(loadData());
         request.onerror = () => reject(request.error);
       });
     } catch (error) {
@@ -79,9 +79,9 @@ export const useDatabase = <T = WebsiteCard>() => {
       const transaction = db.transaction(DB_KEYS.STORE_NAME, 'readwrite');
       const store = transaction.objectStore(DB_KEYS.STORE_NAME);
 
-      await new Promise<void>((_, reject) => {
+      await new Promise<void>((resolve, reject) => {
         const request = store.delete(id);
-        request.onsuccess = () => loadData();
+        request.onsuccess = () => resolve(loadData());
         request.onerror = () => reject(request.error);
       });
     } catch (error) {

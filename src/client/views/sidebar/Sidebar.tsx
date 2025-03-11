@@ -1,16 +1,22 @@
+import { FC } from 'react';
 import Button from '../../common/components/button/Button';
+import { ContentView } from '../../types/view';
 import styles from './Sidebar.module.scss';
+
+interface Props {
+  setView: (view: ContentView) => void;
+}
 
 interface SidebarAction {
   title: string;
   onClick: () => void;
 }
 
-const Sidebar = () => {
+const Sidebar: FC<Props> = ({ setView }) => {
   const actions: SidebarAction[] = [
     {
       title: 'Main',
-      onClick: () => console.log('main')
+      onClick: () => setView('main')
     },
     {
       title: 'Password gerenarator',
@@ -18,11 +24,11 @@ const Sidebar = () => {
     },
     {
       title: 'Recently deleted',
-      onClick: () => console.log('Recently deleted')
+      onClick: () => setView('recentlyDeleted')
     },
     {
       title: 'Settings',
-      onClick: () => console.log('Settings')
+      onClick: () => setView('settings')
     }
   ];
 

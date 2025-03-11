@@ -1,21 +1,19 @@
-import { FC } from 'react';
-import clsx from 'clsx';
+import { FC, ReactNode } from 'react';
 import styles from './Input.module.scss';
 
 interface Props {
   value: string;
   placeholder?: string;
+  suffix?: ReactNode;
   onChange: (value: string) => void;
 }
 
-const Input: FC<Props> = ({ value, placeholder, onChange }) => {
+const Input: FC<Props> = ({ value, placeholder, suffix, onChange }) => {
   return (
-    <input
-      className={clsx(styles.input, 'rounded-md cursor-pointer pl-3')}
-      value={value}
-      placeholder={placeholder}
-      onChange={(e) => onChange(e.target.value)}
-    />
+    <div className={styles.inputContainer}>
+      <input value={value} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} />
+      {suffix}
+    </div>
   );
 };
 

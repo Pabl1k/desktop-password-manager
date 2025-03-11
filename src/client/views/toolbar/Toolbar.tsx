@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import clsx from 'clsx';
+import CreateCard from '../../components/createCard/CreateCard';
 import { WebsiteCardCreate } from '../../types/types';
-import CreateCard from '../createCard/CreateCard';
 import styles from './Toolbar.module.scss';
 
 interface Props {

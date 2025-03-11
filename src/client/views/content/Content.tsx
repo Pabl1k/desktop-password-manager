@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import clsx from 'clsx';
+import Card from '../../components/card/Card';
 import { WebsiteCard } from '../../types/types';
-import Card from '../card/Card';
 import styles from './Content.module.scss';
 
 interface Props {

@@ -1,4 +1,4 @@
-@use '../../styles/variables.scss' as *;
+@use '../../styles/variables' as *;
 
 .content {
   height: calc(100vh - $toolbar-height);

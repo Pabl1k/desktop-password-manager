@@ -1,5 +1,6 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import Button from '../../common/components/button/Button';
+import PasswordGeneratorModal from '../../components/passwordGenerator/PasswordGeneratorModal';
 import { ContentView } from '../../types/view';
 import styles from './Sidebar.module.scss';
 
@@ -13,14 +14,16 @@ interface SidebarAction {
 }
 
 const Sidebar: FC<Props> = ({ setView }) => {
+  const [passwordGeneratorModalOpen, setPasswordGeneratorModalOpen] = useState(false);
+
   const actions: SidebarAction[] = [
     {
       title: 'Main',
       onClick: () => setView('main')
     },
     {
-      title: 'Password gerenarator',
-      onClick: () => console.log('Password gerenarator')
+      title: 'Password generator',
+      onClick: () => setPasswordGeneratorModalOpen(true)
     },
     {
       title: 'Recently deleted',
@@ -34,6 +37,10 @@ const Sidebar: FC<Props> = ({ setView }) => {
 
   return (
     <div className={styles.sidebar}>
+      <PasswordGeneratorModal
+        open={passwordGeneratorModalOpen}
+        onClose={() => setPasswordGeneratorModalOpen(false)}
+      />
       <div className="flex flex-col gap-2">
         {actions.map((action) => (
           <Button

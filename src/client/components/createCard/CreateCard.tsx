@@ -1,8 +1,9 @@
-import { FC, useState } from 'react';
+import { FC, MouseEvent, useState } from 'react';
 import Button from '../../common/components/button/Button';
 import Input from '../../common/components/input/Input';
 import Modal from '../../common/components/modal/Modal';
 import { WebsiteCard, WebsiteCardCreate } from '../../types/types';
+import PasswordGeneratorModal from '../passwordGenerator/PasswordGeneratorModal';
 
 interface Props {
   onSave: (newCard: WebsiteCardCreate) => Promise<void>;
@@ -26,6 +27,7 @@ const initialCardData: WebsiteCardCreate = {
 
 const CreateCard: FC<Props> = ({ onSave }) => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [passwordGenerationModalOpen, setPasswordGenerationModalOpen] = useState(false);
   const [newCardData, setNewCardData] = useState(initialCardData);
 
   const handleChange = (key: keyof WebsiteCard, value: string) => {
@@ -46,13 +48,33 @@ const CreateCard: FC<Props> = ({ onSave }) => {
     setNewCardData(initialCardData);
   };
 
+  const openPasswordGenerationModal = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setPasswordGenerationModalOpen(true);
+  };
+
+  const handleGeneratedPassword = (password: string) => {
+    handleChange('password', password);
+    setPasswordGenerationModalOpen(false);
+  };
+
   return (
     <>
+      <PasswordGeneratorModal
+        open={passwordGenerationModalOpen}
+        applyButton={{ text: 'Apply password', onClick: handleGeneratedPassword }}
+        onClose={() => setPasswordGenerationModalOpen(false)}
+      />
       <Modal open={modalOpen} onClose={handleCancel}>
         <div className="p-4 flex flex-col gap-4">
           {Object.keys(initialCardData).map((field) => {
             const fieldName = field as keyof WebsiteCardCreate;
             const fieldTitle = titleMapper[fieldName];
+            const suffix = fieldName === 'password' && (
+              <button className="text-sm cursor-pointer" onClick={openPasswordGenerationModal}>
+                Generate
+              </button>
+            );
 
             return (
               <div key={fieldName} className="flex flex-col">
@@ -60,6 +82,7 @@ const CreateCard: FC<Props> = ({ onSave }) => {
                 <Input
                   value={newCardData[fieldName] ?? ''}
                   placeholder={`Enter ${fieldTitle.toLowerCase()}`}
+                  suffix={suffix}
                   onChange={(newValue) => handleChange(fieldName, newValue)}
                 />
               </div>

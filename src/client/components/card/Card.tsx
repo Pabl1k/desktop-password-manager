@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import clsx from 'clsx';
-import Button from '../button/Button';
+import Button from '../../common/components/button/Button';
 import styles from './Card.module.scss';
 
 interface Props {

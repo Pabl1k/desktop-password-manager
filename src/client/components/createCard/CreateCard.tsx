@@ -1,8 +1,8 @@
 import { FC, useState } from 'react';
+import Button from '../../common/components/button/Button';
+import Input from '../../common/components/input/Input';
+import Modal from '../../common/components/modal/Modal';
 import { WebsiteCard, WebsiteCardCreate } from '../../types/types';
-import Button from '../button/Button';
-import Input from '../input/Input';
-import Modal from '../modal/Modal';
 
 interface Props {
   onSave: (newCard: WebsiteCardCreate) => Promise<void>;

@@ -10,6 +10,8 @@ app.on('ready', () => {
     autoHideMenuBar: true
   });
 
+  mainWindow.on('ready-to-show', () => mainWindow.show());
+
   mainWindow.maximize();
 
   if (isDev()) {
@@ -17,5 +19,11 @@ app.on('ready', () => {
     mainWindow.webContents.openDevTools();
   } else {
     mainWindow.loadURL(path.join(app.getAppPath(), '/dist-react/index.html'));
+  }
+});
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit();
   }
 });

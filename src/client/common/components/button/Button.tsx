@@ -7,6 +7,7 @@ type ButtonType = 'add' | 'cancel' | 'transparent';
 interface Props {
   type?: ButtonType;
   className?: string;
+  disabled?: boolean;
   children: ReactNode;
   onClick?: () => void;
 }
@@ -23,9 +24,12 @@ const getStylesByType = (type: ButtonType) => {
   return styles.buttonCancel;
 };
 
-const Button: FC<Props> = ({ type = 'cancel', className, children, onClick }) => {
+const Button: FC<Props> = ({ type = 'cancel', className, disabled = false, children, onClick }) => {
   return (
-    <button className={clsx(styles.button, getStylesByType(type), className)} onClick={onClick}>
+    <button
+      className={clsx(styles.button, disabled && styles.disabled, getStylesByType(type), className)}
+      onClick={onClick}
+    >
       {children}
     </button>
   );

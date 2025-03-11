@@ -9,6 +9,11 @@
   user-select: none;
 }
 
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 .buttonCancel {
   border: 1px solid $border;
   background-color: $background;
@@ -21,13 +26,13 @@
 .buttonAdd {
   background-color: $green-primary;
 
-  &:hover {
+  &:not(.disabled):hover {
     background-color: $green-hover;
   }
 }
 
 .buttonTransparent {
-  &:hover {
+  &:not(.disabled):hover {
     background-color: $surface-hover;
   }
 }

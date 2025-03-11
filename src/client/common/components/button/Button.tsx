@@ -2,7 +2,7 @@ import { FC, ReactNode } from 'react';
 import clsx from 'clsx';
 import styles from './Button.module.scss';
 
-type ButtonType = 'add' | 'cancel';
+type ButtonType = 'add' | 'cancel' | 'transparent';
 
 interface Props {
   type?: ButtonType;
@@ -11,16 +11,21 @@ interface Props {
   onClick?: () => void;
 }
 
+const getStylesByType = (type: ButtonType) => {
+  if (type === 'add') {
+    return styles.buttonAdd;
+  }
+
+  if (type === 'transparent') {
+    return styles.buttonTransparent;
+  }
+
+  return styles.buttonCancel;
+};
+
 const Button: FC<Props> = ({ type = 'cancel', className, children, onClick }) => {
   return (
-    <button
-      className={clsx(
-        styles.button,
-        type === 'cancel' ? styles.buttonCancel : styles.buttonAdd,
-        className
-      )}
-      onClick={onClick}
-    >
+    <button className={clsx(styles.button, getStylesByType(type), className)} onClick={onClick}>
       {children}
     </button>
   );

@@ -2,7 +2,9 @@
 
 .sidebar {
   background-color: $surface-sidebar;
-  width: 20vw;
-  min-width: 200px;
   border-right: 1px solid $text-secondary;
+  padding: 40px 24px 16px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }

@@ -2,10 +2,11 @@
 
 .button {
   height: $field-height;
-  cursor: pointer;
-  user-select: none;
   border-radius: $button-radius;
   padding: 0 24px;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
 }
 
 .buttonCancel {
@@ -22,5 +23,11 @@
 
   &:hover {
     background-color: $green-hover;
+  }
+}
+
+.buttonTransparent {
+  &:hover {
+    background-color: $surface-hover;
   }
 }

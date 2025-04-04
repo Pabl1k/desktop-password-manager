@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import clsx from 'clsx';
 import Button from '../../common/components/button/Button';
 import Modal from '../../common/components/modal/Modal';
-import { generatePassword } from '../../common/utils';
+import { copyToClipboard, generatePassword } from '../../common/utils';
 import styles from './PasswordGeneratorModal.module.scss';
 
 interface ApplyButton {
@@ -40,7 +40,7 @@ const PasswordGeneratorModal: FC<Props> = ({ open, applyButton, onClose }) => {
       return;
     }
 
-    await navigator.clipboard.writeText(value);
+    await copyToClipboard(value);
     setCopied(true);
   };
 

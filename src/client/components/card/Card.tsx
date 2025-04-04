@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 import clsx from 'clsx';
 import Button from '../../common/components/button/Button';
+import { copyToClipboard, getLinkHostname } from '../../common/utils';
 import styles from './Card.module.scss';
 
 interface Props {
@@ -24,7 +25,9 @@ const Card: FC<Props> = ({ title, link, login, password, onDelete }) => {
     <div className={styles.card}>
       <div className={clsx(styles.cardHeader, 'flex flex-col p-4')}>
         <span className="text-2xl truncate">{title}</span>
-        <span className={clsx(styles.cardWebsite, 'text-sm truncate')}>{link}</span>
+        <span className={clsx(styles.cardWebsite, 'text-sm truncate')} title={link}>
+          {getLinkHostname(link)}
+        </span>
       </div>
       <button onClick={onDelete}>delete</button>
       <div className={clsx(styles.cardCredentials, 'flex flex-col mx-4 rounded-lg text-lg')}>
@@ -35,8 +38,10 @@ const Card: FC<Props> = ({ title, link, login, password, onDelete }) => {
           <button onClick={() => setShowPassword(!showPassword)}>Show</button>
         </div>
       </div>
-      <div className="w-full flex justify-center">
-        <Button className="mb-4">Open in browser</Button>
+      <div className="w-full flex justify-center" title={link}>
+        <Button className="mb-4" onClick={() => copyToClipboard(link)}>
+          Copy link
+        </Button>
       </div>
     </div>
   );

@@ -24,3 +24,27 @@ export const generatePassword = (length = 16) => {
     .sort(() => Math.random() - 0.5)
     .join('');
 };
+
+export const copyToClipboard = async (value: string) => {
+  if (!value) {
+    return;
+  }
+
+  if (!navigator.clipboard) {
+    console.error('Clipboard API not supported');
+  }
+
+  await navigator.clipboard.writeText(value);
+};
+
+export const getLinkHostname = (link: string) => {
+  const formatted = link.replace(/^(https?:\/\/)?(www\.)?/, 'https://');
+
+  try {
+    const url = new URL(formatted);
+    return url.hostname;
+  } catch (error) {
+    console.error('Invalid URL:', link);
+    return link;
+  }
+};

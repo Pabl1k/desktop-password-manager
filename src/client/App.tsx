@@ -1,5 +1,5 @@
+import Main from './containers/main/Main';
 import styles from './styles/App.module.scss';
-import Main from './views/main/Main';
 
 const App = () => {
   return (

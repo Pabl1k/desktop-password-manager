@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import clsx from 'clsx';
-import Button from '../../common/components/button/Button';
-import Modal from '../../common/components/modal/Modal';
+import Button from '../../common/components/Button';
+import Modal from '../../common/components/Modal';
 import { copyToClipboard, generatePassword } from '../../common/utils';
 import styles from './PasswordGeneratorModal.module.scss';
 

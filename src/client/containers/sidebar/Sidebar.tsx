@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import Button from '../../common/components/button/Button';
+import Button from '../../common/components/Button';
 import PasswordGeneratorModal from '../../components/passwordGenerator/PasswordGeneratorModal';
 import { ContentView } from '../../types/view';
 import styles from './Sidebar.module.scss';

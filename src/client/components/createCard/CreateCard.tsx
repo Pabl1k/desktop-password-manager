@@ -1,7 +1,7 @@
 import { FC, MouseEvent, useState } from 'react';
-import Button from '../../common/components/button/Button';
-import Input from '../../common/components/input/Input';
-import Modal from '../../common/components/modal/Modal';
+import Button from '../../common/components/Button';
+import Input from '../../common/components/Input';
+import Modal from '../../common/components/Modal';
 import { WebsiteCard, WebsiteCardCreate } from '../../types/types';
 import PasswordGeneratorModal from '../passwordGenerator/PasswordGeneratorModal';
 

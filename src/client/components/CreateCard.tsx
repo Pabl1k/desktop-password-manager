@@ -1,9 +1,9 @@
 import { FC, MouseEvent, useState } from 'react';
-import Button from '../../common/components/Button';
-import Input from '../../common/components/Input';
-import Modal from '../../common/components/Modal';
-import { WebsiteCard, WebsiteCardCreate } from '../../types/types';
-import PasswordGeneratorModal from '../passwordGenerator/PasswordGeneratorModal';
+import Button from '../common/components/Button';
+import Input from '../common/components/Input';
+import Modal from '../common/components/Modal';
+import { WebsiteCard, WebsiteCardCreate } from '../types/types';
+import PasswordGeneratorModal from './PasswordGeneratorModal';
 
 interface Props {
   onSave: (newCard: WebsiteCardCreate) => Promise<void>;

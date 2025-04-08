@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import Card from '../components/card/Card';
+import Card from '../components/Card';
 import { WebsiteCard } from '../types/types';
 
 interface Props {

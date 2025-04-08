@@ -1,9 +1,7 @@
 import { FC, useState } from 'react';
-import clsx from 'clsx';
-import Button from '../../common/components/Button';
-import Modal from '../../common/components/Modal';
-import { copyToClipboard, generatePassword } from '../../common/utils';
-import styles from './PasswordGeneratorModal.module.scss';
+import Button from '../common/components/Button';
+import Modal from '../common/components/Modal';
+import { copyToClipboard, generatePassword } from '../common/utils';
 
 interface ApplyButton {
   text: string;
@@ -18,7 +16,7 @@ interface Props {
 
 const PasswordGeneratorModal: FC<Props> = ({ open, applyButton, onClose }) => {
   const [value, setValue] = useState(generatePassword());
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState(false); // ref ???
 
   const getApplyButtonText = () => {
     if (applyButton) {
@@ -53,7 +51,9 @@ const PasswordGeneratorModal: FC<Props> = ({ open, applyButton, onClose }) => {
     <Modal open={open} className="p-6 flex flex-col justify-between h-[300px] max-w-[400px]">
       <span className="text-2xl flex justify-center">Generate password</span>
       <div>
-        <div className={clsx(styles.passwordField, 'pl-2 py-2 text-3xl')}>{value}</div>
+        <div className="border border-section-border rounded-field truncate pl-3 py-2 text-3xl">
+          {value}
+        </div>
         <div className="flex justify-center mt-2">
           <Button onClick={handleRegenerate}>Regenerate</Button>
         </div>

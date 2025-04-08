@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import Button from '../common/components/Button';
-import PasswordGeneratorModal from '../components/passwordGenerator/PasswordGeneratorModal';
+import PasswordGeneratorModal from '../components/PasswordGeneratorModal';
 import { ContentView } from '../types/view';
 
 interface Props {

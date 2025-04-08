@@ -1,8 +1,6 @@
 import { FC, useState } from 'react';
-import clsx from 'clsx';
-import Button from '../../common/components/Button';
-import { copyToClipboard, getLinkHostname } from '../../common/utils';
-import styles from './Card.module.scss';
+import Button from '../common/components/Button';
+import { copyToClipboard, getLinkHostname } from '../common/utils';
 
 interface Props {
   title: string;
@@ -22,22 +20,25 @@ const Card: FC<Props> = ({ title, link, login, password, onDelete }) => {
   const displayPasswordFieldValue = showPassword ? password : hiddenPassword;
 
   return (
-    <div className={styles.card}>
-      <div className={clsx(styles.cardHeader, 'flex flex-col p-4')}>
+    <div className="w-[280px] h-[320px] bg-bg-card rounded-modal flex flex-col justify-between">
+      <div className="flex flex-col p-4 border-b border-border">
         <span className="text-2xl truncate">{title}</span>
-        <span className={clsx(styles.cardWebsite, 'text-sm truncate')} title={link}>
+        <span className="text-sm truncate text-green-primary" title={link}>
           {getLinkHostname(link)}
         </span>
       </div>
+
       <button onClick={onDelete}>delete</button>
-      <div className={clsx(styles.cardCredentials, 'flex flex-col mx-4 rounded-lg text-lg')}>
+
+      <div className="flex flex-col mx-4 rounded-field text-lg bg-bg-main border border-border">
         <span className="p-2">{login}</span>
-        <div className={styles.cardDivider} />
+        <div className="h-px bg-border" />
         <div className="flex justify-between p-2">
           <span>{displayPasswordFieldValue}</span>
           <button onClick={() => setShowPassword(!showPassword)}>Show</button>
         </div>
       </div>
+
       <div className="w-full flex justify-center" title={link}>
         <Button className="mb-4" onClick={() => copyToClipboard(link)}>
           Copy link

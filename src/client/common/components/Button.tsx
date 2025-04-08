@@ -28,7 +28,7 @@ const Button: FC<Props> = ({ type = 'cancel', className, disabled = false, child
   return (
     <button
       className={clsx(
-        'h-[40px] rounded-field px-6 whitespace-nowrap cursor-pointer select-none disabled:cursor-not-allowed disabled:opacity-50',
+        'h-(--field-height) rounded-field px-6 whitespace-nowrap cursor-pointer select-none disabled:cursor-not-allowed disabled:opacity-50',
         getStylesByType(type),
         className
       )}

@@ -9,7 +9,7 @@ interface Props {
 
 const Input: FC<Props> = ({ value, placeholder, suffix, onChange }) => {
   return (
-    <div className="h-[40px] flex items-center border border-border rounded-field px-3 cursor-pointer hover:border-green-main focus-within:border-green-main">
+    <div className="h-(--field-height) flex items-center border border-border rounded-field px-3 cursor-pointer hover:border-green-main focus-within:border-green-main">
       <input
         value={value}
         placeholder={placeholder}

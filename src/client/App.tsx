@@ -1,4 +1,4 @@
-import Main from './containers/main/Main';
+import Main from './containers/Main';
 
 const App = () => {
   return (

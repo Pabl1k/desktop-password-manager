@@ -1,8 +1,7 @@
 import { FC, useState } from 'react';
-import Button from '../../common/components/Button';
-import PasswordGeneratorModal from '../../components/passwordGenerator/PasswordGeneratorModal';
-import { ContentView } from '../../types/view';
-import styles from './Sidebar.module.scss';
+import Button from '../common/components/Button';
+import PasswordGeneratorModal from '../components/passwordGenerator/PasswordGeneratorModal';
+import { ContentView } from '../types/view';
 
 interface Props {
   setView: (view: ContentView) => void;
@@ -36,7 +35,7 @@ const Sidebar: FC<Props> = ({ setView }) => {
   ];
 
   return (
-    <div className={styles.sidebar}>
+    <div className="flex flex-col justify-between bg-bg-sidebar border-r border-section-border px-6 pt-10 pb-4">
       <PasswordGeneratorModal
         open={passwordGeneratorModalOpen}
         onClose={() => setPasswordGeneratorModalOpen(false)}

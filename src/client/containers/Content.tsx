@@ -1,8 +1,6 @@
 import { FC } from 'react';
-import clsx from 'clsx';
-import Card from '../../components/card/Card';
-import { WebsiteCard } from '../../types/types';
-import styles from './Content.module.scss';
+import Card from '../components/card/Card';
+import { WebsiteCard } from '../types/types';
 
 interface Props {
   cards: WebsiteCard[];
@@ -11,7 +9,7 @@ interface Props {
 
 const Content: FC<Props> = ({ cards, onDeleteCard }) => {
   return (
-    <div className={clsx(styles.content, 'flex flex-wrap gap-4 p-6 overflow-auto')}>
+    <div className="h-[calc(100vh-85px)] flex flex-wrap gap-4 p-6 overflow-auto">
       {cards.map((item) => (
         <Card
           key={item.id}

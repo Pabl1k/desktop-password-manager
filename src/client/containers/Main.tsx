@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { useDatabase } from '../../db/useDatabase';
-import { WebsiteCard } from '../../types/types';
-import { ContentView } from '../../types/view';
-import Content from '../content/Content';
-import Sidebar from '../sidebar/Sidebar';
-import Toolbar from '../toolbar/Toolbar';
+import { useDatabase } from '../db/useDatabase';
+import { WebsiteCard } from '../types/types';
+import { ContentView } from '../types/view';
+import Content from './Content';
+import Sidebar from './Sidebar';
+import Toolbar from './Toolbar';
 
 const Main = () => {
   const { state, add, remove } = useDatabase<WebsiteCard>();

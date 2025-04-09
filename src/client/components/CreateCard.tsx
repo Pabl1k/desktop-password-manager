@@ -2,6 +2,7 @@ import { FC, MouseEvent, useState } from 'react';
 import Button from '../common/components/Button';
 import Input from '../common/components/Input';
 import Modal from '../common/components/Modal';
+import { useTranslations } from '../common/translations/useTranslations';
 import { WebsiteCard, WebsiteCardCreate } from '../types/types';
 import PasswordGeneratorModal from './PasswordGeneratorModal';
 
@@ -10,11 +11,11 @@ interface Props {
 }
 
 const titleMapper: Record<keyof WebsiteCardCreate, string> = {
-  sourceName: 'Card title',
-  login: 'Login',
-  password: 'Password',
-  url: 'Website url',
-  notes: 'Note'
+  sourceName: 'card_title',
+  login: 'login',
+  password: 'password',
+  url: 'website_url',
+  notes: 'notes'
 };
 
 const initialCardData: WebsiteCardCreate = {
@@ -26,6 +27,8 @@ const initialCardData: WebsiteCardCreate = {
 };
 
 const CreateCard: FC<Props> = ({ onSave }) => {
+  const { t } = useTranslations();
+
   const [modalOpen, setModalOpen] = useState(false);
   const [passwordGenerationModalOpen, setPasswordGenerationModalOpen] = useState(false);
   const [newCardData, setNewCardData] = useState(initialCardData);
@@ -62,17 +65,17 @@ const CreateCard: FC<Props> = ({ onSave }) => {
     <>
       <PasswordGeneratorModal
         open={passwordGenerationModalOpen}
-        applyButton={{ text: 'Apply password', onClick: handleGeneratedPassword }}
+        applyButton={{ textKey: 'apply_password', onClick: handleGeneratedPassword }}
         onClose={() => setPasswordGenerationModalOpen(false)}
       />
       <Modal open={modalOpen} onClose={handleCancel}>
         <div className="p-4 flex flex-col gap-4">
           {Object.keys(initialCardData).map((field) => {
             const fieldName = field as keyof WebsiteCardCreate;
-            const fieldTitle = titleMapper[fieldName];
+            const fieldTitle = t(titleMapper[fieldName]);
             const suffix = fieldName === 'password' && (
               <button className="text-sm cursor-pointer" onClick={openPasswordGenerationModal}>
-                Generate
+                {t('generate')}
               </button>
             );
 
@@ -81,7 +84,7 @@ const CreateCard: FC<Props> = ({ onSave }) => {
                 <span className="capitalize mb-1">{fieldTitle}</span>
                 <Input
                   value={newCardData[fieldName] ?? ''}
-                  placeholder={`Enter ${fieldTitle.toLowerCase()}`}
+                  placeholder={`${t('enter')} ${fieldTitle.toLowerCase()}`}
                   suffix={suffix}
                   onChange={(newValue) => handleChange(fieldName, newValue)}
                 />
@@ -91,15 +94,15 @@ const CreateCard: FC<Props> = ({ onSave }) => {
         </div>
         <div className="flex justify-end pr-4 mb-4">
           <Button type="add" onClick={handleSave}>
-            Save
+            {t('save')}
           </Button>
           <Button className="ml-3" onClick={handleCancel}>
-            Cancel
+            {t('cancel')}
           </Button>
         </div>
       </Modal>
       <Button type="add" onClick={() => setModalOpen(true)}>
-        Add
+        {t('add')}
       </Button>
     </>
   );

@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
 import Button from '../common/components/Button';
+import { useTranslations } from '../common/translations/useTranslations';
 import { copyToClipboard, getLinkHostname } from '../common/utils';
 
 interface Props {
@@ -15,6 +16,8 @@ const hiddenPassword = Array.from({ length: 16 }).map((_, i) => (
 ));
 
 const Card: FC<Props> = ({ title, link, login, password, onDelete }) => {
+  const { t } = useTranslations();
+
   const [showPassword, setShowPassword] = useState(false);
 
   const displayPasswordFieldValue = showPassword ? password : hiddenPassword;
@@ -28,20 +31,22 @@ const Card: FC<Props> = ({ title, link, login, password, onDelete }) => {
         </span>
       </div>
 
-      <button onClick={onDelete}>delete</button>
+      <button onClick={onDelete}>{t('delete')}</button>
 
       <div className="flex flex-col mx-4 rounded-field text-lg bg-bg-main border border-border">
         <span className="p-2">{login}</span>
         <div className="h-px bg-border" />
         <div className="flex justify-between p-2">
           <span>{displayPasswordFieldValue}</span>
-          <button onClick={() => setShowPassword(!showPassword)}>Show</button>
+          <button onClick={() => setShowPassword(!showPassword)}>
+            {t(showPassword ? 'hide' : 'show')}
+          </button>
         </div>
       </div>
 
       <div className="w-full flex justify-center" title={link}>
         <Button className="mb-4" onClick={() => copyToClipboard(link)}>
-          Copy link
+          {t('copy_link')}
         </Button>
       </div>
     </div>

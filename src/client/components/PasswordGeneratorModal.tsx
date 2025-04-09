@@ -1,10 +1,11 @@
 import { FC, useState } from 'react';
 import Button from '../common/components/Button';
 import Modal from '../common/components/Modal';
+import { useTranslations } from '../common/translations/useTranslations';
 import { copyToClipboard, generatePassword } from '../common/utils';
 
 interface ApplyButton {
-  text: string;
+  textKey: string;
   onClick: (password: string) => void;
 }
 
@@ -15,15 +16,17 @@ interface Props {
 }
 
 const PasswordGeneratorModal: FC<Props> = ({ open, applyButton, onClose }) => {
+  const { t } = useTranslations();
+
   const [value, setValue] = useState(generatePassword());
   const [copied, setCopied] = useState(false); // ref ???
 
   const getApplyButtonText = () => {
     if (applyButton) {
-      return applyButton.text;
+      return t(applyButton.textKey);
     }
 
-    return copied ? 'Copied to clipboard' : 'Copy to clipboard';
+    return t(copied ? 'copied_to_clipboard' : 'copy_to_clipboard');
   };
 
   const handleRegenerate = () => {
@@ -49,13 +52,13 @@ const PasswordGeneratorModal: FC<Props> = ({ open, applyButton, onClose }) => {
 
   return (
     <Modal open={open} className="p-6 flex flex-col justify-between h-[300px] max-w-[400px]">
-      <span className="text-2xl flex justify-center">Generate password</span>
+      <span className="text-2xl flex justify-center">{t('generate_password')}</span>
       <div>
         <div className="border border-section-border rounded-field truncate pl-3 py-2 text-3xl">
           {value}
         </div>
         <div className="flex justify-center mt-2">
-          <Button onClick={handleRegenerate}>Regenerate</Button>
+          <Button onClick={handleRegenerate}>{t('regenerate')}</Button>
         </div>
       </div>
       <div className="flex justify-end">
@@ -63,7 +66,7 @@ const PasswordGeneratorModal: FC<Props> = ({ open, applyButton, onClose }) => {
           {getApplyButtonText()}
         </Button>
         <Button className="ml-2" onClick={handleClose}>
-          Cancel
+          {t('cancel')}
         </Button>
       </div>
     </Modal>

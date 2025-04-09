@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
 import Button from '../common/components/Button';
+import { useTranslations } from '../common/translations/useTranslations';
 import PasswordGeneratorModal from '../components/PasswordGeneratorModal';
 import { ContentView } from '../types/view';
 
@@ -13,23 +14,25 @@ interface SidebarAction {
 }
 
 const Sidebar: FC<Props> = ({ setView }) => {
+  const { t } = useTranslations();
+
   const [passwordGeneratorModalOpen, setPasswordGeneratorModalOpen] = useState(false);
 
   const actions: SidebarAction[] = [
     {
-      title: 'Main',
+      title: t('main'),
       onClick: () => setView('main')
     },
     {
-      title: 'Password generator',
+      title: t('password_generator'),
       onClick: () => setPasswordGeneratorModalOpen(true)
     },
     {
-      title: 'Recently deleted',
+      title: t('recently_deleted'),
       onClick: () => setView('recentlyDeleted')
     },
     {
-      title: 'Settings',
+      title: t('settings'),
       onClick: () => setView('settings')
     }
   ];
@@ -54,7 +57,7 @@ const Sidebar: FC<Props> = ({ setView }) => {
       </div>
       <div>
         <Button className="w-full" type="add" onClick={() => console.log('update')}>
-          Update
+          {t('update')}
         </Button>
       </div>
     </div>

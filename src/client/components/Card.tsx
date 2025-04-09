@@ -9,7 +9,6 @@ interface Props {
   link: string;
   login: string;
   password: string;
-  onEdit: () => void;
   onDelete: () => void;
 }
 
@@ -17,22 +16,19 @@ const hiddenPassword = Array.from({ length: 16 }).map((_, i) => (
   <span key={i.toString()}>&#x2022;</span>
 ));
 
-const Card: FC<Props> = ({ title, link, login, password, onEdit, onDelete }) => {
+const Card: FC<Props> = ({ title, link, login, password, onDelete }) => {
   const { t } = useTranslations();
 
   const [optionsMenuOpen, setOptionsMenuOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const cardOptions: DropdownOption[] = [
-    { labelKey: 'edit', onClick: onEdit },
-    { labelKey: 'delete', onClick: onDelete }
-  ];
+  const cardOptions: DropdownOption[] = [{ labelKey: 'delete', onClick: onDelete }];
 
   const displayPasswordFieldValue = showPassword ? password : hiddenPassword;
 
   return (
     <div className="w-[280px] h-[320px] bg-bg-card rounded-modal flex flex-col justify-between">
-      <div className="flex justify-between p-4 border-b border-border">
+      <div className="flex items-center justify-between p-4 border-b border-border">
         <div className="flex flex-col">
           <span className="text-2xl truncate">{title}</span>
           <span className="text-sm truncate text-green-main" title={link}>
@@ -45,7 +41,7 @@ const Card: FC<Props> = ({ title, link, login, password, onEdit, onDelete }) => 
           onClose={() => setOptionsMenuOpen(false)}
         >
           <div
-            className="rotate-90 text-2xl cursor-pointer"
+            className="rotate-90 text-3xl cursor-pointer"
             onClick={() => setOptionsMenuOpen(!optionsMenuOpen)}
           >
             ...
@@ -53,14 +49,12 @@ const Card: FC<Props> = ({ title, link, login, password, onEdit, onDelete }) => 
         </DropdownMenu>
       </div>
 
-      <button onClick={onDelete}>{t('delete')}</button>
-
       <div className="flex flex-col mx-4 rounded-field text-lg bg-bg-main border border-border">
         <span className="p-2">{login}</span>
         <div className="h-px bg-border" />
         <div className="flex justify-between p-2">
           <span>{displayPasswordFieldValue}</span>
-          <button onClick={() => setShowPassword(!showPassword)}>
+          <button className="text-sm cursor-pointer" onClick={() => setShowPassword(!showPassword)}>
             {t(showPassword ? 'hide' : 'show')}
           </button>
         </div>

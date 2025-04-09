@@ -9,7 +9,7 @@ interface Props {
 }
 
 interface SidebarAction {
-  title: string;
+  labelKey: string;
   onClick: () => void;
 }
 
@@ -20,19 +20,19 @@ const Sidebar: FC<Props> = ({ setView }) => {
 
   const actions: SidebarAction[] = [
     {
-      title: t('main'),
+      labelKey: 'main',
       onClick: () => setView('main')
     },
     {
-      title: t('password_generator'),
+      labelKey: 'password_generator',
       onClick: () => setPasswordGeneratorModalOpen(true)
     },
     {
-      title: t('recently_deleted'),
+      labelKey: 'recently_deleted',
       onClick: () => setView('recentlyDeleted')
     },
     {
-      title: t('settings'),
+      labelKey: 'settings',
       onClick: () => setView('settings')
     }
   ];
@@ -44,14 +44,14 @@ const Sidebar: FC<Props> = ({ setView }) => {
         onClose={() => setPasswordGeneratorModalOpen(false)}
       />
       <div className="flex flex-col gap-2">
-        {actions.map((action) => (
+        {actions.map(({ labelKey, onClick }) => (
           <Button
-            key={action.title}
+            key={labelKey}
             type="transparent"
             className="font-semibold text-start"
-            onClick={action.onClick}
+            onClick={onClick}
           >
-            {action.title}
+            {t(labelKey)}
           </Button>
         ))}
       </div>

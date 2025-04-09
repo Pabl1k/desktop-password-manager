@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
 import Button from '../common/components/Button';
+import DropdownMenu, { DropdownOption } from '../common/components/DropdownMenu';
 import { useTranslations } from '../common/translations/useTranslations';
 import { copyToClipboard, getLinkHostname } from '../common/utils';
 
@@ -8,27 +9,48 @@ interface Props {
   link: string;
   login: string;
   password: string;
-  onDelete?: () => void;
+  onEdit: () => void;
+  onDelete: () => void;
 }
 
 const hiddenPassword = Array.from({ length: 16 }).map((_, i) => (
   <span key={i.toString()}>&#x2022;</span>
 ));
 
-const Card: FC<Props> = ({ title, link, login, password, onDelete }) => {
+const Card: FC<Props> = ({ title, link, login, password, onEdit, onDelete }) => {
   const { t } = useTranslations();
 
+  const [optionsMenuOpen, setOptionsMenuOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  const cardOptions: DropdownOption[] = [
+    { labelKey: 'edit', onClick: onEdit },
+    { labelKey: 'delete', onClick: onDelete }
+  ];
 
   const displayPasswordFieldValue = showPassword ? password : hiddenPassword;
 
   return (
     <div className="w-[280px] h-[320px] bg-bg-card rounded-modal flex flex-col justify-between">
-      <div className="flex flex-col p-4 border-b border-border">
-        <span className="text-2xl truncate">{title}</span>
-        <span className="text-sm truncate text-green-primary" title={link}>
-          {getLinkHostname(link)}
-        </span>
+      <div className="flex justify-between p-4 border-b border-border">
+        <div className="flex flex-col">
+          <span className="text-2xl truncate">{title}</span>
+          <span className="text-sm truncate text-green-main" title={link}>
+            {getLinkHostname(link)}
+          </span>
+        </div>
+        <DropdownMenu
+          open={optionsMenuOpen}
+          options={cardOptions}
+          onClose={() => setOptionsMenuOpen(false)}
+        >
+          <div
+            className="rotate-90 text-2xl cursor-pointer"
+            onClick={() => setOptionsMenuOpen(!optionsMenuOpen)}
+          >
+            ...
+          </div>
+        </DropdownMenu>
       </div>
 
       <button onClick={onDelete}>{t('delete')}</button>

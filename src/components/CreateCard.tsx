@@ -71,7 +71,11 @@ const CreateCard: FC<Props> = ({ onSave }) => {
       <Modal open={modalOpen} onClose={handleCancel}>
         <div className="p-4 flex flex-col gap-4">
           {Object.keys(initialCardData).map((field) => {
-            const fieldName = field as keyof WebsiteCardCreate;
+            if (field === 'notes') {
+              return null;
+            }
+
+            const fieldName = field as keyof Omit<WebsiteCardCreate, 'notes'>;
             const fieldTitle = t(titleMapper[fieldName]);
             const suffix = fieldName === 'password' && (
               <button
@@ -95,6 +99,15 @@ const CreateCard: FC<Props> = ({ onSave }) => {
               </div>
             );
           })}
+          <div className="flex flex-col">
+            <span className="capitalize mb-1">{t('notes')}</span>
+            <textarea
+              className="min-h-(--field-height) border border-border rounded-field px-3 py-2 outline-none hover:border-green-main focus-within:border-green-main overflow-hidden"
+              value={newCardData.notes}
+              placeholder={`${t('enter')} ${t('notes').toLowerCase()}`}
+              onChange={(e) => handleChange('notes', e.target.value)}
+            />
+          </div>
         </div>
         <div className="flex justify-end pr-4 mb-4">
           <Button type="add" onClick={handleSave}>

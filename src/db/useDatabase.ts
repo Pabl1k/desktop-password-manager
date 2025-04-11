@@ -3,7 +3,7 @@ import { uniqueId } from '../common/utils';
 import { WebsiteCard, WebsiteCardCreate } from '../types/types';
 import { DB_KEYS } from './keys';
 
-export const useDatabase = <T = WebsiteCard>() => {
+export const useDatabase = <T extends WebsiteCard>() => {
   const [state, setState] = useState<T[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -41,7 +41,8 @@ export const useDatabase = <T = WebsiteCard>() => {
         request.onerror = () => reject(request.error);
       });
 
-      setState(data);
+      const sortedData = data.sort((a, b) => b.createdAt - a.createdAt);
+      setState(sortedData);
     } catch (error) {
       console.error('Error fetching users:', error);
     } finally {

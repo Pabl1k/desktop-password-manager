@@ -1,13 +1,24 @@
 {
+  "compilerOptions": {
+    "outDir": "dist-react",
+    "rootDir": "src",
+    "emitDeclarationOnly": false,
+    "declaration": true,
+    "noEmit": false,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "target": "ESNext"
+  },
   "files": [],
   "references": [
     {
       "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.node.json"
     }
   ],
-  "include": ["src"],
-  "exclude": ["electron"]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "electron"
+  ]
 }

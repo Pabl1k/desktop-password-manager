@@ -28,14 +28,17 @@ const Card: FC<Props> = ({ title, link, login, password, onDelete }) => {
   };
 
   const cardOptions: DropdownOption[] = [
-    { labelKey: 'delete', onClick: () => handleDropdownMenuAction(onDelete) },
     {
       labelKey: 'copy_link',
       onClick: () => handleDropdownMenuAction(() => copyToClipboard(link))
-    }
+    },
+    { labelKey: 'delete', onClick: () => handleDropdownMenuAction(onDelete) }
   ];
 
   const displayPasswordFieldValue = showPassword ? password : hiddenPassword;
+
+  const credentialClassName =
+    'h-(--field-height) flex items-center justify-between px-3 cursor-pointer';
 
   return (
     <div className="w-[280px] h-[320px] bg-bg-card rounded-modal flex flex-col justify-between">
@@ -61,11 +64,20 @@ const Card: FC<Props> = ({ title, link, login, password, onDelete }) => {
       </div>
 
       <div className="flex flex-col mx-4 rounded-field text-lg bg-bg-main border border-border">
-        <span className="p-2">{login}</span>
+        {/* change copyToClipboard to icon click */}
+        <div className={credentialClassName} onClick={() => copyToClipboard(login)}>
+          {login}
+        </div>
         <div className="h-px bg-border" />
-        <div className="flex justify-between p-2">
+        <div className={credentialClassName} onClick={() => copyToClipboard(password)}>
           <span>{displayPasswordFieldValue}</span>
-          <button className="text-sm cursor-pointer" onClick={() => setShowPassword(!showPassword)}>
+          <button
+            className="text-sm cursor-pointer"
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowPassword(!showPassword);
+            }}
+          >
             {t(showPassword ? 'hide' : 'show')}
           </button>
         </div>

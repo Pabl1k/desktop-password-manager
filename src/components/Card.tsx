@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import Button from '../common/components/Button';
 import DropdownMenu, { DropdownOption } from '../common/components/DropdownMenu';
 import { useTranslations } from '../common/translations/useTranslations';
-import { copyToClipboard, getLinkHostname } from '../common/utils';
+import { copyToClipboard, getLinkHostname, openExternally } from '../common/utils';
 
 interface Props {
   title: string;
@@ -22,7 +22,18 @@ const Card: FC<Props> = ({ title, link, login, password, onDelete }) => {
   const [optionsMenuOpen, setOptionsMenuOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const cardOptions: DropdownOption[] = [{ labelKey: 'delete', onClick: onDelete }];
+  const handleDropdownMenuAction = (callback: () => void) => {
+    callback();
+    setOptionsMenuOpen(false);
+  };
+
+  const cardOptions: DropdownOption[] = [
+    { labelKey: 'delete', onClick: () => handleDropdownMenuAction(onDelete) },
+    {
+      labelKey: 'copy_link',
+      onClick: () => handleDropdownMenuAction(() => copyToClipboard(link))
+    }
+  ];
 
   const displayPasswordFieldValue = showPassword ? password : hiddenPassword;
 
@@ -61,8 +72,8 @@ const Card: FC<Props> = ({ title, link, login, password, onDelete }) => {
       </div>
 
       <div className="w-full flex justify-center" title={link}>
-        <Button className="mb-4" onClick={() => copyToClipboard(link)}>
-          {t('copy_link')}
+        <Button className="mb-4" onClick={() => openExternally(link)}>
+          {t('open_in_browser')}
         </Button>
       </div>
     </div>

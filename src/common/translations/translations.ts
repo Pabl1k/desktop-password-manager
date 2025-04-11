@@ -27,6 +27,7 @@ export const translations: Translations = {
     copy_to_clipboard: 'Copy to clipboard',
     apply_password: 'Apply password',
     enter: 'Enter',
-    edit: 'Edit'
+    edit: 'Edit',
+    open_in_browser: 'Open in browser'
   }
 };

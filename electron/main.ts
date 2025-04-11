@@ -1,6 +1,8 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, shell } from 'electron';
 import path from 'path';
-import { isDev, PORT } from './utils.js';
+
+const devMode = process.env.NODE_ENV === 'development';
+const PORT = 1234;
 
 app.on('ready', () => {
   const mainWindow = new BrowserWindow({
@@ -14,7 +16,12 @@ app.on('ready', () => {
 
   mainWindow.maximize();
 
-  if (isDev()) {
+  mainWindow.webContents.setWindowOpenHandler((data) => {
+    shell.openExternal(data.url);
+    return { action: 'deny' };
+  });
+
+  if (devMode) {
     mainWindow.loadURL(`http://localhost:${PORT}`);
     mainWindow.webContents.openDevTools();
   } else {

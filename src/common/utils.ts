@@ -54,8 +54,10 @@ export const openExternally = (url: string) => {
     return;
   }
 
+  const formattedUrl = url.startsWith('http') ? url : `//${url}`;
+
   const a = document.createElement('a');
-  a.href = `//${url}`;
+  a.href = formattedUrl;
   a.target = '_blank';
   a.rel = 'noreferrer';
   document.body.appendChild(a);

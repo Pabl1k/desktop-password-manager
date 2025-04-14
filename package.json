@@ -54,7 +54,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "transpile:electron": "tsc --project electron/tsconfig.json",
+    "transpile:electron": "tsc --project electron/tsconfig.json && tsc --project electron/tsconfig.preload.json",
     "dist": "npm run transpile:electron && npm run build && electron-builder",
     "dist:mac": "npm run transpile:electron && npm run build && electron-builder --mac --arm64",
     "dist:win": "npm run transpile:electron && npm run build && electron-builder --win --x64",

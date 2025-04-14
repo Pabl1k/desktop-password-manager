@@ -1,6 +1,10 @@
 import { app, BrowserWindow, globalShortcut, shell } from 'electron';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import { devMode, getIconPath, PORT } from './utils.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.on('ready', () => {
   const mainWindow = new BrowserWindow({
@@ -9,15 +13,20 @@ app.on('ready', () => {
     frame: true,
     autoHideMenuBar: true,
     show: false,
-    icon: getIconPath()
+    icon: getIconPath(),
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+      contextIsolation: true,
+      nodeIntegration: false
+    }
   });
 
   mainWindow.on('ready-to-show', () => mainWindow.show());
 
   mainWindow.maximize();
 
-  mainWindow.webContents.setWindowOpenHandler((data) => {
-    shell.openExternal(data.url);
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    shell.openExternal(url);
     return { action: 'deny' };
   });
 

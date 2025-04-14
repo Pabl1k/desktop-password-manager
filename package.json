@@ -38,7 +38,14 @@
     "linux": {
       "icon": "icons/icon.png",
       "target": "AppImage"
-    }
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "Pabl1k",
+        "repo": "desktop-password-manager"
+      }
+    ]
   },
   "scripts": {
     "start": "npm-run-all --parallel dev:vite dev:electron",

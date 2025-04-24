@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react';
-import ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom';
 import clsx from 'clsx';
 
 interface Props {
@@ -14,7 +14,7 @@ const Modal: FC<Props> = ({ open, className, children }) => {
     return null;
   }
 
-  return ReactDOM.createPortal(
+  return createPortal(
     <div className="fixed inset-0 flex items-center justify-center bg-black/30">
       <div
         className={clsx(

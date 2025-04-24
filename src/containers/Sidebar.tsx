@@ -8,7 +8,7 @@ interface Props {
   setView: (view: ContentView) => void;
 }
 
-interface SidebarAction {
+interface SidebarOption {
   labelKey: string;
   onClick: () => void;
 }
@@ -20,7 +20,7 @@ const Sidebar: FC<Props> = ({ setView }) => {
 
   const [passwordGeneratorModalOpen, setPasswordGeneratorModalOpen] = useState(false);
 
-  const actions: SidebarAction[] = [
+  const options: SidebarOption[] = [
     {
       labelKey: 'main',
       onClick: () => setView('main')
@@ -46,7 +46,7 @@ const Sidebar: FC<Props> = ({ setView }) => {
         onClose={() => setPasswordGeneratorModalOpen(false)}
       />
       <div className="flex flex-col gap-2">
-        {actions.map(({ labelKey, onClick }) => (
+        {options.map(({ labelKey, onClick }) => (
           <Button
             key={labelKey}
             type="transparent"
@@ -57,7 +57,7 @@ const Sidebar: FC<Props> = ({ setView }) => {
           </Button>
         ))}
       </div>
-      <div>
+      <div className="flex justify-center">
         <span className="text-sm">{`${t('version')}: ${APP_VERSION}`}</span>
       </div>
     </div>

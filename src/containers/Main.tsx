@@ -36,7 +36,7 @@ const Main = () => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex min-h-screen">
       <Sidebar setView={setView} />
       {displayContentByView()}
     </div>

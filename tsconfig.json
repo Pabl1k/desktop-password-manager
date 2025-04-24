@@ -7,7 +7,7 @@
     "noEmit": false,
     "resolveJsonModule": true,
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "NodeNext",
     "target": "ESNext"
   },
   "files": [],

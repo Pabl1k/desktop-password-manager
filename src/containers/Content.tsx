@@ -1,13 +1,19 @@
 import { FC } from 'react';
 import Card from '../components/Card';
-import { WebsiteCard } from '../types/types';
+import EmptyContent from '../components/EmptyContent.js';
+import { WebsiteCard, WebsiteCardCreate } from '../types/types';
 
 interface Props {
   cards: WebsiteCard[];
+  onNewCardCreate: (newCard: WebsiteCardCreate) => Promise<void>;
   onDeleteCard: (id: string) => void;
 }
 
-const Content: FC<Props> = ({ cards, onDeleteCard }) => {
+const Content: FC<Props> = ({ cards, onNewCardCreate, onDeleteCard }) => {
+  if (!cards.length) {
+    return <EmptyContent onNewCardCreate={onNewCardCreate} />;
+  }
+
   return (
     <div className="h-[calc(100vh-85px)] flex flex-wrap gap-4 p-6 overflow-auto">
       {cards.map((item) => (

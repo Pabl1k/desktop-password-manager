@@ -29,6 +29,7 @@ export const translations: Translations = {
     enter: 'Enter',
     edit: 'Edit',
     open_in_browser: 'Open in browser',
-    version: 'Version'
+    version: 'Version',
+    empty_content_placeholder: "No cards found. Click 'Add' to create a new card"
   }
 };

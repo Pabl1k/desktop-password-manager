@@ -7,7 +7,7 @@ import Sidebar from './Sidebar';
 import Toolbar from './Toolbar';
 
 const Main = () => {
-  const { state, add, remove } = useDatabase<WebsiteCard>();
+  const { state: cards, add, remove } = useDatabase<WebsiteCard>();
   const [view, setView] = useState<ContentView>('main');
 
   const displayContentByView = () => {
@@ -30,7 +30,7 @@ const Main = () => {
     return (
       <div className="w-full">
         <Toolbar onNewCardCreate={add} />
-        <Content cards={state} onDeleteCard={remove} />
+        <Content cards={cards} onNewCardCreate={add} onDeleteCard={remove} />
       </div>
     );
   };

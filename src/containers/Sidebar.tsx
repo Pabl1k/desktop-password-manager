@@ -13,6 +13,8 @@ interface SidebarAction {
   onClick: () => void;
 }
 
+const APP_VERSION = __APP_VERSION__;
+
 const Sidebar: FC<Props> = ({ setView }) => {
   const { t } = useTranslations();
 
@@ -56,9 +58,7 @@ const Sidebar: FC<Props> = ({ setView }) => {
         ))}
       </div>
       <div>
-        <Button className="w-full" type="add" onClick={() => console.log('update')}>
-          {t('update')}
-        </Button>
+        <span className="text-sm">{`${t('version')}: ${APP_VERSION}`}</span>
       </div>
     </div>
   );

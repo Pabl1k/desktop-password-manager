@@ -28,6 +28,7 @@ export const translations: Translations = {
     apply_password: 'Apply password',
     enter: 'Enter',
     edit: 'Edit',
-    open_in_browser: 'Open in browser'
+    open_in_browser: 'Open in browser',
+    version: 'Version'
   }
 };

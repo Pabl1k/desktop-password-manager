@@ -1,4 +1,5 @@
-import { app, BrowserWindow, dialog, globalShortcut, shell } from 'electron';
+import { app, BrowserWindow, globalShortcut, shell } from 'electron';
+import log from 'electron-log';
 import { autoUpdater } from 'electron-updater';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -43,7 +44,10 @@ app.on('ready', () => {
       }
     });
 
+    log.info('App starting in production mode');
     // Update app
+    autoUpdater.logger = log;
+
     autoUpdater.setFeedURL({
       provider: 'github',
       owner: 'Pabl1k',
@@ -52,59 +56,20 @@ app.on('ready', () => {
 
     autoUpdater.checkForUpdatesAndNotify();
 
-    autoUpdater.on('update-downloaded', () => {
-      dialog
-        .showMessageBox({
-          type: 'info',
-          title: 'Update Ready',
-          message: 'A new version has been downloaded. Restart the app to apply the update?',
-          buttons: ['Restart', 'Later']
-        })
-        .then((result) => {
-          if (result.response === 0) {
-            autoUpdater.quitAndInstall();
-          }
-        });
-    });
-
     autoUpdater.on('checking-for-update', () => {
-      console.log('Checking for update...');
-
-      dialog.showMessageBox({
-        type: 'info',
-        title: 'Checking for update',
-        message: 'Checking for updates...'
-      });
+      log.info('Checking for update...');
     });
 
     autoUpdater.on('update-available', (info) => {
-      console.log('Update available:', info);
-
-      dialog.showMessageBox({
-        type: 'info',
-        title: 'Update available:',
-        message: 'Update available: ' + JSON.stringify(info)
-      });
+      log.info('Update available:', info);
     });
 
     autoUpdater.on('update-not-available', (info) => {
-      console.log('Update not available:', info);
-
-      dialog.showMessageBox({
-        type: 'info',
-        title: 'Update not available:',
-        message: 'Update not available: ' + JSON.stringify(info)
-      });
+      log.info('No update available:', info);
     });
 
-    autoUpdater.on('error', (error) => {
-      console.error('Auto updater error:', error);
-
-      dialog.showErrorBox(
-        'Update Error',
-        'Failed to check for updates. Please try again later.\n\n' +
-          (error == null ? 'unknown' : (error.stack ?? error).toString())
-      );
+    autoUpdater.on('error', (err) => {
+      log.error('Error in auto-updater:', err);
     });
   }
 });

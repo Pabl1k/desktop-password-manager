@@ -1,7 +1,7 @@
 {
   "name": "password-manager",
   "private": true,
-  "version": "0.1.11",
+  "version": "0.1.12",
   "type": "module",
   "main": "dist-electron/main.js",
   "description": "A local password manager for securely storing passwords",
@@ -52,16 +52,23 @@
     "start": "npm-run-all --parallel dev:vite dev:electron",
     "dev:vite": "vite",
     "dev:electron": "npm run transpile:electron && cross-env NODE_ENV=development electron .",
+
+    "transpile:electron": "rimraf dist-electron && tsc --project electron/tsconfig.json",
+
     "build": "vite build",
-    "build-electron": "electron-builder --win --x64 --publish always",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "publish": "dotenv -e .env cross-env DEBUG=electron-builder npm run build-electron",
-    "transpile:electron": "tsc --project electron/tsconfig.json && tsc --project electron/tsconfig.preload.json",
+    "build:electron": "npm run transpile:electron && electron-builder --win --x64 --publish always",
+
+    "preview": "npm run build && npm run preview:electron",
+    "preview:electron": "npm run transpile:electron && cross-env NODE_ENV=production electron .",
+
+    "publish": "npm run transpile:electron && npm run build && electron-builder --publish always",
+
     "dist": "npm run transpile:electron && npm run build && electron-builder",
-    "dist:mac": "npm run transpile:electron && npm run build && electron-builder --mac --arm64",
     "dist:win": "npm run transpile:electron && npm run build && electron-builder --win --x64",
+    "dist:mac": "npm run transpile:electron && npm run build && electron-builder --mac --arm64",
     "dist:linux": "npm run transpile:electron && npm run build && electron-builder --linux --x64",
+
+    "lint": "eslint .",
     "format": "prettier --write ."
   },
   "dependencies": {

@@ -1,26 +1,27 @@
-import { app, BrowserWindow, globalShortcut, shell } from 'electron';
+import { app, BrowserWindow, dialog, globalShortcut, shell } from 'electron';
 import log from 'electron-log';
-import { autoUpdater } from 'electron-updater';
+import autoUpdaterPkg from 'electron-updater';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { devMode, getIconPath, PORT } from './utils.js';
 
+const { autoUpdater } = autoUpdaterPkg;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+log.transports.console.level = 'silly';
+log.transports.file.level = 'info';
+log.transports.file.resolvePathFn = () => path.join(__dirname, 'logs/main.log');
+
 app.on('ready', () => {
+  log.info('Logger initialized, devMode: ', devMode);
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     frame: true,
     autoHideMenuBar: true,
     show: false,
-    icon: getIconPath(),
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
-      contextIsolation: true,
-      nodeIntegration: false
-    }
+    icon: getIconPath()
   });
 
   mainWindow.on('ready-to-show', () => mainWindow.show());
@@ -33,9 +34,11 @@ app.on('ready', () => {
   });
 
   if (devMode) {
+    log.info('dev mode');
     mainWindow.loadURL(`http://localhost:${PORT}`);
     mainWindow.webContents.openDevTools();
   } else {
+    log.info('prod mode');
     mainWindow.loadFile(path.join('dist-react', 'index.html'));
 
     globalShortcut.register('Control+Shift+I', () => {
@@ -48,13 +51,22 @@ app.on('ready', () => {
     // Update app
     autoUpdater.logger = log;
 
-    autoUpdater.setFeedURL({
-      provider: 'github',
-      owner: 'Pabl1k',
-      repo: 'desktop-password-manager'
-    });
-
     autoUpdater.checkForUpdatesAndNotify();
+
+    autoUpdater.on('update-downloaded', () => {
+      dialog
+        .showMessageBox({
+          type: 'info',
+          title: 'Update Ready',
+          message: 'A new version has been downloaded. Restart the app to apply the update?',
+          buttons: ['Restart', 'Later']
+        })
+        .then((result) => {
+          if (result.response === 0) {
+            autoUpdater.quitAndInstall();
+          }
+        });
+    });
 
     autoUpdater.on('checking-for-update', () => {
       log.info('Checking for update...');

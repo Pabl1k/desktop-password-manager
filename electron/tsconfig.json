@@ -3,9 +3,12 @@
     "strict": true,
     "target": "ESNext",
     "module": "NodeNext",
-    "outDir": "../dist-electron",
-    "skipLibCheck": true,
     "moduleResolution": "NodeNext",
+    "outDir": "../dist-electron",
+    "rootDir": "./",
+    "skipLibCheck": true,
     "esModuleInterop": true
-  }
+  },
+  "include": ["main.ts"],
+  "exclude": ["../node_modules", "../dist-electron"]
 }

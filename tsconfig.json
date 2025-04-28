@@ -1,14 +1,13 @@
 {
   "compilerOptions": {
-    "outDir": "dist-react",
-    "rootDir": "src",
-    "emitDeclarationOnly": false,
-    "declaration": true,
-    "noEmit": false,
-    "resolveJsonModule": true,
-    "module": "ESNext",
+    "strict": true,
+    "target": "ESNext",
+    "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "target": "ESNext"
+    "outDir": "../dist-electron",
+    "rootDir": "./",
+    "skipLibCheck": true,
+    "esModuleInterop": true
   },
   "files": [],
   "references": [

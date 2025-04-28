@@ -17,7 +17,7 @@ const APP_VERSION = __APP_VERSION__;
 
 const Sidebar: FC<Props> = ({ setView }) => {
   const { t } = useTranslations();
-
+  console.log('Sidebar app version is', APP_VERSION);
   const [passwordGeneratorModalOpen, setPasswordGeneratorModalOpen] = useState(false);
 
   const options: SidebarOption[] = [

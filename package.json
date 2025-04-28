@@ -1,10 +1,10 @@
 {
   "name": "password-manager",
   "private": true,
-  "version": "v0.1.5",
+  "version": "0.1.7",
   "type": "module",
   "main": "dist-electron/main.js",
-  "description": "A password manager built with React and Electron",
+  "description": "A local password manager for securely storing passwords",
   "author": "https://github.com/Pabl1k",
   "repository": "https://github.com/Pabl1k/desktop-password-manager",
   "build": {
@@ -43,7 +43,7 @@
     "publish": [
       {
         "provider": "github",
-        "releaseType": "release",
+        "releaseType": "published",
         "owner": "Pabl1k",
         "repo": "desktop-password-manager"
       }

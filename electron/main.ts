@@ -35,7 +35,7 @@ app.on('ready', () => {
     mainWindow.loadURL(`http://localhost:${PORT}`);
     mainWindow.webContents.openDevTools();
   } else {
-    mainWindow.loadURL(path.join(app.getAppPath(), '/dist-react/index.html'));
+    mainWindow.loadFile(path.join('dist-react', 'index.html'));
 
     globalShortcut.register('Control+Shift+I', () => {
       if (mainWindow) {
@@ -44,6 +44,12 @@ app.on('ready', () => {
     });
 
     // Update app
+    autoUpdater.setFeedURL({
+      provider: 'github',
+      owner: 'Pabl1k',
+      repo: 'desktop-password-manager'
+    });
+
     autoUpdater.checkForUpdatesAndNotify();
 
     autoUpdater.on('update-downloaded', () => {
@@ -59,6 +65,36 @@ app.on('ready', () => {
             autoUpdater.quitAndInstall();
           }
         });
+    });
+
+    autoUpdater.on('checking-for-update', () => {
+      console.log('Checking for update...');
+
+      dialog.showMessageBox({
+        type: 'info',
+        title: 'Checking for update',
+        message: 'Checking for updates...'
+      });
+    });
+
+    autoUpdater.on('update-available', (info) => {
+      console.log('Update available:', info);
+
+      dialog.showMessageBox({
+        type: 'info',
+        title: 'Update available:',
+        message: 'Update available: ' + JSON.stringify(info)
+      });
+    });
+
+    autoUpdater.on('update-not-available', (info) => {
+      console.log('Update not available:', info);
+
+      dialog.showMessageBox({
+        type: 'info',
+        title: 'Update not available:',
+        message: 'Update not available: ' + JSON.stringify(info)
+      });
     });
 
     autoUpdater.on('error', (error) => {

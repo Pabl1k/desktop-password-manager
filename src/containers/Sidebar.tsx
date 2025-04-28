@@ -57,7 +57,7 @@ const Sidebar: FC<Props> = ({ setView }) => {
           </Button>
         ))}
       </div>
-      Auto update test
+      Auto update test 2
       <div className="flex justify-center">
         <span className="text-sm">{`${t('version')}: ${APP_VERSION}`}</span>
       </div>

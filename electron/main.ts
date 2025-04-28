@@ -63,6 +63,12 @@ app.on('ready', () => {
 
     autoUpdater.on('error', (error) => {
       console.error('Auto updater error:', error);
+
+      dialog.showErrorBox(
+        'Update Error',
+        'Failed to check for updates. Please try again later.\n\n' +
+          (error == null ? 'unknown' : (error.stack ?? error).toString())
+      );
     });
   }
 });

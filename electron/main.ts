@@ -31,23 +31,6 @@ app.on('ready', () => {
     return { action: 'deny' };
   });
 
-  autoUpdater.checkForUpdatesAndNotify();
-
-  autoUpdater.on('update-downloaded', () => {
-    dialog
-      .showMessageBox({
-        type: 'info',
-        title: 'Update Ready',
-        message: 'A new version has been downloaded. Restart the app to apply the update?',
-        buttons: ['Restart', 'Later']
-      })
-      .then((result) => {
-        if (result.response === 0) {
-          autoUpdater.quitAndInstall();
-        }
-      });
-  });
-
   if (devMode) {
     mainWindow.loadURL(`http://localhost:${PORT}`);
     mainWindow.webContents.openDevTools();
@@ -58,6 +41,28 @@ app.on('ready', () => {
       if (mainWindow) {
         mainWindow.webContents.toggleDevTools();
       }
+    });
+
+    // Update app
+    autoUpdater.checkForUpdatesAndNotify();
+
+    autoUpdater.on('update-downloaded', () => {
+      dialog
+        .showMessageBox({
+          type: 'info',
+          title: 'Update Ready',
+          message: 'A new version has been downloaded. Restart the app to apply the update?',
+          buttons: ['Restart', 'Later']
+        })
+        .then((result) => {
+          if (result.response === 0) {
+            autoUpdater.quitAndInstall();
+          }
+        });
+    });
+
+    autoUpdater.on('error', (error) => {
+      console.error('Auto updater error:', error);
     });
   }
 });

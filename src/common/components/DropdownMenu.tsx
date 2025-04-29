@@ -5,6 +5,7 @@ import Button from './Button';
 
 export interface DropdownOption {
   labelKey: string;
+  active?: boolean;
   onClick: () => void;
 }
 
@@ -26,16 +27,22 @@ const DropdownMenu: FC<Props> = ({ open, options, children, onClose }) => {
       {children}
       {open && (
         <div className="absolute left-0 bg-bg-card rounded-field border border-border shadow-lg">
-          {options.map(({ labelKey, onClick }) => (
-            <Button
-              key={labelKey}
-              type="transparent"
-              className="w-full font-semibold text-start"
-              onClick={onClick}
-            >
-              {t(labelKey)}
-            </Button>
-          ))}
+          {options.map(({ labelKey, active, onClick }) => {
+            if (active) {
+              return null;
+            }
+
+            return (
+              <Button
+                key={labelKey}
+                type="transparent"
+                className="w-full font-semibold text-start"
+                onClick={onClick}
+              >
+                {t(labelKey)}
+              </Button>
+            );
+          })}
         </div>
       )}
     </div>

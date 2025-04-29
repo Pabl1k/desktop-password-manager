@@ -30,6 +30,7 @@ const Card: FC<Props> = ({ title, link, login, password, onDelete }) => {
   const cardOptions: DropdownOption[] = [
     {
       labelKey: 'copy_link',
+      active: !link,
       onClick: () => handleDropdownMenuAction(() => copyToClipboard(link))
     },
     { labelKey: 'delete', onClick: () => handleDropdownMenuAction(onDelete) }
@@ -38,12 +39,12 @@ const Card: FC<Props> = ({ title, link, login, password, onDelete }) => {
   const displayPasswordFieldValue = showPassword ? password : hiddenPassword;
 
   const credentialClassName =
-    'h-(--field-height) flex items-center justify-between px-3 cursor-pointer';
+    'h-(--field-height) flex items-center justify-between px-3';
 
   return (
-    <div className="w-[280px] h-[320px] bg-bg-card rounded-modal flex flex-col justify-between">
-      <div className="flex items-center justify-between p-4 border-b border-border">
-        <div className="flex flex-col">
+    <div className="w-[280px] h-[320px] bg-bg-card rounded-modal flex flex-col gap-10">
+      <div className="h-[80px] flex items-center justify-between px-4 border-b border-border">
+        <div className="flex flex-col justify-center">
           <span className="text-2xl truncate">{title}</span>
           <span className="text-sm truncate text-green-main" title={link}>
             {getLinkHostname(link)}
@@ -65,12 +66,18 @@ const Card: FC<Props> = ({ title, link, login, password, onDelete }) => {
 
       <div className="flex flex-col mx-4 rounded-field text-lg bg-bg-main border border-border">
         {/* change copyToClipboard to icon click */}
-        <div className={credentialClassName} onClick={() => copyToClipboard(login)}>
-          {login}
+        <div className={credentialClassName}>
+          <span className="truncate mr-2" title={login}>{login}</span>
+          <button
+            className="text-sm cursor-pointer"
+            onClick={() => copyToClipboard(login)}
+          >
+            {t('copy')}
+          </button>
         </div>
         <div className="h-px bg-border" />
         <div className={credentialClassName} onClick={() => copyToClipboard(password)}>
-          <span>{displayPasswordFieldValue}</span>
+          <span className="truncate mr-2" title={showPassword ? password : undefined}>{displayPasswordFieldValue}</span>
           <button
             className="text-sm cursor-pointer"
             onClick={(e) => {
@@ -84,9 +91,11 @@ const Card: FC<Props> = ({ title, link, login, password, onDelete }) => {
       </div>
 
       <div className="w-full flex justify-center" title={link}>
+      {link && (
         <Button className="mb-4" onClick={() => openExternally(link)}>
           {t('open_in_browser')}
         </Button>
+      )}
       </div>
     </div>
   );

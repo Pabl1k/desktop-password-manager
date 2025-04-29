@@ -1,7 +1,7 @@
 {
   "name": "password-manager",
   "private": true,
-  "version": "0.1.12",
+  "version": "0.1.14",
   "type": "module",
   "main": "dist-electron/main.js",
   "description": "A local password manager for securely storing passwords",
@@ -56,12 +56,12 @@
     "transpile:electron": "rimraf dist-electron && tsc --project electron/tsconfig.json",
 
     "build": "vite build",
-    "build:electron": "npm run transpile:electron && electron-builder --win --x64 --publish always",
+    "build:electron": "npm run transpile:electron && electron-builder --win --x64",
 
     "preview": "npm run build && npm run preview:electron",
-    "preview:electron": "npm run transpile:electron && cross-env NODE_ENV=production electron .",
+    "preview:electron": "cross-env NODE_ENV=production electron .",
 
-    "publish": "npm run transpile:electron && npm run build && electron-builder --publish always",
+    "publish": "dotenv -e .env cross-env DEBUG=electron-builder electron-builder --win --x64 --publish always",
 
     "dist": "npm run transpile:electron && npm run build && electron-builder",
     "dist:win": "npm run transpile:electron && npm run build && electron-builder --win --x64",

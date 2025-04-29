@@ -17,7 +17,7 @@ const APP_VERSION = __APP_VERSION__;
 
 const Sidebar: FC<Props> = ({ setView }) => {
   const { t } = useTranslations();
-  console.log('Sidebar app version is', APP_VERSION);
+
   const [passwordGeneratorModalOpen, setPasswordGeneratorModalOpen] = useState(false);
 
   const options: SidebarOption[] = [
@@ -57,7 +57,7 @@ const Sidebar: FC<Props> = ({ setView }) => {
           </Button>
         ))}
       </div>
-      Auto update test: 28.04 - 15:00
+      Auto update test: 29.04
       <div className="flex justify-center">
         <span className="text-sm">{`${t('version')}: ${APP_VERSION}`}</span>
       </div>

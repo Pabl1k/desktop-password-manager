@@ -57,7 +57,7 @@ const Sidebar: FC<Props> = ({ setView }) => {
           </Button>
         ))}
       </div>
-      <div className="flex justify-center">
+      <div className="flex justify-center" style={{border: "1px solid red"}}>
         <span className="text-sm">{`${t('version')}: ${APP_VERSION}`}</span>
       </div>
     </div>

@@ -1,7 +1,7 @@
 {
   "name": "password-manager",
   "private": true,
-  "version": "0.1.15",
+  "version": "0.1.16",
   "type": "module",
   "main": "dist-electron/main.js",
   "description": "A local password manager for securely storing passwords",
@@ -57,7 +57,7 @@
     "build:electron": "npm run transpile:electron && electron-builder --win --x64",
     "preview": "npm run build && npm run preview:electron",
     "preview:electron": "cross-env NODE_ENV=production electron .",
-    "publish": "dotenv -e .env cross-env DEBUG=electron-builder electron-builder --win --x64 --publish always",
+    "publish": "dotenv -e .env -- electron-builder --win --x64 --publish always",
     "dist": "npm run transpile:electron && npm run build && electron-builder",
     "dist:win": "npm run transpile:electron && npm run build && electron-builder --win --x64",
     "dist:mac": "npm run transpile:electron && npm run build && electron-builder --mac --arm64",

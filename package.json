@@ -52,28 +52,24 @@
     "start": "npm-run-all --parallel dev:vite dev:electron",
     "dev:vite": "vite",
     "dev:electron": "npm run transpile:electron && cross-env NODE_ENV=development electron .",
-
     "transpile:electron": "rimraf dist-electron && tsc --project electron/tsconfig.json",
-
     "build": "vite build",
     "build:electron": "npm run transpile:electron && electron-builder --win --x64",
-
     "preview": "npm run build && npm run preview:electron",
     "preview:electron": "cross-env NODE_ENV=production electron .",
-
     "publish": "dotenv -e .env cross-env DEBUG=electron-builder electron-builder --win --x64 --publish always",
-
     "dist": "npm run transpile:electron && npm run build && electron-builder",
     "dist:win": "npm run transpile:electron && npm run build && electron-builder --win --x64",
     "dist:mac": "npm run transpile:electron && npm run build && electron-builder --mac --arm64",
     "dist:linux": "npm run transpile:electron && npm run build && electron-builder --linux --x64",
-
     "lint": "eslint .",
     "format": "prettier --write ."
   },
   "dependencies": {
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "electron-updater": "^6.6.2",
+    "electron-log": "^5.3.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
@@ -88,8 +84,6 @@
     "dotenv-cli": "^8.0.0",
     "electron": "^35.1.5",
     "electron-builder": "^26.0.12",
-    "electron-log": "^5.3.4",
-    "electron-updater": "^6.6.2",
     "eslint": "^9.19.0",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.18",

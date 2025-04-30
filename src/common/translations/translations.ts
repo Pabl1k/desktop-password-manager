@@ -11,6 +11,7 @@ export const translations: Translations = {
     delete: 'Delete',
     show: 'Show',
     hide: 'Hide',
+    copy: 'Copy',
     copy_link: 'Copy link',
     card_title: 'Card title',
     login: 'Login',

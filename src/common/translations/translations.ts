@@ -31,6 +31,7 @@ export const translations: Translations = {
     edit: 'Edit',
     open_in_browser: 'Open in browser',
     version: 'Version',
-    empty_content_placeholder: "No cards found. Click 'Add' to create a new card"
+    empty_content_placeholder: "No cards found. Click 'Add' to create a new card",
+    enter_placeholder: 'Enter passcode'
   }
 };

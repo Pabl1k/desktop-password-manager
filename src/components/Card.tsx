@@ -30,7 +30,7 @@ const Card: FC<Props> = ({ title, link, login, password, onDelete }) => {
   const cardOptions: DropdownOption[] = [
     {
       labelKey: 'copy_link',
-      active: !link,
+      disabled: !link,
       onClick: () => handleDropdownMenuAction(() => copyToClipboard(link))
     },
     { labelKey: 'delete', onClick: () => handleDropdownMenuAction(onDelete) }

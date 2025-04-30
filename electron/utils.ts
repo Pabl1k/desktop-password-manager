@@ -41,6 +41,6 @@ export const getIconPath = () => {
   const iconExt = getIconExtensionByPlatform();
 
   return devMode
-    ? path.join(__dirname, `../assets/icons/icon.${iconExt}`)
+    ? path.join(__dirname, `../assets/icons/dev-icon.ico`)
     : path.join(process.resourcesPath, 'dist-icons', `icon.${iconExt}`);
 };

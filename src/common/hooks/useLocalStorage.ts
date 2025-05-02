@@ -19,7 +19,7 @@ export const useLocalStorage = () => {
     return defaultValue;
   };
 
-  const set = async <T = string>(cacheKey: CacheKey, value: T) => {
+  const set = async <T = unknown>(cacheKey: CacheKey, value: T) => {
     try {
       window.localStorage.setItem(CACHE_KEYS[cacheKey], JSON.stringify(value));
     } catch (error) {

@@ -1,15 +1,16 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import Button from '../common/components/Button.js';
 import Input from '../common/components/Input.js';
 import Tooltip from '../common/components/Tooltip.js';
 import { useTranslations } from '../common/translations/useTranslations.js';
+import { useSettings } from '../hooks/useSettings.js';
 
 interface Props {}
 
 const Settings: FC<Props> = ({}) => {
   const { t } = useTranslations();
 
-  const [passcode, setPasscode] = useState<string>('');
+  const { passcode, setPasscode, savePasscode } = useSettings();
 
   return (
     <div className="p-8">
@@ -22,7 +23,9 @@ const Settings: FC<Props> = ({}) => {
           </div>
           <div className="flex gap-2">
             <Input value={passcode} placeholder={t('enter_passcode')} onChange={setPasscode} />
-            <Button type="add">{t('setup')}</Button>
+            <Button type="add" disabled={!passcode} onClick={savePasscode}>
+              {t('setup')}
+            </Button>
           </div>
         </div>
       </div>

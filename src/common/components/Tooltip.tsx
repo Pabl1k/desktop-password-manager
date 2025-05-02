@@ -25,7 +25,7 @@ const Tooltip: FC<Props> = ({ text, className, infoIcon = false, children }) => 
         onMouseEnter={handleMouseEnter}
         onMouseLeave={() => setPosition(null)}
       >
-        {infoIcon ? 'i' : children}
+        {infoIcon ? <div className="size-[40px] flex items-center">i</div> : children}
       </span>
       {position &&
         createPortal(

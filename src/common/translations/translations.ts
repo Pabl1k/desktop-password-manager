@@ -31,6 +31,10 @@ export const translations: Translations = {
     edit: 'Edit',
     open_in_browser: 'Open in browser',
     version: 'Version',
-    empty_content_placeholder: "No cards found. Click 'Add' to create a new card"
+    empty_content_placeholder: "No cards found. Click 'Add' to create a new card",
+    setup_passcode: 'Setup passcode',
+    enter_passcode: 'Enter passcode',
+    setup: 'Setup',
+    setup_passcode_tooltip: 'You’ll be asked to enter a passcode when the app starts'
   }
 };

@@ -4,6 +4,7 @@ import { WebsiteCard } from '../types/types';
 import { ContentView } from '../types/view';
 import Content from './Content';
 import Login from './Login.js';
+import Settings from './Settings.js';
 import Sidebar from './Sidebar';
 import Toolbar from './Toolbar';
 
@@ -22,11 +23,7 @@ const Main = () => {
     }
 
     if (view === 'settings') {
-      return (
-        <div className="h-screen">
-          <span>settings: development in progress</span>;
-        </div>
-      );
+      return <Settings />;
     }
 
     return (

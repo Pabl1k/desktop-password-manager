@@ -38,6 +38,10 @@ export const copyToClipboard = async (value: string) => {
 };
 
 export const getLinkHostname = (link: string) => {
+  if (!link) {
+    return;
+  }
+
   const formatted = link.replace(/^(https?:\/\/)?(www\.)?/, 'https://');
 
   try {

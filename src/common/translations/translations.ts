@@ -34,6 +34,8 @@ export const translations: Translations = {
     empty_content_placeholder: "No cards found. Click 'Add' to create a new card",
     setup_passcode: 'Setup passcode',
     enter_passcode: 'Enter passcode',
+    reset_passcode: 'Reset passcode',
+    update_passcode: 'Update passcode',
     setup: 'Setup',
     setup_passcode_tooltip: 'You’ll be asked to enter a passcode when the app starts'
   }

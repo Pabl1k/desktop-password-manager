@@ -5,21 +5,20 @@ export const CACHE_KEYS = {
 type CacheKey = keyof typeof CACHE_KEYS;
 
 export const useLocalStorage = () => {
-  const get = async (cacheKey: CacheKey, defaultValue = '') => {
-    const valueInLocalStorage = window.localStorage.getItem(CACHE_KEYS[cacheKey]);
-
-    if (valueInLocalStorage) {
-      try {
-        return await JSON.parse(valueInLocalStorage);
-      } catch (error) {
-        console.error(`Error parsing localStorage value for ${cacheKey}:`, error);
+  const get = <T = unknown>(cacheKey: CacheKey, defaultValue?: T): T => {
+    try {
+      const valueInLocalStorage = window.localStorage.getItem(CACHE_KEYS[cacheKey]);
+      if (valueInLocalStorage) {
+        return JSON.parse(valueInLocalStorage) as T;
       }
+    } catch (error) {
+      console.error(`Error parsing localStorage value for ${cacheKey}:`, error);
     }
 
-    return defaultValue;
+    return defaultValue as T;
   };
 
-  const set = async <T = unknown>(cacheKey: CacheKey, value: T) => {
+  const set = <T = unknown>(cacheKey: CacheKey, value: T) => {
     try {
       window.localStorage.setItem(CACHE_KEYS[cacheKey], JSON.stringify(value));
     } catch (error) {
@@ -27,7 +26,7 @@ export const useLocalStorage = () => {
     }
   };
 
-  const remove = async (cacheKey: CacheKey) => {
+  const remove = (cacheKey: CacheKey) => {
     try {
       window.localStorage.removeItem(CACHE_KEYS[cacheKey]);
     } catch (error) {
@@ -35,9 +34,17 @@ export const useLocalStorage = () => {
     }
   };
 
+  const update = <T = unknown>(cacheKey: CacheKey, value: T) => {
+    const existingValue = get<T>(cacheKey);
+    const newValue = { ...existingValue, ...value };
+
+    set(cacheKey, newValue);
+  };
+
   return {
     get,
     set,
+    update,
     remove
   };
 };

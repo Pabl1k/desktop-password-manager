@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { useDatabase } from '../db/useDatabase';
+import { useLogin } from '../hooks/useLogin.js';
 import { WebsiteCard } from '../types/types';
 import { ContentView } from '../types/view';
 import Content from './Content';
+import Login from './Login.js';
 import Settings from './Settings.js';
 import Sidebar from './Sidebar';
 import Toolbar from './Toolbar';
@@ -10,6 +12,7 @@ import Toolbar from './Toolbar';
 const Main = () => {
   const { state: cards, add, remove } = useDatabase<WebsiteCard>();
   const [view, setView] = useState<ContentView>('main');
+  const { loginRequired, handleLogin } = useLogin();
 
   const displayContentByView = () => {
     if (view === 'recentlyDeleted') {
@@ -34,8 +37,14 @@ const Main = () => {
 
   return (
     <div className="flex min-h-screen">
-      <Sidebar setView={setView} />
-      {displayContentByView()}
+      {loginRequired ? (
+        <Login onLogin={handleLogin} />
+      ) : (
+        <>
+          <Sidebar setView={setView} />
+          {displayContentByView()}
+        </>
+      )}
     </div>
   );
 };

@@ -1,6 +1,4 @@
-export const CACHE_KEYS = {
-  settings: 'pm.user.settings'
-} as const;
+import { CACHE_KEYS } from '../storageKeys.js';
 
 type CacheKey = keyof typeof CACHE_KEYS;
 

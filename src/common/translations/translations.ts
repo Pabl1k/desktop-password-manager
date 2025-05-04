@@ -37,6 +37,8 @@ export const translations: Translations = {
     reset_passcode: 'Reset passcode',
     update_passcode: 'Update passcode',
     setup: 'Setup',
-    setup_passcode_tooltip: 'You’ll be asked to enter a passcode when the app starts'
+    setup_passcode_tooltip: 'You’ll be asked to enter a passcode when the app starts',
+    enter_placeholder: 'Enter passcode',
+    incorrect_passcode: 'Passcode is incorrect'
   }
 };

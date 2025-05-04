@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocalStorage } from '../common/hooks/useLocalStorage.js';
-
-interface Settings {
-  passcode: string;
-}
+import { Settings } from '../types/Settings.js';
 
 export const useSettings = () => {
   const { get, set, update } = useLocalStorage();

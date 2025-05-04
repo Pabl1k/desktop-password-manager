@@ -1,12 +1,17 @@
 import { useState } from 'react';
 import Button from '../common/components/Button.js';
 import Input from '../common/components/Input.js';
+import { useLocalStorage } from '../common/hooks/useLocalStorage.js';
 import { useTranslations } from '../common/translations/useTranslations.js';
+import { Settings } from '../types/Settings.js';
 
-const Login = () => {
+const Login = ({ onLogin }: { onLogin: () => void }) => {
   const { t } = useTranslations();
+  const { get } = useLocalStorage();
 
-  const [passcode, setPasscode] = useState('');
+  const settings = get<Settings>('settings');
+  const [enteredPasscode, setEnteredPasscode] = useState('');
+  const [showError, setShowError] = useState(false);
   const [showPasscode, setShowPasscode] = useState(false);
 
   const suffix = (
@@ -19,17 +24,31 @@ const Login = () => {
     </button>
   );
 
+  const handleLogin = () => {
+    if (settings.passcode === enteredPasscode) {
+      setShowError(false);
+      onLogin();
+    } else {
+      setShowError(true);
+    }
+  };
+
   return (
     <div className="w-full flex justify-center items-center bg-bg-main">
-      <div className="w-[30vw] flex flex-col justify-center items-center gap-5">
-        <Input
-          className="w-full"
-          value={passcode}
-          placeholder={t('enter_placeholder')}
-          suffix={suffix}
-          onChange={setPasscode}
-        />
-        <Button type="add">Login</Button>
+      <div className="flex flex-col justify-center items-center gap-5">
+        <div className="w-[30vw] ">
+          <Input
+            className="w-full"
+            value={enteredPasscode}
+            placeholder={t('enter_placeholder')}
+            suffix={suffix}
+            onChange={setEnteredPasscode}
+          />
+          {showError && <span className="text-sm text-text-error">{t('incorrect_passcode')}</span>}
+        </div>
+        <Button type="add" disabled={!enteredPasscode} onClick={handleLogin}>
+          Login
+        </Button>
       </div>
     </div>
   );

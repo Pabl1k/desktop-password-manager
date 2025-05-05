@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
-import Button from '../common/components/Button';
 import { useTranslations } from '../common/translations/useTranslations';
 import PasswordGeneratorModal from '../components/PasswordGeneratorModal';
+import Button from '../shared/ui/Button';
 import { ContentView } from '../types/view';
 
 interface Props {

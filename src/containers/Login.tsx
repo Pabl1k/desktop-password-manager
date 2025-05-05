@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import Button from '../common/components/Button.js';
-import Input from '../common/components/Input.js';
 import { useLocalStorage } from '../common/hooks/useLocalStorage.js';
 import { useTranslations } from '../common/translations/useTranslations.js';
-import { Settings } from '../types/Settings.js';
+import Button from '../shared/ui/Button';
+import Input from '../shared/ui/Input';
+import { Settings } from '../types/Settings';
 
 const Login = ({ onLogin }: { onLogin: () => void }) => {
   const { t } = useTranslations();

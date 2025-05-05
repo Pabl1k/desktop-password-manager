@@ -1,9 +1,9 @@
 import { FC } from 'react';
-import Button from '../common/components/Button.js';
-import Input from '../common/components/Input.js';
-import Tooltip from '../common/components/Tooltip.js';
 import { useTranslations } from '../common/translations/useTranslations.js';
 import { useSettings } from '../hooks/useSettings.js';
+import Button from '../shared/ui/Button';
+import Input from '../shared/ui/Input';
+import Tooltip from '../shared/ui/Tooltip';
 
 interface Props {}
 

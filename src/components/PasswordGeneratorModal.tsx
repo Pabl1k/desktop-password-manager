@@ -1,8 +1,8 @@
 import { FC, useState } from 'react';
-import Button from '../common/components/Button';
-import Modal from '../common/components/Modal';
 import { useTranslations } from '../common/translations/useTranslations';
 import { copyToClipboard, generatePassword } from '../common/utils';
+import Button from '../shared/ui/Button';
+import Modal from '../shared/ui/Modal';
 
 interface ApplyButton {
   textKey: string;

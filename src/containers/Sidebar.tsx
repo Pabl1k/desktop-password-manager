@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
-import { useTranslations } from '../common/translations/useTranslations';
 import PasswordGeneratorModal from '../components/PasswordGeneratorModal';
+import { useTranslations } from '../shared/hooks/useTranslations';
 import Button from '../shared/ui/Button';
 import { ContentView } from '../types/view';
 

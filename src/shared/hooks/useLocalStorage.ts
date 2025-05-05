@@ -1,4 +1,4 @@
-import { CACHE_KEYS } from '../storageKeys.js';
+import { CACHE_KEYS } from '../lib/storage/storageKeys.js';
 
 type CacheKey = keyof typeof CACHE_KEYS;
 

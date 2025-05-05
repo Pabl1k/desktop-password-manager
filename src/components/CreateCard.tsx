@@ -1,5 +1,5 @@
 import { FC, MouseEvent, useState } from 'react';
-import { useTranslations } from '../common/translations/useTranslations';
+import { useTranslations } from '../shared/hooks/useTranslations';
 import Button from '../shared/ui/Button';
 import Input from '../shared/ui/Input';
 import Modal from '../shared/ui/Modal';

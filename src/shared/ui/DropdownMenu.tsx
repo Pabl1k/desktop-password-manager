@@ -1,7 +1,7 @@
 import { FC, ReactNode, useRef } from 'react';
-import { useOutsideClick } from '../../common/hooks/useOutsideClick.js';
-import { useTranslations } from '../../common/translations/useTranslations.js';
-import Button from './Button.js';
+import { useOutsideClick } from '../hooks/useOutsideClick';
+import { useTranslations } from '../hooks/useTranslations';
+import Button from './Button';
 
 export interface DropdownOption {
   labelKey: string;

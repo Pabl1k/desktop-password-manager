@@ -1,4 +1,4 @@
-import { translations } from './translations';
+import { translations } from '../config/translations.js';
 
 export const useTranslations = () => {
   const userLanguage = 'en'; // get from user settings

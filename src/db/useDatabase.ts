@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { uniqueId } from '../common/utils';
+import { uniqueId } from '../shared/lib/utils/utils.js';
 import { WebsiteCard, WebsiteCardCreate } from '../types/types';
 import { DB_KEYS } from './keys';
 

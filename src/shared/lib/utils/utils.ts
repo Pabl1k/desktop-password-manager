@@ -1,3 +1,4 @@
+// TODO refactor. Separate this file into multiple files based on the functionality
 export const uniqueId = (length = 16) =>
   [...Array(length)].map(() => Math.random().toString(36).charAt(2)).join('');
 

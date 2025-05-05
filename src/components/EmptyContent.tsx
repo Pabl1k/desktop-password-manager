@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { useTranslations } from '../common/translations/useTranslations.js';
+import { useTranslations } from '../shared/hooks/useTranslations';
 import { WebsiteCardCreate } from '../types/types.js';
 import CreateCard from './CreateCard.js';
 

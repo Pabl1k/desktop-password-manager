@@ -1,9 +1,9 @@
 import { FC, MouseEvent, useState } from 'react';
 import { useTranslations } from '../shared/hooks/useTranslations';
+import { WebsiteCard, WebsiteCardCreate } from '../shared/types/types';
 import Button from '../shared/ui/Button';
 import Input from '../shared/ui/Input';
 import Modal from '../shared/ui/Modal';
-import { WebsiteCard, WebsiteCardCreate } from '../types/types';
 import PasswordGeneratorModal from './PasswordGeneratorModal';
 
 interface Props {

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import CreateCard from '../components/CreateCard';
-import { WebsiteCardCreate } from '../types/types';
+import { WebsiteCardCreate } from '../shared/types/types';
 
 interface Props {
   onNewCardCreate: (newCard: WebsiteCardCreate) => Promise<void>;

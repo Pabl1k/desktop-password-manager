@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useLocalStorage } from '../shared/hooks/useLocalStorage';
 import { CACHE_KEYS } from '../shared/lib/storage/storageKeys';
-import { Settings } from '../types/Settings';
+import { Settings } from '../shared/types/Settings';
 
 export const useLogin = () => {
   const { get } = useLocalStorage();

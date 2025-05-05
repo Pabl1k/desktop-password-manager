@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useDatabase } from '../db/useDatabase';
 import { useLogin } from '../hooks/useLogin';
-import { WebsiteCard } from '../types/types';
-import { ContentView } from '../types/view';
+import { WebsiteCard } from '../shared/types/types';
+import { ContentView } from '../shared/types/view';
 import Content from './Content';
 import Login from './Login';
 import Settings from './Settings';

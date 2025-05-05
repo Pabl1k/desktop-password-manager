@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useTranslations } from '../shared/hooks/useTranslations';
-import { WebsiteCardCreate } from '../types/types';
+import { WebsiteCardCreate } from '../shared/types/types';
 import CreateCard from './CreateCard';
 
 interface Props {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { uniqueId } from '../shared/lib/utils/generate';
-import { WebsiteCard, WebsiteCardCreate } from '../types/types';
+import { WebsiteCard, WebsiteCardCreate } from '../shared/types/types';
 import { DB_KEYS } from './keys';
 
 export const useDatabase = <T extends WebsiteCard>() => {

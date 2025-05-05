@@ -21,7 +21,7 @@ const PasswordGeneratorModal: FC<Props> = ({ open, applyButton, onClose }) => {
   const { t } = useTranslations();
 
   const [value, setValue] = useState(generatePassword());
-  const [copied, setCopied] = useState(false); // ref ???
+  const [copied, setCopied] = useState(false);
 
   const getApplyButtonText = () => {
     if (applyButton) {

@@ -56,9 +56,11 @@ const Card: FC<Props> = ({ title, link, login, password, onDelete }) => {
           options={cardOptions}
           onClose={() => setOptionsMenuOpen(false)}
         >
-          <div className="cursor-pointer" onClick={() => setOptionsMenuOpen(!optionsMenuOpen)}>
-            <Icon name="dot-menu" />
-          </div>
+          <Icon
+            name="dot-menu"
+            className="cursor-pointer"
+            onClick={() => setOptionsMenuOpen(!optionsMenuOpen)}
+          />
         </DropdownMenu>
       </div>
 
@@ -75,7 +77,7 @@ const Card: FC<Props> = ({ title, link, login, password, onDelete }) => {
           />
         </div>
         <div className="h-px bg-border" />
-        <div className={credentialClassName} onClick={() => copyToClipboard(password)}>
+        <div className={credentialClassName}>
           <span className="truncate mr-2" title={showPassword ? password : undefined}>
             {displayPasswordFieldValue}
           </span>

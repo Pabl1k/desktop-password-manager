@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, MouseEvent } from 'react';
 import clsx from 'clsx';
 
 type ButtonType = 'add' | 'cancel' | 'transparent';
@@ -8,7 +8,7 @@ interface Props {
   className?: string;
   disabled?: boolean;
   children: ReactNode;
-  onClick?: () => void;
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
 const getStylesByType = (type: ButtonType) => {

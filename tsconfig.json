@@ -1,24 +1,30 @@
 {
   "compilerOptions": {
+    // General
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+
+    // Paths
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+
+    // Build
+    "noEmit": true,
+    "isolatedModules": true,
+
+    // Linting / Quality
     "strict": true,
-    "target": "ESNext",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "outDir": "../dist-electron",
-    "rootDir": "./",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
     "skipLibCheck": true,
-    "esModuleInterop": true
   },
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
-    }
-  ],
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "electron"
-  ]
+  "include": ["src", "vite.config.ts"],
+  "exclude": ["dist-react","dist-electron", "electron", "node_modules"]
 }

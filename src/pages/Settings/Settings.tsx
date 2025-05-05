@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import { useTranslations } from '../../shared/hooks/useTranslations';
-import Button from '../../shared/ui/Button';
-import Input from '../../shared/ui/Input';
-import Tooltip from '../../shared/ui/Tooltip';
+import { useTranslations } from '@/shared/hooks/useTranslations';
+import Button from '@/shared/ui/Button';
+import Input from '@/shared/ui/Input';
+import Tooltip from '@/shared/ui/Tooltip';
 import { useSettings } from './useSettings';
 
 interface Props {}

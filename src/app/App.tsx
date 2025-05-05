@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import Content from '../pages/Content/Content';
-import Login from '../pages/Login/Login';
-import Settings from '../pages/Settings/Settings';
-import { useAuth } from '../shared/hooks/useAuth';
-import { useDatabase } from '../shared/lib/db/useDatabase';
-import { WebsiteCard } from '../shared/types/types';
-import { ContentView } from '../shared/types/view';
-import Sidebar from '../widgets/Sidebar';
-import Toolbar from '../widgets/Toolbar';
+import Content from '@/pages/Content/Content';
+import Login from '@/pages/Login/Login';
+import Settings from '@/pages/Settings/Settings';
+import { useAuth } from '@/shared/hooks/useAuth';
+import { useDatabase } from '@/shared/lib/db/useDatabase';
+import { WebsiteCard } from '@/shared/types/types';
+import { ContentView } from '@/shared/types/view';
+import Sidebar from '@/widgets/Sidebar';
+import Toolbar from '@/widgets/Toolbar';
 
 const App = () => {
   const { state: cards, add, remove } = useDatabase<WebsiteCard>();

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { WebsiteCardCreate } from '../shared/types/types';
+import { WebsiteCardCreate } from '@/shared/types/types';
 import CreateCard from './CreateCard';
 
 interface Props {

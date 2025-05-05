@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
-import { useTranslations } from '../shared/hooks/useTranslations';
-import { ContentView } from '../shared/types/view';
-import Button from '../shared/ui/Button';
+import { useTranslations } from '@/shared/hooks/useTranslations';
+import { ContentView } from '@/shared/types/view';
+import Button from '@/shared/ui/Button';
 import PasswordGeneratorModal from './PasswordGeneratorModal';
 
 interface Props {

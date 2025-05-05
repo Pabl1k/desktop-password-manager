@@ -1,9 +1,9 @@
 import { FC, useState } from 'react';
-import { useTranslations } from '../shared/hooks/useTranslations';
-import { generatePassword } from '../shared/lib/utils/generate';
-import { copyToClipboard } from '../shared/lib/utils/link';
-import Button from '../shared/ui/Button';
-import Modal from '../shared/ui/Modal';
+import { useTranslations } from '@/shared/hooks/useTranslations';
+import { generatePassword } from '@/shared/lib/utils/generate';
+import { copyToClipboard } from '@/shared/lib/utils/link';
+import Button from '@/shared/ui/Button';
+import Modal from '@/shared/ui/Modal';
 
 interface ApplyButton {
   textKey: string;

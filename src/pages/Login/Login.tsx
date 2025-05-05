@@ -3,6 +3,7 @@ import { useLocalStorage } from '@/shared/hooks/useLocalStorage';
 import { useTranslations } from '@/shared/hooks/useTranslations';
 import { Settings } from '@/shared/types/Settings';
 import Button from '@/shared/ui/Button';
+import Icon from '@/shared/ui/Icon';
 import Input from '@/shared/ui/Input';
 
 const Login = ({ onLogin }: { onLogin: () => void }) => {
@@ -20,7 +21,9 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
       tabIndex={-1}
       onClick={() => setShowPasscode(!showPasscode)}
     >
-      {t(showPasscode ? 'hide' : 'show')}
+      <div className="flex">
+        <Icon name={showPasscode ? 'hide' : 'show'} size={20} />
+      </div>
     </button>
   );
 

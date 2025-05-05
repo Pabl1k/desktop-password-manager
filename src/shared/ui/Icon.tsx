@@ -1,26 +1,29 @@
 import { FC } from 'react';
 import { ReactSVG } from 'react-svg';
+import clsx from 'clsx';
 
 interface Props {
   name: string;
+  className?: string;
   alt?: string;
-  height?: number;
-  width?: number;
+  size?: number;
+  onClick?: () => void;
 }
 
-const Icon: FC<Props> = ({ name, alt, height = 40, width = 40 }) => {
+const Icon: FC<Props> = ({ name, className, alt, size = 25, onClick }) => {
   const iconPath = `${window.location.origin}/src/shared/assets/icons/${name}.svg`;
 
   return (
     <ReactSVG
       wrapper="span"
       aria-label={alt ?? `${name}`}
-      style={{ lineHeight: 0 }}
+      className={clsx(className, 'inline-block leading-none')}
       src={iconPath}
       beforeInjection={(svg) => {
-        svg.setAttribute('width', width.toString() ?? svg.getAttribute('width') ?? '');
-        svg.setAttribute('height', height.toString() ?? svg.getAttribute('height') ?? '');
+        svg.setAttribute('width', size.toString() ?? svg.getAttribute('width') ?? '');
+        svg.setAttribute('height', size.toString() ?? svg.getAttribute('height') ?? '');
       }}
+      onClick={onClick}
     />
   );
 };

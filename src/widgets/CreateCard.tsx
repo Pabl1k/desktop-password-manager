@@ -2,6 +2,7 @@ import { FC, MouseEvent, useState } from 'react';
 import { useTranslations } from '@/shared/hooks/useTranslations';
 import { WebsiteCard, WebsiteCardCreate } from '@/shared/types/types';
 import Button from '@/shared/ui/Button';
+import Icon from '@/shared/ui/Icon';
 import Input from '@/shared/ui/Input';
 import Modal from '@/shared/ui/Modal';
 import PasswordGeneratorModal from './PasswordGeneratorModal';
@@ -119,7 +120,10 @@ const CreateCard: FC<Props> = ({ onSave }) => {
         </div>
       </Modal>
       <Button type="add" onClick={() => setModalOpen(true)}>
-        {t('add')}
+        <div className="flex gap-1">
+          <Icon name="add" />
+          {t('add')}
+        </div>
       </Button>
     </>
   );

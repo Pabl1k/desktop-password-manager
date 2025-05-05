@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { useTranslations } from '../shared/hooks/useTranslations';
-import { WebsiteCardCreate } from '../shared/types/types';
-import CreateCard from './CreateCard';
+import { useTranslations } from '../../shared/hooks/useTranslations';
+import { WebsiteCardCreate } from '../../shared/types/types';
+import CreateCard from '../../widgets/CreateCard';
 
 interface Props {
   onNewCardCreate: (newCard: WebsiteCardCreate) => Promise<void>;

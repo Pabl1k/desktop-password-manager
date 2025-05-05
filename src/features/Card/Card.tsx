@@ -1,8 +1,8 @@
 import { FC, useState } from 'react';
-import { useTranslations } from '../shared/hooks/useTranslations';
-import { copyToClipboard, getLinkHostname, openExternally } from '../shared/lib/utils/link';
-import Button from '../shared/ui/Button';
-import DropdownMenu, { DropdownOption } from '../shared/ui/DropdownMenu';
+import { useTranslations } from '../../shared/hooks/useTranslations';
+import { copyToClipboard, getLinkHostname, openExternally } from '../../shared/lib/utils/link';
+import Button from '../../shared/ui/Button';
+import DropdownMenu, { DropdownOption } from '../../shared/ui/DropdownMenu';
 
 interface Props {
   title: string;

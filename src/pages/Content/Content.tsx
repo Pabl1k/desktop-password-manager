@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import Card from '../components/Card';
-import EmptyContent from '../components/EmptyContent';
-import { WebsiteCard, WebsiteCardCreate } from '../shared/types/types';
+import Card from '../../features/Card/Card';
+import { WebsiteCard, WebsiteCardCreate } from '../../shared/types/types';
+import EmptyContent from './EmptyContent';
 
 interface Props {
   cards: WebsiteCard[];

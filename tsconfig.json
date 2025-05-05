@@ -3,7 +3,7 @@
     "strict": true,
     "target": "ESNext",
     "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "bundler",
     "outDir": "../dist-electron",
     "rootDir": "./",
     "skipLibCheck": true,

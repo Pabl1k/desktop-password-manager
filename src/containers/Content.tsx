@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import Card from '../components/Card';
-import EmptyContent from '../components/EmptyContent.js';
+import EmptyContent from '../components/EmptyContent';
 import { WebsiteCard, WebsiteCardCreate } from '../types/types';
 
 interface Props {

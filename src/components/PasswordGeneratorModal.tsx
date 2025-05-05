@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { useTranslations } from '../shared/hooks/useTranslations';
-import { copyToClipboard, generatePassword } from '../shared/lib/utils/utils.js';
+import { copyToClipboard, generatePassword } from '../shared/lib/utils/utils';
 import Button from '../shared/ui/Button';
 import Modal from '../shared/ui/Modal';
 

@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useDatabase } from '../db/useDatabase';
-import { useLogin } from '../hooks/useLogin.js';
+import { useLogin } from '../hooks/useLogin';
 import { WebsiteCard } from '../types/types';
 import { ContentView } from '../types/view';
 import Content from './Content';
-import Login from './Login.js';
-import Settings from './Settings.js';
+import Login from './Login';
+import Settings from './Settings';
 import Sidebar from './Sidebar';
 import Toolbar from './Toolbar';
 

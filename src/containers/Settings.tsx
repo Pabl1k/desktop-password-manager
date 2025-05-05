@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { useSettings } from '../hooks/useSettings.js';
+import { useSettings } from '../hooks/useSettings';
 import { useTranslations } from '../shared/hooks/useTranslations';
 import Button from '../shared/ui/Button';
 import Input from '../shared/ui/Input';

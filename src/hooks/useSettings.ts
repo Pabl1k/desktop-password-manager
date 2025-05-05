@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocalStorage } from '../shared/hooks/useLocalStorage';
-import { Settings } from '../types/Settings.js';
+import { Settings } from '../types/Settings';
 
 export const useSettings = () => {
   const { get, set, update } = useLocalStorage();

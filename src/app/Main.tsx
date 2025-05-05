@@ -1,18 +1,18 @@
 import { useState } from 'react';
 import { useDatabase } from '../db/useDatabase';
-import { useLogin } from '../hooks/useLogin';
+import Login from '../pages/Login/Login';
+import Settings from '../pages/Settings/Settings';
+import { useAuth } from '../shared/hooks/useAuth';
 import { WebsiteCard } from '../shared/types/types';
 import { ContentView } from '../shared/types/view';
-import Content from './Content';
-import Login from './Login';
-import Settings from './Settings';
-import Sidebar from './Sidebar';
-import Toolbar from './Toolbar';
+import Content from '../widgets/Content';
+import Sidebar from '../widgets/Sidebar';
+import Toolbar from '../widgets/Toolbar';
 
 const Main = () => {
   const { state: cards, add, remove } = useDatabase<WebsiteCard>();
   const [view, setView] = useState<ContentView>('main');
-  const { loginRequired, handleLogin } = useLogin();
+  const { loginRequired, handleLogin } = useAuth();
 
   const displayContentByView = () => {
     if (view === 'recentlyDeleted') {

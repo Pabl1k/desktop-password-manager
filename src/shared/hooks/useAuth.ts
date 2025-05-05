@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { useLocalStorage } from '../shared/hooks/useLocalStorage';
-import { CACHE_KEYS } from '../shared/lib/storage/storageKeys';
-import { Settings } from '../shared/types/Settings';
+import { CACHE_KEYS } from '../lib/storage/storageKeys';
+import { Settings } from '../types/Settings';
+import { useLocalStorage } from './useLocalStorage';
 
-export const useLogin = () => {
+export const useAuth = () => {
   const { get } = useLocalStorage();
   const userSettings = get<Settings>('settings');
   const userHasPasscode = userSettings?.passcode;

@@ -15,7 +15,7 @@ const Content: FC<Props> = ({ cards, onNewCardCreate, onDeleteCard }) => {
   }
 
   return (
-    <div className="h-[calc(100vh-85px)] flex flex-wrap gap-4 p-6 overflow-auto">
+    <div className="h-[calc(100vh-85px)] flex flex-wrap gap-4 p-6 overflow-auto custom-scroll">
       {cards.map((item) => (
         <Card
           key={item.id}

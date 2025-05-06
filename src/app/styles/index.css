@@ -2,6 +2,7 @@
 
 @import '../../../node_modules/tailwindcss';
 @import '../../../node_modules/tailwindcss/theme.css' layer(theme);
+@import './scrollbar.css';
 
 @theme {
   --color-bg-main: #2e2e2e;

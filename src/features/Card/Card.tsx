@@ -1,8 +1,10 @@
 import { FC, useState } from 'react';
 import { useTranslations } from '@/shared/hooks/useTranslations';
+import { uniqueId } from '@/shared/lib/utils/generate';
 import { copyToClipboard, getLinkHostname, openExternally } from '@/shared/lib/utils/link';
 import Button from '@/shared/ui/Button';
 import DropdownMenu, { DropdownOption } from '@/shared/ui/DropdownMenu';
+import Icon from '@/shared/ui/Icon';
 
 interface Props {
   title: string;
@@ -12,9 +14,7 @@ interface Props {
   onDelete: () => void;
 }
 
-const hiddenPassword = Array.from({ length: 16 }).map((_, i) => (
-  <span key={i.toString()}>&#x2022;</span>
-));
+const hiddenPassword = Array.from({ length: 16 }).map(() => <span key={uniqueId()}>&#x2022;</span>);
 
 const Card: FC<Props> = ({ title, link, login, password, onDelete }) => {
   const { t } = useTranslations();
@@ -56,39 +56,48 @@ const Card: FC<Props> = ({ title, link, login, password, onDelete }) => {
           options={cardOptions}
           onClose={() => setOptionsMenuOpen(false)}
         >
-          <div
-            className="rotate-90 text-3xl cursor-pointer"
+          <Icon
+            name="dot-menu"
+            className="cursor-pointer"
             onClick={() => setOptionsMenuOpen(!optionsMenuOpen)}
-          >
-            ...
-          </div>
+          />
         </DropdownMenu>
       </div>
 
       <div className="flex flex-col mx-4 rounded-field text-lg bg-bg-main border border-border">
-        {/* change copyToClipboard to icon click */}
         <div className={credentialClassName}>
           <span className="truncate mr-2" title={login}>
             {login}
           </span>
-          <button className="text-sm cursor-pointer" onClick={() => copyToClipboard(login)}>
-            {t('copy')}
-          </button>
+          <Icon
+            name="copy"
+            className="cursor-pointer"
+            size={20}
+            onClick={() => copyToClipboard(login)}
+          />
         </div>
         <div className="h-px bg-border" />
-        <div className={credentialClassName} onClick={() => copyToClipboard(password)}>
+        <div className={credentialClassName}>
           <span className="truncate mr-2" title={showPassword ? password : undefined}>
             {displayPasswordFieldValue}
           </span>
-          <button
-            className="text-sm cursor-pointer"
-            onClick={(e) => {
-              e.stopPropagation();
-              setShowPassword(!showPassword);
-            }}
-          >
-            {t(showPassword ? 'hide' : 'show')}
-          </button>
+          <div className="flex gap-2">
+            <button
+              className="flex cursor-pointer"
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowPassword(!showPassword);
+              }}
+            >
+              <Icon name={showPassword ? 'hide' : 'show'} size={20} />
+            </button>
+            <Icon
+              name="copy"
+              className="cursor-pointer"
+              size={20}
+              onClick={() => copyToClipboard(password)}
+            />
+          </div>
         </div>
       </div>
 

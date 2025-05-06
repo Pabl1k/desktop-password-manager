@@ -3,6 +3,7 @@ import { useTranslations } from '@/shared/hooks/useTranslations';
 import { generatePassword } from '@/shared/lib/utils/generate';
 import { copyToClipboard } from '@/shared/lib/utils/link';
 import Button from '@/shared/ui/Button';
+import Icon from '@/shared/ui/Icon';
 import Modal from '@/shared/ui/Modal';
 
 interface ApplyButton {
@@ -20,7 +21,7 @@ const PasswordGeneratorModal: FC<Props> = ({ open, applyButton, onClose }) => {
   const { t } = useTranslations();
 
   const [value, setValue] = useState(generatePassword());
-  const [copied, setCopied] = useState(false); // ref ???
+  const [copied, setCopied] = useState(false);
 
   const getApplyButtonText = () => {
     if (applyButton) {
@@ -59,7 +60,12 @@ const PasswordGeneratorModal: FC<Props> = ({ open, applyButton, onClose }) => {
           {value}
         </div>
         <div className="flex justify-center mt-2">
-          <Button onClick={handleRegenerate}>{t('regenerate')}</Button>
+          <div
+            className="flex justify-center items-center border border-border bg-bg-main rounded-field cursor-pointer size-[40px] hover:bg-grey-hover"
+            title={t('regenerate')}
+          >
+            <Icon name="update" size={35} onClick={handleRegenerate} />
+          </div>
         </div>
       </div>
       <div className="flex justify-end">

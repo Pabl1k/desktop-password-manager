@@ -1,13 +1,11 @@
-import { FC } from 'react';
 import { useTranslations } from '@/shared/hooks/useTranslations';
 import Button from '@/shared/ui/Button';
+import Icon from '@/shared/ui/Icon';
 import Input from '@/shared/ui/Input';
 import Tooltip from '@/shared/ui/Tooltip';
 import { useSettings } from './useSettings';
 
-interface Props {}
-
-const Settings: FC<Props> = ({}) => {
+const Settings = () => {
   const { t } = useTranslations();
 
   const { enteredSettings, savedSettings, setEnteredSettings, savePasscode, resetPasscode } =
@@ -18,11 +16,13 @@ const Settings: FC<Props> = ({}) => {
       <span className="text-2xl">{t('settings')}</span>
       <div className="mt-8 ml-5 flex flex-col gap-4">
         <div>
-          <div className="flex items-center">
+          <div className="flex">
             <span>{t(savedSettings?.passcode ? 'update_passcode' : 'setup_passcode')}</span>
-            <Tooltip className="ml-2" text={t('setup_passcode_tooltip')} infoIcon />
+            <Tooltip className="ml-2" text={t('setup_passcode_tooltip')}>
+              <Icon name="info" />
+            </Tooltip>
           </div>
-          <div className="flex gap-2">
+          <div className="flex mt-2 gap-2">
             <Input
               value={enteredSettings?.passcode ?? ''}
               placeholder={t('enter_passcode')}

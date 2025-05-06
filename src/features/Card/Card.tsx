@@ -19,21 +19,15 @@ const hiddenPassword = Array.from({ length: 16 }).map(() => <span key={uniqueId(
 const Card: FC<Props> = ({ title, link, login, password, onDelete }) => {
   const { t } = useTranslations();
 
-  const [optionsMenuOpen, setOptionsMenuOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-
-  const handleDropdownMenuAction = (callback: () => void) => {
-    callback();
-    setOptionsMenuOpen(false);
-  };
 
   const cardOptions: DropdownOption[] = [
     {
       labelKey: 'copy_link',
       disabled: !link,
-      onClick: () => handleDropdownMenuAction(() => copyToClipboard(link))
+      onClick: () => copyToClipboard(link)
     },
-    { labelKey: 'delete', onClick: () => handleDropdownMenuAction(onDelete) }
+    { labelKey: 'delete', onClick: onDelete }
   ];
 
   const displayPasswordFieldValue = showPassword ? password : hiddenPassword;
@@ -51,16 +45,8 @@ const Card: FC<Props> = ({ title, link, login, password, onDelete }) => {
             </span>
           )}
         </div>
-        <DropdownMenu
-          open={optionsMenuOpen}
-          options={cardOptions}
-          onClose={() => setOptionsMenuOpen(false)}
-        >
-          <Icon
-            name="dot-menu"
-            className="cursor-pointer"
-            onClick={() => setOptionsMenuOpen(!optionsMenuOpen)}
-          />
+        <DropdownMenu options={cardOptions}>
+          <Icon name="dot-menu" className="cursor-pointer" />
         </DropdownMenu>
       </div>
 

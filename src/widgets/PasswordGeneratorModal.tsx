@@ -3,7 +3,7 @@ import { useTranslations } from '@/shared/hooks/useTranslations';
 import { generatePassword } from '@/shared/lib/utils/generate';
 import { copyToClipboard } from '@/shared/lib/utils/link';
 import Button from '@/shared/ui/Button';
-import Icon from '@/shared/ui/Icon';
+import IconButton from '@/shared/ui/IconButton';
 import Modal from '@/shared/ui/Modal';
 
 interface ApplyButton {
@@ -63,13 +63,13 @@ const PasswordGeneratorModal: FC<Props> = ({ open, applyButton, onClose }) => {
         <div className="border border-section-border rounded-field truncate pl-3 py-2 text-3xl">
           {value}
         </div>
-        <div className="flex justify-center mt-2">
-          <div
-            className="flex justify-center items-center border border-border bg-bg-main rounded-field cursor-pointer size-[40px] hover:bg-grey-hover"
+        <div className="flex justify-center">
+          <IconButton
+            iconName="update"
+            size={35}
             title={t('regenerate')}
-          >
-            <Icon name="update" size={35} onClick={handleRegenerate} />
-          </div>
+            onClick={handleRegenerate}
+          />
         </div>
       </div>
       <div className="flex justify-end">

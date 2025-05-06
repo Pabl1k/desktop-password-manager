@@ -28,7 +28,7 @@ const Tooltip: FC<Props> = ({ text, className, children }) => {
   return (
     <>
       <button
-        className={clsx(className, 'flex justify-center items-center')}
+        className={clsx(className, 'flex justify-center items-center focus:outline-green-main')}
         onMouseEnter={displayTooltip}
         onKeyDown={handleEnterPress}
         onMouseLeave={() => setPosition(null)}

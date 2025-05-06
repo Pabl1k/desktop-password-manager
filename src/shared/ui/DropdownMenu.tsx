@@ -1,4 +1,4 @@
-import { FC, MouseEvent, ReactNode, useEffect, useRef, useState } from 'react';
+import { FC, MouseEvent, ReactNode, KeyboardEvent, useEffect, useRef, useState } from 'react';
 import PortalWrapper from '@/shared/ui/PortalWrapper';
 import { useTranslations } from '../hooks/useTranslations';
 import Button from './Button';
@@ -20,6 +20,12 @@ const DropdownMenu: FC<Props> = ({ options, children }) => {
   const [position, setPosition] = useState<{ top: number; left: number } | null>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  const handleMenuLeave = (e: KeyboardEvent) => {
+    if (e.key === 'Tab') {
+      setPosition(null);
+    }
+  };
 
   const displayDropdown = (e: MouseEvent<HTMLButtonElement>) => {
     if (position) {
@@ -57,7 +63,12 @@ const DropdownMenu: FC<Props> = ({ options, children }) => {
 
   return (
     <>
-      <button ref={triggerRef} className="flex" onClick={displayDropdown}>
+      <button
+        ref={triggerRef}
+        className="flex focus:outline-green-main"
+        onKeyDown={handleMenuLeave}
+        onClick={displayDropdown}
+      >
         {children}
       </button>
       {position && (

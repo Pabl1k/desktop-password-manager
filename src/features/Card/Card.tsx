@@ -5,6 +5,7 @@ import { copyToClipboard, getLinkHostname, openExternally } from '@/shared/lib/u
 import Button from '@/shared/ui/Button';
 import DropdownMenu, { DropdownOption } from '@/shared/ui/DropdownMenu';
 import Icon from '@/shared/ui/Icon';
+import IconButton from '@/shared/ui/IconButton';
 
 interface Props {
   title: string;
@@ -32,7 +33,7 @@ const Card: FC<Props> = ({ title, link, login, password, onDelete }) => {
 
   const displayPasswordFieldValue = showPassword ? password : hiddenPassword;
 
-  const credentialClassName = 'h-(--field-height) flex items-center justify-between px-3';
+  const credentialClassName = 'h-(--field-height) flex items-center justify-between pl-3';
 
   return (
     <div className="w-[280px] h-[320px] bg-bg-card rounded-modal flex flex-col gap-10">
@@ -46,7 +47,7 @@ const Card: FC<Props> = ({ title, link, login, password, onDelete }) => {
           )}
         </div>
         <DropdownMenu options={cardOptions}>
-          <Icon name="dot-menu" className="cursor-pointer" />
+          <Icon name="dot-menu" className="p-2 rounded-full hover:bg-grey-hover cursor-pointer" />
         </DropdownMenu>
       </div>
 
@@ -55,34 +56,19 @@ const Card: FC<Props> = ({ title, link, login, password, onDelete }) => {
           <span className="truncate mr-2" title={login}>
             {login}
           </span>
-          <Icon
-            name="copy"
-            className="cursor-pointer"
-            size={20}
-            onClick={() => copyToClipboard(login)}
-          />
+          <IconButton iconName="copy" size={20} onClick={() => copyToClipboard(login)} />
         </div>
         <div className="h-px bg-border" />
         <div className={credentialClassName}>
           <span className="truncate mr-2" title={showPassword ? password : undefined}>
             {displayPasswordFieldValue}
           </span>
-          <div className="flex gap-2">
-            <button
-              className="flex cursor-pointer"
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowPassword(!showPassword);
-              }}
-            >
-              <Icon name={showPassword ? 'hide' : 'show'} size={20} />
-            </button>
-            <Icon
-              name="copy"
-              className="cursor-pointer"
-              size={20}
-              onClick={() => copyToClipboard(password)}
+          <div className="flex">
+            <IconButton
+              iconName={showPassword ? 'hide' : 'show'}
+              onClick={() => setShowPassword(!showPassword)}
             />
+            <IconButton iconName="copy" onClick={() => copyToClipboard(password)} />
           </div>
         </div>
       </div>

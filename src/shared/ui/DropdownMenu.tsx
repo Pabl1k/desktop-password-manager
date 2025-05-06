@@ -5,7 +5,7 @@ import Button from './Button';
 
 export interface DropdownOption {
   labelKey: string;
-  disabled?: boolean;
+  visible: boolean;
   onClick: () => Promise<void> | void;
 }
 
@@ -20,6 +20,8 @@ const DropdownMenu: FC<Props> = ({ options, children }) => {
   const [position, setPosition] = useState<{ top: number; left: number } | null>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  const visibleOptions = options.filter(({ visible }) => visible);
 
   const handleMenuLeave = (e: KeyboardEvent) => {
     if (e.key === 'Tab') {
@@ -75,13 +77,13 @@ const DropdownMenu: FC<Props> = ({ options, children }) => {
         <PortalWrapper>
           <div
             ref={dropdownRef}
-            className="absolute bg-bg-card rounded-field border border-border shadow-lg"
+            className="absolute flex flex-col bg-bg-card rounded-field border border-border shadow-lg"
             style={{
               top: `${position.top}px`,
               left: `${position.left}px`
             }}
           >
-            {options.map(({ labelKey, disabled, onClick }) => {
+            {visibleOptions.map(({ labelKey, onClick }) => {
               const handleClick = () => {
                 onClick();
                 setPosition(null);
@@ -91,8 +93,7 @@ const DropdownMenu: FC<Props> = ({ options, children }) => {
                 <Button
                   key={labelKey}
                   type="transparent"
-                  className="w-full font-semibold text-start"
-                  disabled={disabled}
+                  className="font-semibold text-start"
                   onClick={handleClick}
                 >
                   {t(labelKey)}

@@ -23,6 +23,7 @@ const Content: FC<Props> = ({ cards, onNewCardCreate, onDeleteCard }) => {
           link={item.url}
           title={item.sourceName}
           password={item.password}
+          notes={item.notes}
           onDelete={() => onDeleteCard(item.id)}
         />
       ))}

@@ -81,13 +81,9 @@ const CreateCard: FC<Props> = ({ onSave }) => {
             const fieldName = field as keyof Omit<WebsiteCardCreate, 'notes'>;
             const fieldTitle = t(titleMapper[fieldName]);
             const suffix = fieldName === 'password' && (
-              <button
-                className="text-sm cursor-pointer"
-                tabIndex={-1}
-                onClick={openPasswordGenerationModal}
-              >
+              <Button type="default" className="px-0" onClick={openPasswordGenerationModal}>
                 {t('generate')}
-              </button>
+              </Button>
             );
 
             return (

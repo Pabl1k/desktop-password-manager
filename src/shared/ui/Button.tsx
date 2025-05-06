@@ -1,7 +1,7 @@
 import { FC, ReactNode, MouseEvent } from 'react';
 import clsx from 'clsx';
 
-type ButtonType = 'add' | 'cancel' | 'transparent';
+type ButtonType = 'add' | 'cancel' | 'transparent' | 'default';
 
 interface Props {
   type?: ButtonType;
@@ -25,11 +25,14 @@ const getStylesByType = (type: ButtonType) => {
 };
 
 const Button: FC<Props> = ({ type = 'cancel', className, disabled = false, children, onClick }) => {
+  const pxInClassName = className?.includes('px-');
+
   return (
     <button
       className={clsx(
-        'h-(--field-height) rounded-field px-6 whitespace-nowrap cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 focus:outline-green-main',
+        'h-(--field-height) rounded-field whitespace-nowrap cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 focus:outline-green-main',
         getStylesByType(type),
+        !pxInClassName && 'px-6',
         className
       )}
       disabled={disabled}

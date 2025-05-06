@@ -3,7 +3,6 @@ import { useLocalStorage } from '@/shared/hooks/useLocalStorage';
 import { useTranslations } from '@/shared/hooks/useTranslations';
 import { Settings } from '@/shared/types/Settings';
 import Button from '@/shared/ui/Button';
-import Icon from '@/shared/ui/Icon';
 import Input from '@/shared/ui/Input';
 
 const Login = ({ onLogin }: { onLogin: () => void }) => {
@@ -13,19 +12,6 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
   const settings = get<Settings>('settings');
   const [enteredPasscode, setEnteredPasscode] = useState('');
   const [showError, setShowError] = useState(false);
-  const [showPasscode, setShowPasscode] = useState(false);
-
-  const suffix = (
-    <button
-      className="text-sm cursor-pointer"
-      tabIndex={-1}
-      onClick={() => setShowPasscode(!showPasscode)}
-    >
-      <div className="flex">
-        <Icon name={showPasscode ? 'hide' : 'show'} size={20} />
-      </div>
-    </button>
-  );
 
   const handleLogin = () => {
     if (settings.passcode === enteredPasscode) {
@@ -41,10 +27,11 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
       <div className="flex flex-col justify-center items-center gap-5">
         <div className="w-[30vw] ">
           <Input
+            type="password"
             className="w-full"
             value={enteredPasscode}
             placeholder={t('enter_placeholder')}
-            suffix={suffix}
+            onEnterPress={handleLogin}
             onChange={setEnteredPasscode}
           />
           {showError && <span className="text-sm text-text-error">{t('incorrect_passcode')}</span>}

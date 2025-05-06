@@ -1,6 +1,6 @@
-import { FC, useRef, useState, MouseEvent, ReactNode } from 'react';
-import { createPortal } from 'react-dom';
+import { FC, useState, MouseEvent, KeyboardEvent, ReactNode } from 'react';
 import clsx from 'clsx';
+import PortalWrapper from '@/shared/ui/PortalWrapper';
 
 interface Props {
   text: string;
@@ -9,47 +9,44 @@ interface Props {
 }
 
 const Tooltip: FC<Props> = ({ text, className, children }) => {
-  const [visible, setVisible] = useState(false);
   const [position, setPosition] = useState<{ top: number; left: number } | null>(null);
 
-  const tooltipRef = useRef<HTMLDivElement>(null);
-
-  const displayTooltip = (e: MouseEvent<HTMLSpanElement>) => {
+  const displayTooltip = (e: MouseEvent<HTMLSpanElement> | KeyboardEvent<HTMLSpanElement>) => {
     const { top, left, width } = e.currentTarget.getBoundingClientRect();
 
-    setPosition({ top: top - 40, left: left + width / 2 });
-    setVisible(true);
+    setPosition({ top: top - 45, left: left + width / 2 });
   };
 
-  const resetTooltip = () => {
-    setVisible(false);
-    setPosition(null);
+  const handleEnterPress = (e: KeyboardEvent<HTMLSpanElement>) => {
+    if (e.key === 'Enter') {
+      displayTooltip(e);
+    }
   };
 
   return (
     <>
-      <span
-        className={clsx(className, 'flex justify-center items-center')}
+      <button
+        className={clsx(className, 'flex justify-center items-center focus:outline-green-main')}
         onMouseEnter={displayTooltip}
-        onMouseLeave={resetTooltip}
+        onKeyDown={handleEnterPress}
+        onMouseLeave={() => setPosition(null)}
+        onBlur={() => setPosition(null)}
       >
         {children}
-      </span>
-      {visible &&
-        position &&
-        createPortal(
+      </button>
+      {position && (
+        <PortalWrapper>
           <div
-            ref={tooltipRef}
-            className="absolute bg-bg-sidebar text-text-main rounded-field py-2 px-4 transform translate-x-[-50%] pointer-events-none"
+            className="absolute bg-bg-sidebar rounded-field py-2 px-4 transform translate-x-[-50%] pointer-events-none"
             style={{
               top: `${position.top}px`,
               left: `${position.left}px`
             }}
           >
             {text}
-          </div>,
-          document.getElementById('portal-root') as HTMLElement
-        )}
+          </div>
+        </PortalWrapper>
+      )}
     </>
   );
 };

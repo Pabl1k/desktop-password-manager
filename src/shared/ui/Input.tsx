@@ -6,10 +6,11 @@ interface Props {
   className?: string;
   placeholder?: string;
   suffix?: ReactNode;
+  onEnterPress?: () => void;
   onChange: (value: string) => void;
 }
 
-const Input: FC<Props> = ({ value, className, placeholder, suffix, onChange }) => {
+const Input: FC<Props> = ({ value, className, placeholder, suffix, onEnterPress, onChange }) => {
   return (
     <div
       className={clsx(
@@ -22,6 +23,12 @@ const Input: FC<Props> = ({ value, className, placeholder, suffix, onChange }) =
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
         className="w-full h-full focus:outline-none"
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' && onEnterPress) {
+            e.preventDefault();
+            onEnterPress();
+          }
+        }}
       />
       {suffix}
     </div>

@@ -45,6 +45,7 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
             value={enteredPasscode}
             placeholder={t('enter_placeholder')}
             suffix={suffix}
+            onEnterPress={handleLogin}
             onChange={setEnteredPasscode}
           />
           {showError && <span className="text-sm text-text-error">{t('incorrect_passcode')}</span>}

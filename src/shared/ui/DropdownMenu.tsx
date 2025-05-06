@@ -57,7 +57,7 @@ const DropdownMenu: FC<Props> = ({ options, children }) => {
 
   return (
     <>
-      <button ref={triggerRef} onClick={displayDropdown}>
+      <button ref={triggerRef} className="flex" onClick={displayDropdown}>
         {children}
       </button>
       {position && (

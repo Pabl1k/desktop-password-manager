@@ -1,4 +1,4 @@
-import { FC, useRef, useState, MouseEvent, KeyboardEvent, ReactNode } from 'react';
+import { FC, useState, MouseEvent, KeyboardEvent, ReactNode } from 'react';
 import clsx from 'clsx';
 import PortalWrapper from '@/shared/ui/PortalWrapper';
 
@@ -10,8 +10,6 @@ interface Props {
 
 const Tooltip: FC<Props> = ({ text, className, children }) => {
   const [position, setPosition] = useState<{ top: number; left: number } | null>(null);
-
-  const tooltipRef = useRef<HTMLDivElement>(null);
 
   const displayTooltip = (e: MouseEvent<HTMLSpanElement> | KeyboardEvent<HTMLSpanElement>) => {
     const { top, left, width } = e.currentTarget.getBoundingClientRect();
@@ -39,7 +37,6 @@ const Tooltip: FC<Props> = ({ text, className, children }) => {
       {position && (
         <PortalWrapper>
           <div
-            ref={tooltipRef}
             className="absolute bg-bg-sidebar rounded-field py-2 px-4 transform translate-x-[-50%] pointer-events-none"
             style={{
               top: `${position.top}px`,

@@ -24,6 +24,7 @@ const Settings = () => {
           </div>
           <div className="flex mt-2 gap-2">
             <Input
+              type="password"
               value={enteredSettings?.passcode ?? ''}
               placeholder={t('enter_passcode')}
               onChange={(value) =>

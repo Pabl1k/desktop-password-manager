@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { CACHE_KEYS } from '@/shared/lib/storage/storageKeys';
 import { useLocalStorage } from '../../shared/hooks/useLocalStorage';
 import { Settings } from '../../shared/types/Settings';
 
@@ -23,6 +24,7 @@ export const useSettings = () => {
 
     setSavedSettings((prevState) => ({ ...prevState, passcode: '' }));
     setEnteredSettings((prevState) => ({ ...prevState, passcode: '' }));
+    sessionStorage.removeItem(CACHE_KEYS.login);
   };
 
   useEffect(() => {

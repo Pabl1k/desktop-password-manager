@@ -1,5 +1,6 @@
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useState } from 'react';
 import clsx from 'clsx';
+import IconButton from '@/shared/ui/IconButton';
 
 interface Props {
   value: string;
@@ -20,6 +21,8 @@ const Input: FC<Props> = ({
   onEnterPress,
   onChange
 }) => {
+  const [showValue, setShowValue] = useState(() => type === 'text');
+
   return (
     <div
       className={clsx(
@@ -28,7 +31,7 @@ const Input: FC<Props> = ({
       )}
     >
       <input
-        type={type}
+        type={showValue ? 'text' : 'password'}
         value={value}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
@@ -40,6 +43,12 @@ const Input: FC<Props> = ({
           }
         }}
       />
+      {type === 'password' && (
+        <IconButton
+          iconName={showValue ? 'hide' : 'show'}
+          onClick={() => setShowValue(!showValue)}
+        />
+      )}
       {suffix}
     </div>
   );

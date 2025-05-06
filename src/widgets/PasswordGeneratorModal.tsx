@@ -53,7 +53,11 @@ const PasswordGeneratorModal: FC<Props> = ({ open, applyButton, onClose }) => {
   };
 
   return (
-    <Modal open={open} className="p-6 flex flex-col justify-between h-[300px] max-w-[400px]">
+    <Modal
+      open={open}
+      className="p-6 flex flex-col justify-between h-[300px] max-w-[400px]"
+      outsideClickClose={handleClose}
+    >
       <span className="text-2xl flex justify-center">{t('generate_password')}</span>
       <div>
         <div className="border border-section-border rounded-field truncate pl-3 py-2 text-3xl">

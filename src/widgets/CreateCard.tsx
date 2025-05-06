@@ -34,6 +34,8 @@ const CreateCard: FC<Props> = ({ onSave }) => {
   const [passwordGenerationModalOpen, setPasswordGenerationModalOpen] = useState(false);
   const [newCardData, setNewCardData] = useState(initialCardData);
 
+  const fieldsEmpty = Object.values(newCardData).every((value) => !value);
+
   const handleChange = (key: keyof WebsiteCard, value: string) => {
     setNewCardData((prevData) => ({
       ...prevData,
@@ -69,7 +71,7 @@ const CreateCard: FC<Props> = ({ onSave }) => {
         applyButton={{ textKey: 'apply_password', onClick: handleGeneratedPassword }}
         onClose={() => setPasswordGenerationModalOpen(false)}
       />
-      <Modal open={modalOpen} onClose={handleCancel}>
+      <Modal open={modalOpen} outsideClickClose={fieldsEmpty ? handleCancel : undefined}>
         <div className="p-4 flex flex-col gap-4">
           {Object.keys(initialCardData).map((field) => {
             if (field === 'notes') {

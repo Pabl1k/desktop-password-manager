@@ -3,6 +3,7 @@ import clsx from 'clsx';
 
 interface Props {
   value: string;
+  type?: 'text' | 'password';
   className?: string;
   placeholder?: string;
   suffix?: ReactNode;
@@ -10,7 +11,15 @@ interface Props {
   onChange: (value: string) => void;
 }
 
-const Input: FC<Props> = ({ value, className, placeholder, suffix, onEnterPress, onChange }) => {
+const Input: FC<Props> = ({
+  value,
+  type = 'text',
+  className,
+  placeholder,
+  suffix,
+  onEnterPress,
+  onChange
+}) => {
   return (
     <div
       className={clsx(
@@ -19,6 +28,7 @@ const Input: FC<Props> = ({ value, className, placeholder, suffix, onEnterPress,
       )}
     >
       <input
+        type={type}
         value={value}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}

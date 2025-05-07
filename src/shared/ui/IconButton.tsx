@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import clsx from 'clsx';
-import Icon from '@/shared/ui/Icon';
+import Icon, { IconName } from '@/shared/ui/Icon';
 
 interface Props {
-  iconName: string;
+  iconName: IconName;
   className?: string;
   size?: number;
   title?: string;

@@ -1,9 +1,11 @@
 import { FC } from 'react';
-import { ReactSVG } from 'react-svg';
 import clsx from 'clsx';
+import { icons } from '../assets/icons/index';
+
+export type IconName = keyof typeof icons;
 
 interface Props {
-  name: string;
+  name: IconName;
   className?: string;
   alt?: string;
   size?: number;
@@ -11,20 +13,17 @@ interface Props {
 }
 
 const Icon: FC<Props> = ({ name, className, alt, size = 25, onClick }) => {
-  const iconPath = `${window.location.origin}/src/shared/assets/icons/${name}.svg`;
+  const IconComponent = icons[name];
+
+  if (!IconComponent) {
+    console.warn(`Icon "${name}" does not exist in icons`);
+    return null;
+  }
 
   return (
-    <ReactSVG
-      wrapper="span"
-      aria-label={alt ?? `${name}`}
-      className={clsx(className, 'inline-block leading-none')}
-      src={iconPath}
-      beforeInjection={(svg) => {
-        svg.setAttribute('width', size.toString() ?? svg.getAttribute('width') ?? '');
-        svg.setAttribute('height', size.toString() ?? svg.getAttribute('height') ?? '');
-      }}
-      onClick={onClick}
-    />
+    <span aria-label={alt ?? name} className={clsx(className, 'inline-block leading-none')}>
+      <IconComponent width={size} height={size} onClick={onClick} />
+    </span>
   );
 };
 

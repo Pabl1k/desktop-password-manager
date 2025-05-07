@@ -109,7 +109,7 @@ const CreateCard: FC<Props> = ({ onSave }) => {
           </div>
         </div>
         <div className="flex justify-end pr-4 mb-4">
-          <Button type="add" onClick={handleSave}>
+          <Button type="add" disabled={fieldsEmpty} onClick={handleSave}>
             {t('save')}
           </Button>
           <Button className="ml-3" onClick={handleCancel}>

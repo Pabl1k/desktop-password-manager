@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { AccountCard, AccountCardCreate } from '../../types/types';
+import { IAccountCard, IAccountCardCreate } from '../../types/types';
 import { uniqueId } from '../utils/generate';
 import { DB_KEYS } from './dbConfig';
 
-export const useDatabase = <T extends AccountCard>() => {
+export const useDatabase = <T extends IAccountCard>() => {
   const [state, setState] = useState<T[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -50,7 +50,7 @@ export const useDatabase = <T extends AccountCard>() => {
     }
   };
 
-  const add = async <D extends AccountCardCreate>(item: D) => {
+  const add = async <D extends IAccountCardCreate>(item: D) => {
     setLoading(true);
 
     try {

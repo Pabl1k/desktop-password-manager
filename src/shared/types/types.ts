@@ -1,4 +1,4 @@
-export interface AccountCardCreate {
+export interface IAccountCardCreate {
   sourceName: string;
   login: string;
   password: string;
@@ -6,7 +6,7 @@ export interface AccountCardCreate {
   notes: string;
 }
 
-export interface AccountCard extends AccountCardCreate {
+export interface IAccountCard extends IAccountCardCreate {
   id: string;
   createdAt: number;
 }

@@ -1,6 +1,6 @@
 import { FC, MouseEvent, useState } from 'react';
 import { useTranslations } from '@/shared/hooks/useTranslations';
-import { AccountCard, AccountCardCreate } from '@/shared/types/types';
+import { IAccountCard, IAccountCardCreate } from '@/shared/types/types';
 import Button from '@/shared/ui/Button';
 import Icon from '@/shared/ui/Icon';
 import Input from '@/shared/ui/Input';
@@ -8,10 +8,10 @@ import Modal from '@/shared/ui/Modal';
 import PasswordGeneratorModal from './PasswordGeneratorModal';
 
 interface Props {
-  onSave: (newCard: AccountCardCreate) => Promise<void>;
+  onSave: (newCard: IAccountCardCreate) => Promise<void>;
 }
 
-const titleMapper: Record<keyof AccountCardCreate, string> = {
+const titleMapper: Record<keyof IAccountCardCreate, string> = {
   sourceName: 'card_title',
   login: 'login',
   password: 'password',
@@ -19,7 +19,7 @@ const titleMapper: Record<keyof AccountCardCreate, string> = {
   notes: 'notes'
 };
 
-const initialCardData: AccountCardCreate = {
+const initialCardData: IAccountCardCreate = {
   sourceName: '',
   login: '',
   password: '',
@@ -36,7 +36,7 @@ const CreateCard: FC<Props> = ({ onSave }) => {
 
   const fieldsEmpty = Object.values(newCardData).every((value) => !value);
 
-  const handleChange = (key: keyof AccountCard, value: string) => {
+  const handleChange = (key: keyof IAccountCard, value: string) => {
     setNewCardData((prevData) => ({
       ...prevData,
       [key]: value
@@ -78,7 +78,7 @@ const CreateCard: FC<Props> = ({ onSave }) => {
               return null;
             }
 
-            const fieldName = field as keyof Omit<AccountCardCreate, 'notes'>;
+            const fieldName = field as keyof Omit<IAccountCardCreate, 'notes'>;
             const fieldTitle = t(titleMapper[fieldName]);
             const suffix = fieldName === 'password' && (
               <Button type="default" className="px-0" onClick={openPasswordGenerationModal}>

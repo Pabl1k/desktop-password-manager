@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import CardNotes from '@/features/Card/CardNotes';
+import AccountCardNotes from '@/features/AccountCard/AccountCardNotes';
 import { useTranslations } from '@/shared/hooks/useTranslations';
 import { uniqueId } from '@/shared/lib/utils/generate';
 import { copyToClipboard, getLinkHostname, openExternally } from '@/shared/lib/utils/link';
@@ -19,7 +19,7 @@ interface Props {
 
 const hiddenPassword = Array.from({ length: 16 }).map(() => <span key={uniqueId()}>&#x2022;</span>);
 
-const Card: FC<Props> = ({ title, link, login, password, notes, onDelete }) => {
+const AccountCard: FC<Props> = ({ title, link, login, password, notes, onDelete }) => {
   const { t } = useTranslations();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -65,7 +65,7 @@ const Card: FC<Props> = ({ title, link, login, password, notes, onDelete }) => {
 
       <div className="flex flex-col mx-4 rounded-field text-lg bg-bg-main border border-border">
         {displayNotes ? (
-          <CardNotes text={notes} onClose={() => setDisplayNotes(false)} />
+          <AccountCardNotes text={notes} onClose={() => setDisplayNotes(false)} />
         ) : (
           <>
             <div className={credentialClassName}>
@@ -104,4 +104,4 @@ const Card: FC<Props> = ({ title, link, login, password, notes, onDelete }) => {
   );
 };
 
-export default Card;
+export default AccountCard;

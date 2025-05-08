@@ -1,9 +1,9 @@
 import { FC } from 'react';
-import { AccountCardCreate } from '@/shared/types/types';
+import { IAccountCardCreate } from '@/shared/types/types';
 import CreateCard from './CreateCard';
 
 interface Props {
-  onNewCardCreate: (newCard: AccountCardCreate) => Promise<void>;
+  onNewCardCreate: (newCard: IAccountCardCreate) => Promise<void>;
 }
 
 const Toolbar: FC<Props> = ({ onNewCardCreate }) => {

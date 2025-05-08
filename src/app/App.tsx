@@ -4,12 +4,12 @@ import Main from '@/pages/Main/Main';
 import Settings from '@/pages/Settings/Settings';
 import { useAuth } from '@/shared/hooks/useAuth';
 import { useDatabase } from '@/shared/lib/db/useDatabase';
-import { AccountCard } from '@/shared/types/types';
+import { IAccountCard } from '@/shared/types/types';
 import { ContentView } from '@/shared/types/view';
 import Sidebar from '@/widgets/Sidebar';
 
 const App = () => {
-  const { state: cards, add, remove } = useDatabase<AccountCard>();
+  const { state: cards, add, remove } = useDatabase<IAccountCard>();
   const [view, setView] = useState<ContentView>('main');
   const { loginRequired, handleLogin } = useAuth();
 

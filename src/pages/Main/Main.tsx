@@ -1,20 +1,20 @@
 import { FC } from 'react';
-import Accounts from '@/pages/Main/Accounts';
-import { AccountCard, AccountCardCreate } from '@/shared/types/types';
+import Accounts from '@/pages/Main/views/Accounts';
+import { IAccountCard, IAccountCardCreate } from '@/shared/types/types';
 import { MainView } from '@/shared/types/view';
 import Toolbar from '@/widgets/Toolbar';
 
 interface Props {
   view: MainView;
-  content: AccountCard[];
-  onCreate: (card: AccountCardCreate) => Promise<void>;
+  content: IAccountCard[];
+  onCreate: (card: IAccountCardCreate) => Promise<void>;
   onDelete: (id: string) => void;
 }
 
 const Main: FC<Props> = ({ view, content, onCreate, onDelete }) => {
   const renderContent = () => {
     if (view === 'main-accounts') {
-      return <Accounts cards={content} onNewCardCreate={onCreate} onDeleteCard={onDelete} />;
+      return <Accounts accounts={content} onNewAccountCreate={onCreate} onDelete={onDelete} />;
     }
 
     if (view === 'main-bank_cards') {
@@ -39,7 +39,7 @@ const Main: FC<Props> = ({ view, content, onCreate, onDelete }) => {
   return (
     <div className="w-full">
       <Toolbar onNewCardCreate={onCreate} />
-      {renderContent()}
+      <div className="h-[calc(100vh-85px)] p-6 overflow-auto custom-scroll">{renderContent()}</div>
     </div>
   );
 };

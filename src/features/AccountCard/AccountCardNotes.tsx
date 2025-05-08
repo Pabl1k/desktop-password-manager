@@ -6,7 +6,7 @@ interface Props {
   onClose: () => void;
 }
 
-const CardNotes: FC<Props> = ({ text, onClose }) => {
+const AccountCardNotes: FC<Props> = ({ text, onClose }) => {
   return (
     <div className="relative">
       <IconButton iconName="close" className="absolute top-1 right-1" size={15} onClick={onClose} />
@@ -17,4 +17,4 @@ const CardNotes: FC<Props> = ({ text, onClose }) => {
   );
 };
 
-export default CardNotes;
+export default AccountCardNotes;

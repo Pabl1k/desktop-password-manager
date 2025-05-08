@@ -9,13 +9,13 @@ interface Props {
   setView: (view: ContentView) => void;
 }
 
-interface Option {
+interface MenuOption {
   labelKey: string;
   onClick: () => void;
 }
 
-interface SidebarOption extends Option {
-  subMenu?: Option[];
+interface SidebarMenuOption extends MenuOption {
+  subMenu?: MenuOption[];
 }
 
 const APP_VERSION = __APP_VERSION__;
@@ -25,16 +25,16 @@ const Sidebar: FC<Props> = ({ mainView, setView }) => {
 
   const [passwordGeneratorModalOpen, setPasswordGeneratorModalOpen] = useState(false);
 
-  const mainSubMenuOptions: Option[] = [
+  const mainSubMenu: MenuOption[] = [
     { labelKey: 'accounts', onClick: () => setView('main-accounts') },
     { labelKey: 'bank_cards', onClick: () => setView('main-bank_cards') },
     { labelKey: 'notes', onClick: () => setView('main-notes') }
   ];
 
-  const options: SidebarOption[] = [
+  const menu: SidebarMenuOption[] = [
     {
       labelKey: 'main',
-      subMenu: mainSubMenuOptions,
+      subMenu: mainSubMenu,
       onClick: () => setView('main')
     },
     {
@@ -51,7 +51,7 @@ const Sidebar: FC<Props> = ({ mainView, setView }) => {
     }
   ];
 
-  const renderOption = ({ labelKey, onClick }: Option) => (
+  const renderOption = ({ labelKey, onClick }: MenuOption) => (
     <Button
       key={labelKey}
       type="transparent"
@@ -68,8 +68,9 @@ const Sidebar: FC<Props> = ({ mainView, setView }) => {
         open={passwordGeneratorModalOpen}
         onClose={() => setPasswordGeneratorModalOpen(false)}
       />
+
       <div className="flex flex-col gap-2">
-        {options.map((option) => {
+        {menu.map((option) => {
           return (
             <Fragment key={option.labelKey}>
               {renderOption(option)}
@@ -82,6 +83,7 @@ const Sidebar: FC<Props> = ({ mainView, setView }) => {
           );
         })}
       </div>
+
       <div className="flex justify-center">
         <span className="text-sm">{`${t('version')}: ${APP_VERSION}`}</span>
       </div>

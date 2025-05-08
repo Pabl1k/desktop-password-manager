@@ -9,7 +9,7 @@ interface Props {
   onDeleteCard: (id: string) => void;
 }
 
-const Content: FC<Props> = ({ cards, onNewCardCreate, onDeleteCard }) => {
+const Accounts: FC<Props> = ({ cards, onNewCardCreate, onDeleteCard }) => {
   if (!cards.length) {
     return <EmptyContent onNewCardCreate={onNewCardCreate} />;
   }
@@ -31,4 +31,4 @@ const Content: FC<Props> = ({ cards, onNewCardCreate, onDeleteCard }) => {
   );
 };
 
-export default Content;
+export default Accounts;

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import Content from '@/pages/Content/Content';
+import Accounts from '@/pages/Main/Accounts';
 import { AccountCard, AccountCardCreate } from '@/shared/types/types';
 import { MainView } from '@/shared/types/view';
 import Toolbar from '@/widgets/Toolbar';
@@ -12,34 +12,34 @@ interface Props {
 }
 
 const Main: FC<Props> = ({ view, content, onCreate, onDelete }) => {
-  if (view === 'main-accounts') {
-    return (
-      <div>
-        <span>Accounts: development in progress</span>
-      </div>
-    );
-  }
+  const renderContent = () => {
+    if (view === 'main-accounts') {
+      return <Accounts cards={content} onNewCardCreate={onCreate} onDeleteCard={onDelete} />;
+    }
 
-  if (view === 'main-bank_cards') {
-    return (
-      <div>
-        <span>Bank Cards: development in progress</span>
-      </div>
-    );
-  }
+    if (view === 'main-bank_cards') {
+      return (
+        <div>
+          <span>Bank Cards: development in progress</span>
+        </div>
+      );
+    }
 
-  if (view === 'main-notes') {
-    return (
-      <div>
-        <span>Notes: development in progress</span>
-      </div>
-    );
-  }
+    if (view === 'main-notes') {
+      return (
+        <div>
+          <span>Notes: development in progress</span>
+        </div>
+      );
+    }
+
+    return <div>Main page</div>;
+  };
 
   return (
     <div className="w-full">
       <Toolbar onNewCardCreate={onCreate} />
-      <Content cards={content} onNewCardCreate={onCreate} onDeleteCard={onDelete} />
+      {renderContent()}
     </div>
   );
 };

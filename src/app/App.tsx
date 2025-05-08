@@ -35,7 +35,7 @@ const App = () => {
         <Login onLogin={handleLogin} />
       ) : (
         <>
-          <Sidebar mainView={view.includes('main')} setView={setView} />
+          <Sidebar selectedView={view} setView={setView} />
           {displayContentByView()}
         </>
       )}

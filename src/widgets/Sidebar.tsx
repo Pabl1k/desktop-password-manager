@@ -5,7 +5,7 @@ import Button from '@/shared/ui/Button';
 import PasswordGeneratorModal from './PasswordGeneratorModal';
 
 interface Props {
-  mainView: boolean;
+  selectedView: ContentView;
   setView: (view: ContentView) => void;
 }
 
@@ -20,7 +20,7 @@ interface SidebarMenuOption extends MenuOption {
 
 const APP_VERSION = __APP_VERSION__;
 
-const Sidebar: FC<Props> = ({ mainView, setView }) => {
+const Sidebar: FC<Props> = ({ selectedView, setView }) => {
   const { t } = useTranslations();
 
   const [passwordGeneratorModalOpen, setPasswordGeneratorModalOpen] = useState(false);
@@ -76,7 +76,7 @@ const Sidebar: FC<Props> = ({ mainView, setView }) => {
             <div
               className={`
             ml-4 flex flex-col overflow-hidden transition-all duration-500 
-            ${mainView && option.subMenu ? 'opacity-100 translate-y-0 max-h-96' : 'opacity-0 -translate-y-2 max-h-0'}
+            ${selectedView.includes('main') && option.subMenu ? 'opacity-100 translate-y-0 max-h-96' : 'opacity-0 -translate-y-2 max-h-0'}
           `}
             >
               {option.subMenu?.map((subOption) => renderOption(subOption))}

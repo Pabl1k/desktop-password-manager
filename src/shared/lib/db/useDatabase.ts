@@ -41,7 +41,7 @@ export const useDatabase = <T extends AccountCard>() => {
         request.onerror = () => reject(request.error);
       });
 
-      const sortedData = data.sort((a, b) => b.createdAt - a.createdAt);
+      const sortedData = [...data].sort((a, b) => b.createdAt - a.createdAt);
       setState(sortedData);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -50,7 +50,7 @@ export const useDatabase = <T extends AccountCard>() => {
     }
   };
 
-  const add = async <D = AccountCardCreate>(item: D) => {
+  const add = async <D extends AccountCardCreate>(item: D) => {
     setLoading(true);
 
     try {

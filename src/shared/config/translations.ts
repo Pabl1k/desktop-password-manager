@@ -37,6 +37,8 @@ export const translations: Translations = {
     setup_passcode_tooltip: 'You’ll be asked to enter a passcode when the app starts',
     enter_placeholder: 'Enter passcode',
     incorrect_passcode: 'Passcode is incorrect',
-    open_notes: 'Open notes'
+    open_notes: 'Open notes',
+    accounts: 'Accounts',
+    bank_cards: 'Bank cards'
   }
 };

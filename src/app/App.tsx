@@ -14,7 +14,7 @@ const App = () => {
   const { loginRequired, handleLogin } = useAuth();
 
   const displayContentByView = () => {
-    if (view === 'recentlyDeleted') {
+    if (view === 'recently-deleted') {
       return (
         <div className="h-screen">
           <span>Recently Deleted: development in progress</span>
@@ -35,7 +35,7 @@ const App = () => {
         <Login onLogin={handleLogin} />
       ) : (
         <>
-          <Sidebar setView={setView} />
+          <Sidebar mainView={view.includes('main')} setView={setView} />
           {displayContentByView()}
         </>
       )}

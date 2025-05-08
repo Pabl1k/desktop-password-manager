@@ -5,6 +5,7 @@ import Button from '@/shared/ui/Button';
 import PasswordGeneratorModal from './PasswordGeneratorModal';
 
 interface Props {
+  mainView: boolean;
   setView: (view: ContentView) => void;
 }
 
@@ -19,15 +20,15 @@ interface SidebarOption extends Option {
 
 const APP_VERSION = __APP_VERSION__;
 
-const Sidebar: FC<Props> = ({ setView }) => {
+const Sidebar: FC<Props> = ({ mainView, setView }) => {
   const { t } = useTranslations();
 
   const [passwordGeneratorModalOpen, setPasswordGeneratorModalOpen] = useState(false);
 
   const mainSubMenuOptions: Option[] = [
-    { labelKey: 'accounts', onClick: () => setView('mainAccounts') },
-    { labelKey: 'bank_cards', onClick: () => setView('mainBankCards') },
-    { labelKey: 'notes', onClick: () => setView('mainNotes') }
+    { labelKey: 'accounts', onClick: () => setView('main-accounts') },
+    { labelKey: 'bank_cards', onClick: () => setView('main-bank_cards') },
+    { labelKey: 'notes', onClick: () => setView('main-notes') }
   ];
 
   const options: SidebarOption[] = [
@@ -42,7 +43,7 @@ const Sidebar: FC<Props> = ({ setView }) => {
     },
     {
       labelKey: 'recently_deleted',
-      onClick: () => setView('recentlyDeleted')
+      onClick: () => setView('recently-deleted')
     },
     {
       labelKey: 'settings',
@@ -72,7 +73,7 @@ const Sidebar: FC<Props> = ({ setView }) => {
           return (
             <Fragment key={option.labelKey}>
               {renderOption(option)}
-              {option.subMenu && (
+              {mainView && option.subMenu && (
                 <div className="flex flex-col ml-4">
                   {option.subMenu.map((subOption) => renderOption(subOption))}
                 </div>

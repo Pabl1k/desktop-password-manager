@@ -12,7 +12,7 @@ interface Props {
 }
 
 const Main: FC<Props> = ({ view, content, onCreate, onDelete }) => {
-  if (view === 'mainAccounts') {
+  if (view === 'main-accounts') {
     return (
       <div>
         <span>Accounts: development in progress</span>
@@ -20,7 +20,7 @@ const Main: FC<Props> = ({ view, content, onCreate, onDelete }) => {
     );
   }
 
-  if (view === 'mainBankCards') {
+  if (view === 'main-bank_cards') {
     return (
       <div>
         <span>Bank Cards: development in progress</span>
@@ -28,7 +28,7 @@ const Main: FC<Props> = ({ view, content, onCreate, onDelete }) => {
     );
   }
 
-  if (view === 'mainNotes') {
+  if (view === 'main-notes') {
     return (
       <div>
         <span>Notes: development in progress</span>

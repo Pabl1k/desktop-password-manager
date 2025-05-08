@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { useTranslations } from '@/shared/hooks/useTranslations';
-import { WebsiteCardCreate } from '@/shared/types/types';
+import { AccountCardCreate } from '@/shared/types/types';
 import CreateCard from '@/widgets/CreateCard';
 
 interface Props {
-  onNewCardCreate: (newCard: WebsiteCardCreate) => Promise<void>;
+  onNewCardCreate: (newCard: AccountCardCreate) => Promise<void>;
 }
 
 const EmptyContent: FC<Props> = ({ onNewCardCreate }) => {

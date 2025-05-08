@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import Card from '@/features/Card/Card';
-import { WebsiteCard, WebsiteCardCreate } from '@/shared/types/types';
+import { AccountCard, AccountCardCreate } from '@/shared/types/types';
 import EmptyContent from './EmptyContent';
 
 interface Props {
-  cards: WebsiteCard[];
-  onNewCardCreate: (newCard: WebsiteCardCreate) => Promise<void>;
+  cards: AccountCard[];
+  onNewCardCreate: (newCard: AccountCardCreate) => Promise<void>;
   onDeleteCard: (id: string) => void;
 }
 

@@ -1,13 +1,13 @@
 import { FC } from 'react';
 import Content from '@/pages/Content/Content';
-import { WebsiteCard, WebsiteCardCreate } from '@/shared/types/types';
+import { AccountCard, AccountCardCreate } from '@/shared/types/types';
 import { MainView } from '@/shared/types/view';
 import Toolbar from '@/widgets/Toolbar';
 
 interface Props {
   view: MainView;
-  content: WebsiteCard[];
-  onCreate: (card: WebsiteCardCreate) => Promise<void>;
+  content: AccountCard[];
+  onCreate: (card: AccountCardCreate) => Promise<void>;
   onDelete: (id: string) => void;
 }
 

@@ -1,4 +1,4 @@
-export interface WebsiteCardCreate {
+export interface AccountCardCreate {
   sourceName: string;
   login: string;
   password: string;
@@ -6,7 +6,7 @@ export interface WebsiteCardCreate {
   notes: string;
 }
 
-export interface WebsiteCard extends WebsiteCardCreate {
+export interface AccountCard extends AccountCardCreate {
   id: string;
   createdAt: number;
 }

@@ -1,6 +1,6 @@
 import { FC, MouseEvent, useState } from 'react';
 import { useTranslations } from '@/shared/hooks/useTranslations';
-import { WebsiteCard, WebsiteCardCreate } from '@/shared/types/types';
+import { AccountCard, AccountCardCreate } from '@/shared/types/types';
 import Button from '@/shared/ui/Button';
 import Icon from '@/shared/ui/Icon';
 import Input from '@/shared/ui/Input';
@@ -8,10 +8,10 @@ import Modal from '@/shared/ui/Modal';
 import PasswordGeneratorModal from './PasswordGeneratorModal';
 
 interface Props {
-  onSave: (newCard: WebsiteCardCreate) => Promise<void>;
+  onSave: (newCard: AccountCardCreate) => Promise<void>;
 }
 
-const titleMapper: Record<keyof WebsiteCardCreate, string> = {
+const titleMapper: Record<keyof AccountCardCreate, string> = {
   sourceName: 'card_title',
   login: 'login',
   password: 'password',
@@ -19,7 +19,7 @@ const titleMapper: Record<keyof WebsiteCardCreate, string> = {
   notes: 'notes'
 };
 
-const initialCardData: WebsiteCardCreate = {
+const initialCardData: AccountCardCreate = {
   sourceName: '',
   login: '',
   password: '',
@@ -36,7 +36,7 @@ const CreateCard: FC<Props> = ({ onSave }) => {
 
   const fieldsEmpty = Object.values(newCardData).every((value) => !value);
 
-  const handleChange = (key: keyof WebsiteCard, value: string) => {
+  const handleChange = (key: keyof AccountCard, value: string) => {
     setNewCardData((prevData) => ({
       ...prevData,
       [key]: value
@@ -78,7 +78,7 @@ const CreateCard: FC<Props> = ({ onSave }) => {
               return null;
             }
 
-            const fieldName = field as keyof Omit<WebsiteCardCreate, 'notes'>;
+            const fieldName = field as keyof Omit<AccountCardCreate, 'notes'>;
             const fieldTitle = t(titleMapper[fieldName]);
             const suffix = fieldName === 'password' && (
               <Button type="default" className="px-0" onClick={openPasswordGenerationModal}>

@@ -1,1 +1,2 @@
-export type ContentView = 'main' | 'recentlyDeleted' | 'settings';
+export type MainView = 'main' | 'mainAccounts' | 'mainBankCards' | 'mainNotes';
+export type ContentView = MainView | 'recentlyDeleted' | 'settings';

@@ -25,8 +25,9 @@ const Sidebar: FC<Props> = ({ setView }) => {
   const [passwordGeneratorModalOpen, setPasswordGeneratorModalOpen] = useState(false);
 
   const mainSubMenuOptions: Option[] = [
-    { labelKey: 'accounts', onClick: () => console.log('accounts') },
-    { labelKey: 'bank_cards', onClick: () => console.log('bank_cards') }
+    { labelKey: 'accounts', onClick: () => setView('mainAccounts') },
+    { labelKey: 'bank_cards', onClick: () => setView('mainBankCards') },
+    { labelKey: 'notes', onClick: () => setView('mainNotes') }
   ];
 
   const options: SidebarOption[] = [
@@ -53,7 +54,7 @@ const Sidebar: FC<Props> = ({ setView }) => {
     <Button
       key={labelKey}
       type="transparent"
-      className="w-full font-semibold text-start"
+      className="font-semibold text-start"
       onClick={onClick}
     >
       {t(labelKey)}
@@ -72,7 +73,7 @@ const Sidebar: FC<Props> = ({ setView }) => {
             <Fragment key={option.labelKey}>
               {renderOption(option)}
               {option.subMenu && (
-                <div className="ml-4">
+                <div className="flex flex-col ml-4">
                   {option.subMenu.map((subOption) => renderOption(subOption))}
                 </div>
               )}

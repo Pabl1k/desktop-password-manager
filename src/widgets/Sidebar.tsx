@@ -70,18 +70,19 @@ const Sidebar: FC<Props> = ({ mainView, setView }) => {
       />
 
       <div className="flex flex-col gap-2">
-        {menu.map((option) => {
-          return (
-            <Fragment key={option.labelKey}>
-              {renderOption(option)}
-              {mainView && option.subMenu && (
-                <div className="flex flex-col ml-4">
-                  {option.subMenu.map((subOption) => renderOption(subOption))}
-                </div>
-              )}
-            </Fragment>
-          );
-        })}
+        {menu.map((option) => (
+          <Fragment key={option.labelKey}>
+            {renderOption(option)}
+            <div
+              className={`
+            ml-4 flex flex-col overflow-hidden transition-all duration-500 
+            ${mainView && option.subMenu ? 'opacity-100 translate-y-0 max-h-96' : 'opacity-0 -translate-y-2 max-h-0'}
+          `}
+            >
+              {option.subMenu?.map((subOption) => renderOption(subOption))}
+            </div>
+          </Fragment>
+        ))}
       </div>
 
       <div className="flex justify-center">

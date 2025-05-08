@@ -15,7 +15,7 @@ const Accounts: FC<Props> = ({ accounts, onNewAccountCreate, onDelete }) => {
   }
 
   return (
-    <div className=" flex flex-wrap gap-4">
+    <div className="flex flex-wrap gap-4">
       {accounts.map((item) => (
         <AccountCard
           key={item.id}

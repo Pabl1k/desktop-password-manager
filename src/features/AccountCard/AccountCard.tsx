@@ -59,7 +59,7 @@ const AccountCard: FC<Props> = ({ title, link, login, password, notes, onDelete 
           )}
         </div>
         <DropdownMenu options={cardOptions}>
-          <Icon name="dotMenu" className="p-2 rounded-full hover:bg-grey-hover cursor-pointer" />
+          <Icon name="dotMenu" />
         </DropdownMenu>
       </div>
 

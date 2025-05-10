@@ -1,9 +1,9 @@
 import { FC, useState } from 'react';
-import AccountCardNotes from '@/features/AccountCard/AccountCardNotes';
 import { useTranslations } from '@/shared/hooks/useTranslations';
 import { uniqueId } from '@/shared/lib/utils/generate';
 import { copyToClipboard, getLinkHostname, openExternally } from '@/shared/lib/utils/link';
 import Button from '@/shared/ui/Button';
+import CardNotes from '@/shared/ui/CardNotes';
 import DropdownMenu, { DropdownOption } from '@/shared/ui/DropdownMenu';
 import Icon from '@/shared/ui/Icon';
 import IconButton from '@/shared/ui/IconButton';
@@ -63,33 +63,31 @@ const AccountCard: FC<Props> = ({ title, link, login, password, notes, onDelete 
         </DropdownMenu>
       </div>
 
-      <div className="flex flex-col mx-4 rounded-field text-lg bg-bg-main border border-border">
-        {displayNotes ? (
-          <AccountCardNotes text={notes} onClose={() => setDisplayNotes(false)} />
-        ) : (
-          <>
-            <div className={credentialClassName}>
-              <span className="truncate mr-2" title={login}>
-                {login}
-              </span>
-              <IconButton iconName="copy" size={20} onClick={() => copyToClipboard(login)} />
+      {displayNotes ? (
+        <CardNotes text={notes} onClose={() => setDisplayNotes(false)} />
+      ) : (
+        <div className="flex flex-col mx-4 rounded-field text-lg bg-bg-main border border-border">
+          <div className={credentialClassName}>
+            <span className="truncate mr-2" title={login}>
+              {login}
+            </span>
+            <IconButton iconName="copy" size={20} onClick={() => copyToClipboard(login)} />
+          </div>
+          <div className="h-px bg-border" />
+          <div className={credentialClassName}>
+            <span className="truncate mr-2" title={showPassword ? password : undefined}>
+              {displayPasswordFieldValue}
+            </span>
+            <div className="flex">
+              <IconButton
+                iconName={showPassword ? 'hide' : 'show'}
+                onClick={() => setShowPassword(!showPassword)}
+              />
+              <IconButton iconName="copy" onClick={() => copyToClipboard(password)} />
             </div>
-            <div className="h-px bg-border" />
-            <div className={credentialClassName}>
-              <span className="truncate mr-2" title={showPassword ? password : undefined}>
-                {displayPasswordFieldValue}
-              </span>
-              <div className="flex">
-                <IconButton
-                  iconName={showPassword ? 'hide' : 'show'}
-                  onClick={() => setShowPassword(!showPassword)}
-                />
-                <IconButton iconName="copy" onClick={() => copyToClipboard(password)} />
-              </div>
-            </div>
-          </>
-        )}
-      </div>
+          </div>
+        </div>
+      )}
 
       {!displayNotes && (
         <div className="w-full flex justify-center" title={link}>

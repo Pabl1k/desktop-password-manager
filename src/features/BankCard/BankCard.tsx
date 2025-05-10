@@ -4,6 +4,7 @@ import { useTranslations } from '@/shared/hooks/useTranslations';
 import { uniqueId } from '@/shared/lib/utils/generate';
 import { copyToClipboard } from '@/shared/lib/utils/link';
 import { IBankCard } from '@/shared/types/types';
+import CardNotes from '@/shared/ui/CardNotes';
 import DropdownMenu, { DropdownOption } from '@/shared/ui/DropdownMenu';
 import Icon from '@/shared/ui/Icon';
 import IconButton from '@/shared/ui/IconButton';
@@ -38,13 +39,14 @@ const BankCard: FC<Props> = ({
   const { t } = useTranslations();
 
   const [showData, setShowData] = useState(false);
+  const [showNotes, setShowNotes] = useState(false);
   const formattedCardNumber = cardNumber.replace(/(\d{4})(?=\d)/g, '$1 ');
 
   const menuOptions: DropdownOption[] = [
     {
       labelKey: 'open_notes',
       visible: Boolean(notes),
-      onClick: () => console.log('open notes')
+      onClick: () => setShowNotes(true)
     },
     {
       labelKey: 'delete',
@@ -86,27 +88,32 @@ const BankCard: FC<Props> = ({
         </div>
       </div>
 
-      <div className="flex flex-col py-2 px-4">
-        {renderDataBlock({
-          value: formattedCardNumber,
-          copyValue: cardNumber
-        })}
-        <div className="flex">
-          {renderDataBlock({
-            blockTitleKey: 'expires',
-            value: expirationDate
-          })}
-          {renderDataBlock({
-            className: 'ml-4',
-            blockTitleKey: 'cvv',
-            value: cvv
-          })}
-        </div>
-
-        {renderDataBlock({
-          blockTitleKey: 'card_holder',
-          value: nameOnCard
-        })}
+      <div className="flex flex-col py-2">
+        {showNotes ? (
+          <CardNotes text={notes} onClose={() => setShowNotes(false)} />
+        ) : (
+          <div className="px-4">
+            {renderDataBlock({
+              value: formattedCardNumber,
+              copyValue: cardNumber
+            })}
+            <div className="flex">
+              {renderDataBlock({
+                blockTitleKey: 'expires',
+                value: expirationDate
+              })}
+              {renderDataBlock({
+                className: 'ml-4',
+                blockTitleKey: 'cvv',
+                value: cvv
+              })}
+            </div>
+            {renderDataBlock({
+              blockTitleKey: 'card_holder',
+              value: nameOnCard
+            })}
+          </div>
+        )}
       </div>
     </div>
   );

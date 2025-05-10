@@ -10,3 +10,14 @@ export interface IAccountCard extends IAccountCardCreate {
   id: string;
   createdAt: number;
 }
+
+export interface IBankCard {
+  id: string;
+  title: string;
+  cardNumber: string;
+  expirationDate: string;
+  cvv: string;
+  nameOnCard: string;
+  notes: string;
+  createdAt: number;
+}

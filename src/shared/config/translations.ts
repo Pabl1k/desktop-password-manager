@@ -39,6 +39,9 @@ export const translations: Translations = {
     incorrect_passcode: 'Passcode is incorrect',
     open_notes: 'Open notes',
     accounts: 'Accounts',
-    bank_cards: 'Bank cards'
+    bank_cards: 'Bank cards',
+    expires: 'Expires',
+    cvv: 'CVV',
+    card_holder: 'Card holder'
   }
 };

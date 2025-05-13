@@ -4,6 +4,7 @@ import Login from '@/pages/Login/Login';
 import Settings from '@/pages/Settings/Settings';
 import { useAuth } from '@/shared/hooks/useAuth';
 import { useDatabase } from '@/shared/lib/db/useDatabase';
+import { TranslationProvider } from '@/shared/translations/TranslationsContext';
 import { WebsiteCard } from '@/shared/types/types';
 import { ContentView } from '@/shared/types/view';
 import Sidebar from '@/widgets/Sidebar';
@@ -36,16 +37,18 @@ const App = () => {
   };
 
   return (
-    <div className="bg-bg-main text-text-main overflow-hidden flex min-h-screen">
-      {loginRequired ? (
-        <Login onLogin={handleLogin} />
-      ) : (
-        <>
-          <Sidebar setView={setView} />
-          {displayContentByView()}
-        </>
-      )}
-    </div>
+    <TranslationProvider>
+      <div className="bg-bg-main text-text-main overflow-hidden flex min-h-screen">
+        {loginRequired ? (
+          <Login onLogin={handleLogin} />
+        ) : (
+          <>
+            <Sidebar setView={setView} />
+            {displayContentByView()}
+          </>
+        )}
+      </div>
+    </TranslationProvider>
   );
 };
 

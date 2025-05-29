@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import Accounts from '@/pages/Main/views/Accounts';
 import BankCards from '@/pages/Main/views/BankCards';
+import Notes from '@/pages/Main/views/Notes';
 import { IAccountCard, IAccountCardCreate } from '@/shared/types/types';
 import { MainView } from '@/shared/types/view';
 import Toolbar from '@/widgets/Toolbar';
@@ -23,11 +24,7 @@ const Main: FC<Props> = ({ view, content, onCreate, onDelete }) => {
     }
 
     if (view === 'main-notes') {
-      return (
-        <div>
-          <span>Notes: development in progress</span>
-        </div>
-      );
+      return <Notes />;
     }
 
     return <div>Main page</div>;

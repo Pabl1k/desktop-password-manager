@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import BankCard from '@/features/BankCard/BankCard';
+import BankCard from '@/features/Cards/BankCard';
 import { IBankCard } from '@/shared/types/types';
 
 interface Props {}

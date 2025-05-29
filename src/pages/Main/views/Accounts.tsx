@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import AccountCard from '@/features/AccountCard/AccountCard';
+import AccountCard from '@/features/Cards/AccountCard';
 import { IAccountCard, IAccountCardCreate } from '@/shared/types/types';
 import EmptyContent from '../EmptyContent';
 

@@ -1,11 +1,11 @@
 import { FC, memo, useState } from 'react';
+import CardTitle from '@/features/Cards/CardTitle';
 import { useTranslations } from '@/shared/hooks/useTranslations';
 import { uniqueId } from '@/shared/lib/utils/generate';
-import { copyToClipboard, getLinkHostname, openExternally } from '@/shared/lib/utils/link';
+import { copyToClipboard, openExternally } from '@/shared/lib/utils/link';
 import Button from '@/shared/ui/Button';
 import CardNotes from '@/shared/ui/CardNotes';
-import DropdownMenu, { DropdownOption } from '@/shared/ui/DropdownMenu';
-import Icon from '@/shared/ui/Icon';
+import { DropdownOption } from '@/shared/ui/DropdownMenu';
 import IconButton from '@/shared/ui/IconButton';
 
 interface Props {
@@ -25,7 +25,7 @@ const AccountCard: FC<Props> = ({ title, link, login, password, notes, onDelete 
   const [showPassword, setShowPassword] = useState(false);
   const [displayNotes, setDisplayNotes] = useState(false);
 
-  const cardOptions: DropdownOption[] = [
+  const menuOptions: DropdownOption[] = [
     {
       labelKey: 'open_notes',
       visible: Boolean(notes),
@@ -49,19 +49,7 @@ const AccountCard: FC<Props> = ({ title, link, login, password, notes, onDelete 
 
   return (
     <div className="w-[280px] h-[320px] bg-bg-card rounded-modal flex flex-col gap-10">
-      <div className="h-[80px] flex items-center justify-between px-4 border-b border-border">
-        <div className="flex flex-col justify-center">
-          <span className="text-2xl truncate">{title}</span>
-          {link && (
-            <span className="text-sm truncate text-green-main" title={link}>
-              {getLinkHostname(link)}
-            </span>
-          )}
-        </div>
-        <DropdownMenu options={cardOptions}>
-          <Icon name="dotMenu" />
-        </DropdownMenu>
-      </div>
+      <CardTitle title={title} link={link} cardOptions={menuOptions} />
 
       {displayNotes ? (
         <CardNotes text={notes} onClose={() => setDisplayNotes(false)} />

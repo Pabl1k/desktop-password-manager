@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, memo, useState } from 'react';
 import { useTranslations } from '@/shared/hooks/useTranslations';
 import { uniqueId } from '@/shared/lib/utils/generate';
 import { copyToClipboard, getLinkHostname, openExternally } from '@/shared/lib/utils/link';
@@ -102,4 +102,4 @@ const AccountCard: FC<Props> = ({ title, link, login, password, notes, onDelete 
   );
 };
 
-export default AccountCard;
+export default memo(AccountCard, () => true);

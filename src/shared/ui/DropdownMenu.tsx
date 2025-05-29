@@ -67,7 +67,7 @@ const DropdownMenu: FC<Props> = ({ options, children }) => {
     <>
       <button
         ref={triggerRef}
-        className="flex focus:outline-green-main"
+        className="flex focus:outline-green-main p-2 rounded-full hover:bg-grey-hover cursor-pointer"
         onKeyDown={handleMenuLeave}
         onClick={displayDropdown}
       >

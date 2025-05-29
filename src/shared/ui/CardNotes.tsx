@@ -8,10 +8,13 @@ interface Props {
 
 const CardNotes: FC<Props> = ({ text, onClose }) => {
   return (
-    <div className="relative">
-      <IconButton iconName="close" className="absolute top-1 right-1" size={15} onClick={onClose} />
-      <div className="mt-6 px-2 max-h-[150px] overflow-auto custom-scroll">
+    <div className="flex flex-col mx-4">
+      <div className="px-4 min-h-[100px] max-h-[150px] overflow-auto custom-scroll rounded-field text-lg bg-bg-main border border-border">
         <span className="text-sm">{text}</span>
+      </div>
+
+      <div className="w-full flex justify-center mt-2">
+        <IconButton iconName="close" onClick={onClose} />
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-export interface WebsiteCardCreate {
+export interface IAccountCardCreate {
   sourceName: string;
   login: string;
   password: string;
@@ -6,7 +6,18 @@ export interface WebsiteCardCreate {
   notes: string;
 }
 
-export interface WebsiteCard extends WebsiteCardCreate {
+export interface IAccountCard extends IAccountCardCreate {
   id: string;
+  createdAt: number;
+}
+
+export interface IBankCard {
+  id: string;
+  title: string;
+  cardNumber: string;
+  expirationDate: string;
+  cvv: string;
+  nameOnCard: string;
+  notes: string;
   createdAt: number;
 }

@@ -1,45 +1,39 @@
 import { FC } from 'react';
-import Content from '@/pages/Content/Content';
-import { WebsiteCard, WebsiteCardCreate } from '@/shared/types/types';
+import Accounts from '@/pages/Main/views/Accounts';
+import BankCards from '@/pages/Main/views/BankCards';
+import Notes from '@/pages/Main/views/Notes';
+import { IAccountCard, IAccountCardCreate } from '@/shared/types/types';
 import { MainView } from '@/shared/types/view';
 import Toolbar from '@/widgets/Toolbar';
 
 interface Props {
   view: MainView;
-  content: WebsiteCard[];
-  onCreate: (card: WebsiteCardCreate) => Promise<void>;
+  content: IAccountCard[];
+  onCreate: (card: IAccountCardCreate) => Promise<void>;
   onDelete: (id: string) => void;
 }
 
 const Main: FC<Props> = ({ view, content, onCreate, onDelete }) => {
-  if (view === 'main-accounts') {
-    return (
-      <div>
-        <span>Accounts: development in progress</span>
-      </div>
-    );
-  }
+  const renderContent = () => {
+    if (view === 'main-accounts') {
+      return <Accounts accounts={content} onNewAccountCreate={onCreate} onDelete={onDelete} />;
+    }
 
-  if (view === 'main-bank_cards') {
-    return (
-      <div>
-        <span>Bank Cards: development in progress</span>
-      </div>
-    );
-  }
+    if (view === 'main-bank_cards') {
+      return <BankCards />;
+    }
 
-  if (view === 'main-notes') {
-    return (
-      <div>
-        <span>Notes: development in progress</span>
-      </div>
-    );
-  }
+    if (view === 'main-notes') {
+      return <Notes />;
+    }
+
+    return <div>Main page</div>;
+  };
 
   return (
     <div className="w-full">
       <Toolbar onNewCardCreate={onCreate} />
-      <Content cards={content} onNewCardCreate={onCreate} onDeleteCard={onDelete} />
+      <div className="h-[calc(100vh-85px)] p-6 overflow-auto custom-scroll">{renderContent()}</div>
     </div>
   );
 };

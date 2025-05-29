@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { WebsiteCard, WebsiteCardCreate } from '../../types/types';
+import { IAccountCard, IAccountCardCreate } from '../../types/types';
 import { uniqueId } from '../utils/generate';
 import { DB_KEYS } from './dbConfig';
 
-export const useDatabase = <T extends WebsiteCard>() => {
+export const useDatabase = <T extends IAccountCard>() => {
   const [state, setState] = useState<T[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -41,7 +41,7 @@ export const useDatabase = <T extends WebsiteCard>() => {
         request.onerror = () => reject(request.error);
       });
 
-      const sortedData = data.sort((a, b) => b.createdAt - a.createdAt);
+      const sortedData = [...data].sort((a, b) => b.createdAt - a.createdAt);
       setState(sortedData);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -50,7 +50,7 @@ export const useDatabase = <T extends WebsiteCard>() => {
     }
   };
 
-  const add = async <D = WebsiteCardCreate>(item: D) => {
+  const add = async <D extends IAccountCardCreate>(item: D) => {
     setLoading(true);
 
     try {

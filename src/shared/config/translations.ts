@@ -33,6 +33,7 @@ export const translations: Translations = {
     enter_passcode: 'Enter passcode',
     reset_passcode: 'Reset passcode',
     update_passcode: 'Update passcode',
+    enter_notes: 'Enter notes',
     setup: 'Setup',
     setup_passcode_tooltip: 'You’ll be asked to enter a passcode when the app starts',
     enter_placeholder: 'Enter passcode',

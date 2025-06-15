@@ -32,7 +32,7 @@ const Main: FC<Props> = ({ view, content, onCreate, onDelete }) => {
 
   return (
     <div className="w-full">
-      <Toolbar onNewCardCreate={onCreate} />
+      <Toolbar view={view} onNewCardCreate={onCreate} />
       <div className="h-[calc(100vh-85px)] p-6 overflow-auto custom-scroll">{renderContent()}</div>
     </div>
   );

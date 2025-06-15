@@ -1,3 +1,9 @@
+// TODO remove I prefix
+interface InitialDBData {
+  id: string;
+  createdAt: number;
+}
+
 export interface IAccountCardCreate {
   sourceName: string;
   login: string;
@@ -6,18 +12,15 @@ export interface IAccountCardCreate {
   notes: string;
 }
 
-export interface IAccountCard extends IAccountCardCreate {
-  id: string;
-  createdAt: number;
-}
+export type IAccountCard = IAccountCardCreate & InitialDBData;
 
-export interface IBankCard {
-  id: string;
+export interface IBankCardCreate {
   title: string;
   cardNumber: string;
+  cardholder: string;
   expirationDate: string;
   cvv: string;
-  nameOnCard: string;
   notes: string;
-  createdAt: number;
 }
+
+export type IBankCard = IBankCardCreate & InitialDBData;

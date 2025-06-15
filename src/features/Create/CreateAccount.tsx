@@ -75,42 +75,40 @@ const CreateAccount: FC<Props> = ({ onClose, onSave }) => {
         onClose={() => setPasswordGenerationModalOpen(false)}
       />
 
-      <div className="p-4 flex flex-col gap-4">
-        {Object.keys(initialCardData).map((field) => {
-          if (field === 'notes') {
-            return null;
-          }
+      {Object.keys(initialCardData).map((field) => {
+        if (field === 'notes') {
+          return null;
+        }
 
-          const fieldName = field as keyof Omit<IAccountCardCreate, 'notes'>;
-          const fieldTitle = t(titleMapper[fieldName]);
-          const suffix = fieldName === 'password' && (
-            <Button type="default" className="px-0" onClick={openPasswordGenerationModal}>
-              {t('generate')}
-            </Button>
-          );
+        const fieldName = field as keyof Omit<IAccountCardCreate, 'notes'>;
+        const fieldTitle = t(titleMapper[fieldName]);
+        const suffix = fieldName === 'password' && (
+          <Button type="default" className="px-0" onClick={openPasswordGenerationModal}>
+            {t('generate')}
+          </Button>
+        );
 
-          return (
-            <div key={fieldName} className="flex flex-col">
-              <span className="capitalize mb-1">{fieldTitle}</span>
-              <Input
-                value={newCardData[fieldName] ?? ''}
-                placeholder={`${t('enter')} ${fieldTitle.toLowerCase()}`}
-                suffix={suffix}
-                onChange={(newValue) => handleChange(fieldName, newValue)}
-              />
-            </div>
-          );
-        })}
+        return (
+          <div key={fieldName} className="flex flex-col">
+            <span className="capitalize mb-1">{fieldTitle}</span>
+            <Input
+              value={newCardData[fieldName] ?? ''}
+              placeholder={`${t('enter')} ${fieldTitle.toLowerCase()}`}
+              suffix={suffix}
+              onChange={(newValue) => handleChange(fieldName, newValue)}
+            />
+          </div>
+        );
+      })}
 
-        <div className="flex flex-col">
-          <span className="capitalize mb-1">{t('notes')}</span>
-          <textarea
-            className="min-h-(--field-height) border border-border rounded-field px-3 py-2 outline-none hover:border-green-main focus-within:border-green-main overflow-hidden"
-            value={newCardData.notes}
-            placeholder={t('enter_notes')}
-            onChange={(e) => handleChange('notes', e.target.value)}
-          />
-        </div>
+      <div className="flex flex-col">
+        <span className="capitalize mb-1">{t('notes')}</span>
+        <textarea
+          className="min-h-(--field-height) border border-border rounded-field px-3 py-2 outline-none hover:border-green-main focus-within:border-green-main overflow-hidden"
+          value={newCardData.notes}
+          placeholder={t('enter_notes')}
+          onChange={(e) => handleChange('notes', e.target.value)}
+        />
       </div>
 
       <CreateModalButtons saveDisabled={fieldsEmpty} onSave={handleSave} onCancel={handleCancel} />

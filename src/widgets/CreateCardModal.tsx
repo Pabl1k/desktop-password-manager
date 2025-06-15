@@ -16,7 +16,7 @@ const CreateCardModal: FC<Props> = ({ open, children, openModal, onClose }) => {
 
   return (
     <>
-      <Modal open={open} outsideClickClose={onClose}>
+      <Modal open={open} className="p-4 flex flex-col gap-4" outsideClickClose={onClose}>
         {children}
       </Modal>
 

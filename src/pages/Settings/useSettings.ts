@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocalStorage } from '@/shared/hooks/useLocalStorage';
 import { CACHE_KEYS } from '@/shared/lib/storage/storageKeys';
-import { Settings } from '@/shared/types/Settings';
+import { Settings } from '@/shared/types/settings';
 
 export const useSettings = () => {
   const { get, set, update } = useLocalStorage();

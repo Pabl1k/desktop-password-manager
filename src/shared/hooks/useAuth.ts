@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { CACHE_KEYS } from '../lib/storage/storageKeys';
-import { Settings } from '../types/Settings';
+import { Settings } from '../types/settings';
 import { useLocalStorage } from './useLocalStorage';
 
 export const useAuth = () => {

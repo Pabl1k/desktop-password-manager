@@ -24,3 +24,9 @@ export interface IBankCardCreate {
 }
 
 export type IBankCard = IBankCardCreate & InitialDBData;
+
+export interface INoteCardCreate {
+  title: string;
+  note: string;
+}
+export type INoteCard = INoteCardCreate & InitialDBData;

@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 import CreateAccount from '@/features/Create/CreateAccount';
 import CreateBankCard from '@/features/Create/CreateBankCard';
+import CreateNote from '@/features/Create/CreateNote';
 import { IAccountCardCreate } from '@/shared/types/types';
 import { MainView } from '@/shared/types/view';
 import CreateCardModal from '@/widgets/CreateCardModal';
@@ -21,7 +22,7 @@ const Toolbar: FC<Props> = ({ view, onNewCardCreate }) => {
     }
 
     if (view === 'main-notes') {
-      return 'notes';
+      return <CreateNote onClose={closeModal} />;
     }
 
     return <CreateAccount onClose={closeModal} onSave={onNewCardCreate} />;

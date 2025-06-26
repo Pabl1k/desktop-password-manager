@@ -15,6 +15,7 @@ export const translations: Translations = {
     password: 'Password',
     website_url: 'Website url',
     notes: 'Notes',
+    note: 'Note',
     save: 'Save',
     cancel: 'Cancel',
     add: 'Add',

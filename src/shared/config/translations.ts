@@ -15,6 +15,7 @@ export const translations: Translations = {
     password: 'Password',
     website_url: 'Website url',
     notes: 'Notes',
+    note: 'Note',
     save: 'Save',
     cancel: 'Cancel',
     add: 'Add',
@@ -33,6 +34,7 @@ export const translations: Translations = {
     enter_passcode: 'Enter passcode',
     reset_passcode: 'Reset passcode',
     update_passcode: 'Update passcode',
+    enter_notes: 'Enter notes',
     setup: 'Setup',
     setup_passcode_tooltip: 'You’ll be asked to enter a passcode when the app starts',
     enter_placeholder: 'Enter passcode',
@@ -42,6 +44,9 @@ export const translations: Translations = {
     bank_cards: 'Bank cards',
     expires: 'Expires',
     cvv: 'CVV',
-    card_holder: 'Card holder'
+    card_holder: 'Card holder',
+    card_number: 'Card number',
+    cardholder: 'Cardholder name',
+    expiration_date: 'Expiration date'
   }
 };

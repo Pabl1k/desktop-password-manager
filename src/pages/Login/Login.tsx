@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useLocalStorage } from '@/shared/hooks/useLocalStorage';
 import { useTranslations } from '@/shared/hooks/useTranslations';
-import { Settings } from '@/shared/types/Settings';
+import { Settings } from '@/shared/types/settings';
 import Button from '@/shared/ui/Button';
 import Input from '@/shared/ui/Input';
 

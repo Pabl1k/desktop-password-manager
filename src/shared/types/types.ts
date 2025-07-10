@@ -1,23 +1,30 @@
-export interface IAccountCardCreate {
-  sourceName: string;
+// TODO remove I prefix
+interface InitialDBData {
+  id: string;
+  createdAt: number;
+}
+
+export interface AccountCreate {
+  title: string;
   login: string;
   password: string;
   url: string;
   notes: string;
 }
+export type IAccountCard = AccountCreate & InitialDBData;
 
-export interface IAccountCard extends IAccountCardCreate {
-  id: string;
-  createdAt: number;
-}
-
-export interface IBankCard {
-  id: string;
+export interface IBankCardCreate {
   title: string;
   cardNumber: string;
+  cardholder: string;
   expirationDate: string;
   cvv: string;
-  nameOnCard: string;
   notes: string;
-  createdAt: number;
 }
+export type IBankCard = IBankCardCreate & InitialDBData;
+
+export interface INoteCardCreate {
+  title: string;
+  note: string;
+}
+export type INoteCard = INoteCardCreate & InitialDBData;

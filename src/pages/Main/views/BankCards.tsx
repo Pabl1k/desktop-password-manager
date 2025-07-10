@@ -11,7 +11,7 @@ const test: IBankCard[] = [
     cardNumber: '1234567812345678',
     expirationDate: '12/25',
     cvv: '123',
-    nameOnCard: 'John Doe',
+    cardholder: 'John Doe',
     notes: 'Test note',
     createdAt: Date.now()
   }

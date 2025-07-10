@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import AccountCard from '@/features/Cards/AccountCard';
-import { IAccountCard, IAccountCardCreate } from '@/shared/types/types';
+import { IAccountCard, AccountCreate } from '@/shared/types/types';
 import EmptyContent from '../EmptyContent';
 
 interface Props {
   accounts: IAccountCard[];
-  onNewAccountCreate: (newCard: IAccountCardCreate) => Promise<void>;
+  onNewAccountCreate: (newCard: AccountCreate) => Promise<void>;
   onDelete: (id: string) => void;
 }
 
@@ -21,7 +21,7 @@ const Accounts: FC<Props> = ({ accounts, onNewAccountCreate, onDelete }) => {
           key={item.id}
           login={item.login}
           link={item.url}
-          title={item.sourceName}
+          title={item.title}
           password={item.password}
           notes={item.notes}
           onDelete={() => onDelete(item.id)}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { IAccountCard, IAccountCardCreate } from '../../types/types';
+import { AccountCreate, IAccountCard } from '../../types/types';
 import { uniqueId } from '../utils/generate';
 import { DB_KEYS } from './dbConfig';
 
@@ -50,7 +50,7 @@ export const useDatabase = <T extends IAccountCard>() => {
     }
   };
 
-  const add = async <D extends IAccountCardCreate>(item: D) => {
+  const add = async <D extends AccountCreate>(item: D) => {
     setLoading(true);
 
     try {

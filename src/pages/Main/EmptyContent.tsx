@@ -1,11 +1,11 @@
 import { FC, useState } from 'react';
 import CreateAccount from '@/features/Create/CreateAccount';
 import { useTranslations } from '@/shared/hooks/useTranslations';
-import { IAccountCardCreate } from '@/shared/types/types';
+import { AccountCreate } from '@/shared/types/types';
 import CreateCardModal from '@/widgets/CreateCardModal';
 
 interface Props {
-  onNewCardCreate: (newCard: IAccountCardCreate) => Promise<void>;
+  onNewCardCreate: (newCard: AccountCreate) => Promise<void>;
 }
 
 const EmptyContent: FC<Props> = ({ onNewCardCreate }) => {

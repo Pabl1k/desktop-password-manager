@@ -1,26 +1,26 @@
 import { FC, MouseEvent, useState } from 'react';
 import CreateModalButtons from '@/features/Create/CreateModalButtons';
 import { useTranslations } from '@/shared/hooks/useTranslations';
-import { IAccountCard, IAccountCardCreate } from '@/shared/types/types';
+import { IAccountCard, AccountCreate } from '@/shared/types/types';
 import Button from '@/shared/ui/Button';
 import Input from '@/shared/ui/Input';
 import PasswordGeneratorModal from '@/widgets/PasswordGeneratorModal';
 
 interface Props {
   onClose: () => void;
-  onSave: (newCard: IAccountCardCreate) => Promise<void>;
+  onSave: (newCard: AccountCreate) => Promise<void>;
 }
 
-const titleMapper: Record<keyof IAccountCardCreate, string> = {
-  sourceName: 'card_title',
+const titleMapper: Record<keyof AccountCreate, string> = {
+  title: 'card_title',
   login: 'login',
   password: 'password',
   url: 'website_url',
   notes: 'notes'
 };
 
-const initialCardData: IAccountCardCreate = {
-  sourceName: '',
+const initialCardData: AccountCreate = {
+  title: '',
   login: '',
   password: '',
   url: '',
@@ -80,7 +80,7 @@ const CreateAccount: FC<Props> = ({ onClose, onSave }) => {
           return null;
         }
 
-        const fieldName = field as keyof Omit<IAccountCardCreate, 'notes'>;
+        const fieldName = field as keyof Omit<AccountCreate, 'notes'>;
         const fieldTitle = t(titleMapper[fieldName]);
         const suffix = fieldName === 'password' && (
           <Button type="default" className="px-0" onClick={openPasswordGenerationModal}>

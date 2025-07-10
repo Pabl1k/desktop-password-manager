@@ -2,13 +2,13 @@ import { FC, useState } from 'react';
 import CreateAccount from '@/features/Create/CreateAccount';
 import CreateBankCard from '@/features/Create/CreateBankCard';
 import CreateNote from '@/features/Create/CreateNote';
-import { IAccountCardCreate } from '@/shared/types/types';
+import { AccountCreate } from '@/shared/types/types';
 import { MainView } from '@/shared/types/view';
 import CreateCardModal from '@/widgets/CreateCardModal';
 
 interface Props {
   view: MainView;
-  onNewCardCreate: (newCard: IAccountCardCreate) => Promise<void>;
+  onNewCardCreate: (newCard: AccountCreate) => Promise<void>;
 }
 
 const Toolbar: FC<Props> = ({ view, onNewCardCreate }) => {
@@ -30,9 +30,11 @@ const Toolbar: FC<Props> = ({ view, onNewCardCreate }) => {
 
   return (
     <div className="h-[85px] bg-bg-toolbar border-b border-section-border flex items-center p-6">
-      <CreateCardModal open={modalOpen} openModal={() => setModalOpen(true)} onClose={closeModal}>
-        {displayContentByView()}
-      </CreateCardModal>
+      {view.startsWith('main-') && (
+        <CreateCardModal open={modalOpen} openModal={() => setModalOpen(true)} onClose={closeModal}>
+          {displayContentByView()}
+        </CreateCardModal>
+      )}
     </div>
   );
 };

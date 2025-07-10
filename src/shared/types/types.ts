@@ -4,15 +4,14 @@ interface InitialDBData {
   createdAt: number;
 }
 
-export interface IAccountCardCreate {
-  sourceName: string;
+export interface AccountCreate {
+  title: string;
   login: string;
   password: string;
   url: string;
   notes: string;
 }
-
-export type IAccountCard = IAccountCardCreate & InitialDBData;
+export type IAccountCard = AccountCreate & InitialDBData;
 
 export interface IBankCardCreate {
   title: string;
@@ -22,7 +21,6 @@ export interface IBankCardCreate {
   cvv: string;
   notes: string;
 }
-
 export type IBankCard = IBankCardCreate & InitialDBData;
 
 export interface INoteCardCreate {

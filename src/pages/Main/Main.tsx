@@ -2,14 +2,14 @@ import { FC } from 'react';
 import Accounts from '@/pages/Main/views/Accounts';
 import BankCards from '@/pages/Main/views/BankCards';
 import Notes from '@/pages/Main/views/Notes';
-import { IAccountCard, IAccountCardCreate } from '@/shared/types/types';
+import { IAccountCard, AccountCreate } from '@/shared/types/types';
 import { MainView } from '@/shared/types/view';
 import Toolbar from '@/widgets/Toolbar';
 
 interface Props {
   view: MainView;
   content: IAccountCard[];
-  onCreate: (card: IAccountCardCreate) => Promise<void>;
+  onCreate: (card: AccountCreate) => Promise<void>;
   onDelete: (id: string) => void;
 }
 

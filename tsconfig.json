@@ -23,8 +23,8 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    "skipLibCheck": true,
+    "skipLibCheck": true
   },
   "include": ["src", "vite.config.ts"],
-  "exclude": ["dist-react","dist-electron", "electron", "node_modules"]
+  "exclude": ["dist-react", "dist-electron", "electron", "node_modules"]
 }

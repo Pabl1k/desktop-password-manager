@@ -32,7 +32,7 @@ const BankCard: FC<Props> = ({
   cardNumber,
   expirationDate,
   cvv,
-  nameOnCard,
+  cardholder,
   notes,
   onDelete
 }) => {
@@ -110,7 +110,7 @@ const BankCard: FC<Props> = ({
             </div>
             {renderDataBlock({
               blockTitleKey: 'card_holder',
-              value: nameOnCard
+              value: cardholder
             })}
           </div>
         )}

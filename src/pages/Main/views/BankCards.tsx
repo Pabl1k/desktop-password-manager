@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import BankCard from '@/features/Cards/BankCard';
-import { IBankCard } from '@/shared/types/types';
+import { BankCardData } from '@/shared/types/types';
 
 interface Props {}
 
-const test: IBankCard[] = [
+const test: BankCardData[] = [
   {
     id: '1',
     title: 'Test Card',

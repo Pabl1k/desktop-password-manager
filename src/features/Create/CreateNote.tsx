@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import CreateModalButtons from '@/features/Create/CreateModalButtons';
 import { useTranslations } from '@/shared/hooks/useTranslations';
-import { INoteCardCreate } from '@/shared/types/types';
+import { NoteCardCreate } from '@/shared/types/types';
 import Input from '@/shared/ui/Input';
 
 interface Props {
@@ -15,7 +15,7 @@ const initialCardData = {
 
 const CreateNote: FC<Props> = ({ onClose }) => {
   const { t } = useTranslations();
-  const [newCardData, setNewCardData] = useState<INoteCardCreate>(initialCardData);
+  const [newCardData, setNewCardData] = useState<NoteCardCreate>(initialCardData);
 
   const handleCancel = () => {
     onClose();

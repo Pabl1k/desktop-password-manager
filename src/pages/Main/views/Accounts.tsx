@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import AccountCard from '@/features/Cards/AccountCard';
-import { IAccountCard, AccountCreate } from '@/shared/types/types';
+import { AccountCardData, AccountCreate } from '@/shared/types/types';
 import EmptyContent from '../EmptyContent';
 
 interface Props {
-  accounts: IAccountCard[];
+  accounts: AccountCardData[];
   onNewAccountCreate: (newCard: AccountCreate) => Promise<void>;
   onDelete: (id: string) => void;
 }

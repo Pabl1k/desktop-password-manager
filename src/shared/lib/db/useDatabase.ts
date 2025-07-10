@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { AccountCreate, IAccountCard } from '../../types/types';
+import { AccountCreate, AccountCardData } from '../../types/types';
 import { uniqueId } from '../utils/generate';
 import { DB_KEYS } from './dbConfig';
 
-export const useDatabase = <T extends IAccountCard>() => {
+export const useDatabase = <T extends AccountCardData>() => {
   const [state, setState] = useState<T[]>([]);
   const [loading, setLoading] = useState(false);
 

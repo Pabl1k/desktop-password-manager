@@ -1,7 +1,7 @@
 import { FC, MouseEvent, useState } from 'react';
 import CreateModalButtons from '@/features/Create/CreateModalButtons';
 import { useTranslations } from '@/shared/hooks/useTranslations';
-import { IAccountCard, AccountCreate } from '@/shared/types/types';
+import { AccountCardData, AccountCreate } from '@/shared/types/types';
 import Button from '@/shared/ui/Button';
 import Input from '@/shared/ui/Input';
 import PasswordGeneratorModal from '@/widgets/PasswordGeneratorModal';
@@ -35,7 +35,7 @@ const CreateAccount: FC<Props> = ({ onClose, onSave }) => {
 
   const fieldsEmpty = Object.values(newCardData).every((value) => !value);
 
-  const handleChange = (key: keyof IAccountCard, value: string) => {
+  const handleChange = (key: keyof AccountCardData, value: string) => {
     setNewCardData((prevData) => ({
       ...prevData,
       [key]: value

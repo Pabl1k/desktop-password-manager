@@ -1,4 +1,4 @@
-interface InitialDBData {
+export interface InitialDBData {
   id: string;
   createdAt: number;
 }
@@ -10,6 +10,7 @@ export interface AccountCreate {
   url: string;
   notes: string;
 }
+
 export type AccountCardData = AccountCreate & InitialDBData;
 
 export interface BankCardCreate {
@@ -20,10 +21,14 @@ export interface BankCardCreate {
   cvv: string;
   notes: string;
 }
+
 export type BankCardData = BankCardCreate & InitialDBData;
 
 export interface NoteCardCreate {
   title: string;
   note: string;
 }
+
 export type NoteCardData = NoteCardCreate & InitialDBData;
+
+export type CombinedTypes = AccountCardData | BankCardData | NoteCardData;

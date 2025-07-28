@@ -74,31 +74,39 @@ export const useDatabase = () => {
     }
   };
 
-  // const loadData = async () => {
-  //   setLoading(true);
-  //
-  //   try {
-  //     const db = await openDB();
-  //     const transaction = db.transaction(DB_KEYS.STORE_NAME, 'readonly');
-  //     const store = transaction.objectStore(DB_KEYS.STORE_NAME);
-  //
-  //     const data = await new Promise<T[]>((resolve, reject) => {
-  //       const request = store.getAll();
-  //
-  //       request.onsuccess = () => resolve(request.result as T[]);
-  //       request.onerror = () => reject(request.error);
-  //     });
-  //
-  //     const sortedData = [...data].sort((a, b) => b.createdAt - a.createdAt);
-  //     setState(sortedData);
-  //   } catch (error) {
-  //     console.error('Error fetching users:', error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+  const add = async <T>(collection: CollectionKey, data: T) => {
+    setLoading(true);
 
-  // const add = async <D extends AccountCreate>(item: D) => {
+    try {
+      const db = await openDB();
+      const transaction = db.transaction(DB_COLLECTIONS[collection], 'readwrite');
+      const store = transaction.objectStore(DB_COLLECTIONS[collection]);
+
+      await new Promise<void>((resolve, reject) => {
+        const dbItem = {
+          ...data,
+          createdAt: Date.now()
+        };
+
+        const request = store.add(dbItem);
+
+        request.onsuccess = () => {
+          loadData();
+          resolve();
+        };
+
+        request.onerror = () => {
+          reject(request.error);
+        };
+      });
+    } catch (error) {
+      console.error(`Error adding item to ${collection}:`, error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // const add = async(collection: string, data: any) => {
   //   setLoading(true);
   //
   //   try {
@@ -144,5 +152,5 @@ export const useDatabase = () => {
     loadData();
   }, []);
 
-  return { state, loading }; //  add, remove
+  return { state, loading, add }; //  remove
 };

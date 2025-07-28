@@ -13,6 +13,8 @@ const initialState: StateType = {
   notes: []
 };
 
+const getCollection = (name: CollectionKey) => DB_COLLECTIONS[name];
+
 export const useDatabase = () => {
   const [state, setState] = useState<StateType>(initialState);
   const [loading, setLoading] = useState(false);
@@ -24,9 +26,9 @@ export const useDatabase = () => {
       request.onupgradeneeded = (event: IDBVersionChangeEvent) => {
         const db = (event.target as IDBOpenDBRequest).result;
 
-        for (const collectionName of COLLECTION_KEYS) {
-          if (!db.objectStoreNames.contains(DB_COLLECTIONS[collectionName])) {
-            db.createObjectStore(DB_COLLECTIONS[collectionName], {
+        for (const collection of COLLECTION_KEYS) {
+          if (!db.objectStoreNames.contains(getCollection(collection))) {
+            db.createObjectStore(getCollection(collection), {
               keyPath: 'id',
               autoIncrement: true
             });
@@ -48,9 +50,9 @@ export const useDatabase = () => {
       const db = await openDB();
       const transaction = db.transaction(COLLECTION_NAMES, 'readonly');
 
-      for (const collectionName of COLLECTION_KEYS) {
+      for (const collection of COLLECTION_KEYS) {
         await new Promise<void>((resolve, reject) => {
-          const store = transaction.objectStore(DB_COLLECTIONS[collectionName]);
+          const store = transaction.objectStore(getCollection(collection));
           const request = store.getAll();
 
           request.onsuccess = () => {
@@ -58,7 +60,7 @@ export const useDatabase = () => {
 
             setState((prev) => ({
               ...prev,
-              [collectionName]: data
+              [collection]: data
             }));
 
             resolve();
@@ -79,8 +81,8 @@ export const useDatabase = () => {
 
     try {
       const db = await openDB();
-      const transaction = db.transaction(DB_COLLECTIONS[collection], 'readwrite');
-      const store = transaction.objectStore(DB_COLLECTIONS[collection]);
+      const transaction = db.transaction(getCollection(collection), 'readwrite');
+      const store = transaction.objectStore(getCollection(collection));
 
       await new Promise<void>((resolve, reject) => {
         const dbItem = {
@@ -106,13 +108,40 @@ export const useDatabase = () => {
     }
   };
 
+  const update = async (collection: string, updatedItem: CombinedTypes) => {
+    setLoading(true);
+
+    try {
+      const db = await openDB();
+      const transaction = db.transaction(collection, 'readwrite');
+      const store = transaction.objectStore(collection);
+
+      await new Promise<void>((resolve, reject) => {
+        const request = store.put(updatedItem);
+
+        request.onsuccess = () => {
+          loadData();
+          resolve();
+        };
+
+        request.onerror = () => {
+          reject(request.error);
+        };
+      });
+    } catch (error) {
+      console.error(`Error updating item in ${collection}:`, error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const remove = async (collection: CollectionKey, id: number | string) => {
     setLoading(true);
 
     try {
       const db = await openDB();
-      const transaction = db.transaction(DB_COLLECTIONS[collection], 'readwrite');
-      const store = transaction.objectStore(DB_COLLECTIONS[collection]);
+      const transaction = db.transaction(getCollection(collection), 'readwrite');
+      const store = transaction.objectStore(getCollection(collection));
 
       await new Promise<void>((resolve, reject) => {
         const request = store.delete(id);
@@ -137,5 +166,5 @@ export const useDatabase = () => {
     loadData();
   }, []);
 
-  return { state, loading, add, remove };
+  return { state, loading, add, update, remove };
 };

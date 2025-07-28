@@ -106,51 +106,36 @@ export const useDatabase = () => {
     }
   };
 
-  // const add = async(collection: string, data: any) => {
-  //   setLoading(true);
-  //
-  //   try {
-  //     const db = await openDB();
-  //     const transaction = db.transaction(DB_KEYS.STORE_NAME, 'readwrite');
-  //     const store = transaction.objectStore(DB_KEYS.STORE_NAME);
-  //
-  //     await new Promise((resolve, reject) => {
-  //       const dbItem = { ...item, id: uniqueId(), createdAt: Date.now() };
-  //       const request = store.add(dbItem);
-  //
-  //       request.onsuccess = () => resolve(loadData());
-  //       request.onerror = () => reject(request.error);
-  //     });
-  //   } catch (error) {
-  //     console.error('Error adding item:', error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-  //
-  // const remove = async (id: string) => {
-  //   setLoading(true);
-  //
-  //   try {
-  //     const db = await openDB();
-  //     const transaction = db.transaction(DB_KEYS.STORE_NAME, 'readwrite');
-  //     const store = transaction.objectStore(DB_KEYS.STORE_NAME);
-  //
-  //     await new Promise<void>((resolve, reject) => {
-  //       const request = store.delete(id);
-  //       request.onsuccess = () => resolve(loadData());
-  //       request.onerror = () => reject(request.error);
-  //     });
-  //   } catch (error) {
-  //     console.error('Error deleting item:', error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+  const remove = async (collection: CollectionKey, id: number | string) => {
+    setLoading(true);
+
+    try {
+      const db = await openDB();
+      const transaction = db.transaction(DB_COLLECTIONS[collection], 'readwrite');
+      const store = transaction.objectStore(DB_COLLECTIONS[collection]);
+
+      await new Promise<void>((resolve, reject) => {
+        const request = store.delete(id);
+
+        request.onsuccess = () => {
+          loadData();
+          resolve();
+        };
+
+        request.onerror = () => {
+          reject(request.error);
+        };
+      });
+    } catch (error) {
+      console.error(`Error removing item from ${collection}:`, error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     loadData();
   }, []);
 
-  return { state, loading, add }; //  remove
+  return { state, loading, add, remove };
 };

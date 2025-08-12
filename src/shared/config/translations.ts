@@ -47,6 +47,9 @@ export const translations: Translations = {
     card_holder: 'Card holder',
     card_number: 'Card number',
     cardholder: 'Cardholder name',
-    expiration_date: 'Expiration date'
+    expiration_date: 'Expiration date',
+    add_account: 'Add account',
+    add_bank_card: 'Add bank card',
+    add_note: 'Add note'
   }
 };

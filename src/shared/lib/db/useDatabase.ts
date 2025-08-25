@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { AccountCardData, BankCardData, CombinedTypes, NoteCardData } from '../../types/types';
 import { type CollectionKey, DB_COLLECTIONS, DB_KEYS } from './dbConfig';
 
-type StateType = {
+export type StateType = {
   accounts: AccountCardData[];
   bankCards: BankCardData[];
   notes: NoteCardData[];

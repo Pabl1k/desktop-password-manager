@@ -1,20 +1,13 @@
 import { FC } from 'react';
 import AccountCard from '@/features/Cards/AccountCard';
-import { CollectionKey } from '@/shared/lib/db/dbConfig';
 import { AccountCardData } from '@/shared/types/types';
-import EmptyContent from '../EmptyContent';
 
 interface Props {
   accounts: AccountCardData[];
-  onCardCreate: <T>(collection: CollectionKey, data: T) => Promise<void>;
   onDelete: (id: string) => void;
 }
 
-const Accounts: FC<Props> = ({ accounts, onCardCreate, onDelete }) => {
-  if (!accounts.length) {
-    return <EmptyContent view="main-accounts" onCardCreate={onCardCreate} />;
-  }
-
+const Accounts: FC<Props> = ({ accounts, onDelete }) => {
   return (
     <div className="flex flex-wrap gap-4">
       {accounts.map((item) => (

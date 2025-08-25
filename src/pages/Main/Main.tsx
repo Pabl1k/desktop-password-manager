@@ -41,7 +41,7 @@ const Main: FC<Props> = ({ view }) => {
     }
 
     if (view === 'main-bank_cards') {
-      return <BankCards cards={state.bankCards} />;
+      return <BankCards cards={state.bankCards} onDelete={(id) => remove('bankCards', id)} />;
     }
 
     if (view === 'main-notes') {

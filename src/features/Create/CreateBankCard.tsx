@@ -6,7 +6,7 @@ import Input from '@/shared/ui/Input';
 
 interface Props {
   onClose: () => void;
-  onSave?: (newCard: BankCardCreate) => Promise<void>;
+  onSave: (newCard: BankCardCreate) => Promise<void>;
 }
 
 const titleMapper: Record<keyof BankCardCreate, string> = {
@@ -27,7 +27,7 @@ const initialCardData: BankCardCreate = {
   notes: ''
 };
 
-const CreateBankCard: FC<Props> = ({ onClose }) => {
+const CreateBankCard: FC<Props> = ({ onClose, onSave}) => {
   const { t } = useTranslations();
 
   const [newCardData, setNewCardData] = useState(initialCardData);
@@ -73,7 +73,7 @@ const CreateBankCard: FC<Props> = ({ onClose }) => {
 
       <CreateModalButtons
         saveDisabled={false}
-        onSave={() => console.log('save')}
+        onSave={() => onSave(newCardData)}
         onCancel={onClose}
       />
     </>

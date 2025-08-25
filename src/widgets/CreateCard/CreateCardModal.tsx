@@ -35,7 +35,7 @@ const CreateCardModal: FC<Props> = ({ view, onCardCreate }) => {
 
   const displayContentByView = () => {
     if (view === 'main-bank_cards') {
-      return <CreateBankCard onClose={closeModal} />;
+      return <CreateBankCard onClose={closeModal} onSave={(newCard) => onCardCreate('bankCards', newCard)} />;
     }
 
     if (view === 'main-notes') {

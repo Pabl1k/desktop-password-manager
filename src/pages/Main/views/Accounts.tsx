@@ -1,17 +1,18 @@
 import { FC } from 'react';
 import AccountCard from '@/features/Cards/AccountCard';
-import { AccountCardData, AccountCreate } from '@/shared/types/types';
+import { CollectionKey } from '@/shared/lib/db/dbConfig';
+import { AccountCardData } from '@/shared/types/types';
 import EmptyContent from '../EmptyContent';
 
 interface Props {
   accounts: AccountCardData[];
-  onNewAccountCreate: (newCard: AccountCreate) => Promise<void>;
+  onCardCreate: <T>(collection: CollectionKey, data: T) => Promise<void>;
   onDelete: (id: string) => void;
 }
 
-const Accounts: FC<Props> = ({ accounts, onNewAccountCreate, onDelete }) => {
+const Accounts: FC<Props> = ({ accounts, onCardCreate, onDelete }) => {
   if (!accounts.length) {
-    return <EmptyContent onNewCardCreate={onNewAccountCreate} />;
+    return <EmptyContent view="main-accounts" onCardCreate={onCardCreate} />;
   }
 
   return (

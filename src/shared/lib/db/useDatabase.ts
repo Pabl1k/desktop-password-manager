@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react';
-import { CombinedTypes } from '../../types/types';
+import { AccountCardData, BankCardData, CombinedTypes, NoteCardData } from '../../types/types';
 import { type CollectionKey, DB_COLLECTIONS, DB_KEYS } from './dbConfig';
 
-type StateType = Record<CollectionKey, CombinedTypes[]>;
+type StateType = {
+  accounts: AccountCardData[];
+  bankCards: BankCardData[];
+  notes: NoteCardData[];
+}
 
 const COLLECTION_KEYS = Object.keys(DB_COLLECTIONS) as CollectionKey[];
 const COLLECTION_NAMES = Object.values(DB_COLLECTIONS);

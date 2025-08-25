@@ -3,12 +3,10 @@ import Login from '@/pages/Login/Login';
 import Main from '@/pages/Main/Main';
 import Settings from '@/pages/Settings/Settings';
 import { useAuth } from '@/shared/hooks/useAuth';
-import { useDatabase } from '@/shared/lib/db/useDatabase';
 import { ContentView } from '@/shared/types/view';
 import Sidebar from '@/widgets/Sidebar';
 
 const App = () => {
-  const { state, add, remove } = useDatabase();
   const [view, setView] = useState<ContentView>('main');
   const { loginRequired, handleLogin } = useAuth();
 
@@ -25,9 +23,7 @@ const App = () => {
       return <Settings />;
     }
 
-    return (
-      <Main view={view} content={[]} onCreate={() => console.log('')} onDelete={() => 'dsa'} />
-    );
+    return <Main view={view} />;
   };
 
   return (

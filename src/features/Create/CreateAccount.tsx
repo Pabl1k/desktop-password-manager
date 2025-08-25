@@ -47,7 +47,7 @@ const CreateAccount: FC<Props> = ({ onClose, onSave }) => {
   };
 
   const handleSave = async () => {
-    await onSave(newCardData);
+    await onSave(newCardData); // trim before save
     onClose();
     resetCardData();
   };

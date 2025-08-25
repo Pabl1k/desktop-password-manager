@@ -1,27 +1,23 @@
-import { FC, useState } from 'react';
-import CreateAccount from '@/features/Create/CreateAccount';
+import { FC } from 'react';
 import { useTranslations } from '@/shared/hooks/useTranslations';
-import { AccountCreate } from '@/shared/types/types';
-import CreateCardModal from '@/widgets/CreateCardModal';
+import { CollectionKey } from '@/shared/lib/db/dbConfig';
+import { MainView } from '@/shared/types/view';
+import CreateCardModal from '@/widgets/CreateCard/CreateCardModal';
 
 interface Props {
-  onNewCardCreate: (newCard: AccountCreate) => Promise<void>;
+  view: MainView;
+  onCardCreate: <T>(collection: CollectionKey, data: T) => Promise<void>;
 }
 
-const EmptyContent: FC<Props> = ({ onNewCardCreate }) => {
+const EmptyContent: FC<Props> = ({ view, onCardCreate }) => {
   const { t } = useTranslations();
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const closeModal = () => setModalOpen(false);
 
   return (
     <div className="w-full h-full flex justify-center">
       <div className="w-[50vw] flex flex-col items-center mt-6 gap-4">
         <span className="text-2xl text-center">{t('empty_content_placeholder')}</span>
 
-        <CreateCardModal open={modalOpen} openModal={() => setModalOpen(true)} onClose={closeModal}>
-          <CreateAccount onClose={closeModal} onSave={onNewCardCreate} />
-        </CreateCardModal>
+        <CreateCardModal view={view} onCardCreate={onCardCreate} />
       </div>
     </div>
   );

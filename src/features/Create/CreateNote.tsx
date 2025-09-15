@@ -6,6 +6,7 @@ import Input from '@/shared/ui/Input';
 
 interface Props {
   onClose: () => void;
+  onSave: (card: NoteCardCreate) => void;
 }
 
 const initialCardData = {
@@ -13,9 +14,15 @@ const initialCardData = {
   note: ''
 };
 
-const CreateNote: FC<Props> = ({ onClose }) => {
+const CreateNote: FC<Props> = ({ onClose , onSave}) => {
   const { t } = useTranslations();
   const [newCardData, setNewCardData] = useState<NoteCardCreate>(initialCardData);
+
+  const handleSave = () => {
+    onSave(newCardData);
+    onClose();
+    setNewCardData(initialCardData);
+  }
 
   const handleCancel = () => {
     onClose();
@@ -47,7 +54,7 @@ const CreateNote: FC<Props> = ({ onClose }) => {
 
       <CreateModalButtons
         saveDisabled={false}
-        onSave={() => console.log('save')}
+        onSave={handleSave}
         onCancel={handleCancel}
       />
     </>

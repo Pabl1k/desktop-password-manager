@@ -24,7 +24,7 @@ const EmptyContent: FC<Props> = ({ view, onCardCreate }) => {
       <div className="w-[50vw] flex flex-col items-center mt-6 gap-4">
         <span className="text-2xl text-center">{t(textMapper[view])}</span>
 
-        <CreateCardModal view={view} onCardCreate={onCardCreate} />
+        {view !== 'main' && <CreateCardModal view={view} onCardCreate={onCardCreate} />}
       </div>
     </div>
   );

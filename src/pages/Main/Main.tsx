@@ -45,7 +45,7 @@ const Main: FC<Props> = ({ view }) => {
     }
 
     if (view === 'main-notes') {
-      return <Notes />;
+      return <Notes card={state.notes} onDelete={(id) => remove('notes', id)}  />;
     }
 
     return <div>Main page</div>;

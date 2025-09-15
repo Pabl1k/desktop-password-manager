@@ -29,7 +29,10 @@ export const translations: Translations = {
     edit: 'Edit',
     open_in_browser: 'Open in browser',
     version: 'Version',
-    empty_content_placeholder: "No cards found. Click 'Add' to create a new card",
+    empty_overview_placeholder: "No cards found. Select a category and click 'Add' to create a new card",
+    empty_accounts_placeholder: "No Account cards found. Click 'Add' to create a new card",
+    empty_bankCards_placeholder: "No Bank cards found. Click 'Add' to create a new card",
+    empty_notes_placeholder: "No Notes found. Click 'Add' to create a new card",
     setup_passcode: 'Setup passcode',
     enter_passcode: 'Enter passcode',
     reset_passcode: 'Reset passcode',
@@ -47,6 +50,9 @@ export const translations: Translations = {
     card_holder: 'Card holder',
     card_number: 'Card number',
     cardholder: 'Cardholder name',
-    expiration_date: 'Expiration date'
+    expiration_date: 'Expiration date',
+    add_account: 'Add account',
+    add_bank_card: 'Add bank card',
+    add_note: 'Add note'
   }
 };

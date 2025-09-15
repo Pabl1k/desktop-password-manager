@@ -1,15 +1,15 @@
 import { FC, useState } from 'react';
 import CreateModalButtons from '@/features/Create/CreateModalButtons';
 import { useTranslations } from '@/shared/hooks/useTranslations';
-import { IBankCardCreate } from '@/shared/types/types';
+import { BankCardCreate } from '@/shared/types/types';
 import Input from '@/shared/ui/Input';
 
 interface Props {
   onClose: () => void;
-  onSave?: (newCard: IBankCardCreate) => Promise<void>;
+  onSave: (newCard: BankCardCreate) => Promise<void>;
 }
 
-const titleMapper: Record<keyof IBankCardCreate, string> = {
+const titleMapper: Record<keyof BankCardCreate, string> = {
   title: 'card_title',
   cardNumber: 'card_number',
   cardholder: 'cardholder',
@@ -18,7 +18,7 @@ const titleMapper: Record<keyof IBankCardCreate, string> = {
   notes: 'notes'
 };
 
-const initialCardData: IBankCardCreate = {
+const initialCardData: BankCardCreate = {
   title: '',
   cardNumber: '',
   cardholder: '',
@@ -27,12 +27,12 @@ const initialCardData: IBankCardCreate = {
   notes: ''
 };
 
-const CreateBankCard: FC<Props> = ({ onClose }) => {
+const CreateBankCard: FC<Props> = ({ onClose, onSave}) => {
   const { t } = useTranslations();
 
   const [newCardData, setNewCardData] = useState(initialCardData);
 
-  const handleChange = (key: keyof IBankCardCreate, value: string) => {
+  const handleChange = (key: keyof BankCardCreate, value: string) => {
     setNewCardData((prevData) => ({
       ...prevData,
       [key]: value
@@ -46,7 +46,7 @@ const CreateBankCard: FC<Props> = ({ onClose }) => {
           return null;
         }
 
-        const fieldName = field as keyof Omit<IBankCardCreate, 'notes'>;
+        const fieldName = field as keyof Omit<BankCardCreate, 'notes'>;
         const fieldTitle = t(titleMapper[fieldName]);
 
         return (
@@ -73,7 +73,7 @@ const CreateBankCard: FC<Props> = ({ onClose }) => {
 
       <CreateModalButtons
         saveDisabled={false}
-        onSave={() => console.log('save')}
+        onSave={() => onSave(newCardData)}
         onCancel={onClose}
       />
     </>

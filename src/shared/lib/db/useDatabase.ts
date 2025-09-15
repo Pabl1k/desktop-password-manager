@@ -1,10 +1,26 @@
 import { useEffect, useState } from 'react';
-import { AccountCreate, IAccountCard } from '../../types/types';
-import { uniqueId } from '../utils/generate';
-import { DB_KEYS } from './dbConfig';
+import { AccountCardData, BankCardData, CombinedTypes, NoteCardData } from '../../types/types';
+import { type CollectionKey, DB_COLLECTIONS, DB_KEYS } from './dbConfig';
 
-export const useDatabase = <T extends IAccountCard>() => {
-  const [state, setState] = useState<T[]>([]);
+export type StateType = {
+  accounts: AccountCardData[];
+  bankCards: BankCardData[];
+  notes: NoteCardData[];
+}
+
+const COLLECTION_KEYS = Object.keys(DB_COLLECTIONS) as CollectionKey[];
+const COLLECTION_NAMES = Object.values(DB_COLLECTIONS);
+
+const initialState: StateType = {
+  accounts: [],
+  bankCards: [],
+  notes: []
+};
+
+const getCollection = (name: CollectionKey) => DB_COLLECTIONS[name];
+
+export const useDatabase = () => {
+  const [state, setState] = useState<StateType>(initialState);
   const [loading, setLoading] = useState(false);
 
   const openDB = (): Promise<IDBDatabase> =>
@@ -14,8 +30,13 @@ export const useDatabase = <T extends IAccountCard>() => {
       request.onupgradeneeded = (event: IDBVersionChangeEvent) => {
         const db = (event.target as IDBOpenDBRequest).result;
 
-        if (!db.objectStoreNames.contains(DB_KEYS.STORE_NAME)) {
-          db.createObjectStore(DB_KEYS.STORE_NAME, { keyPath: 'id', autoIncrement: true });
+        for (const collection of COLLECTION_KEYS) {
+          if (!db.objectStoreNames.contains(getCollection(collection))) {
+            db.createObjectStore(getCollection(collection), {
+              keyPath: 'id',
+              autoIncrement: true
+            });
+          }
         }
       };
 
@@ -31,62 +52,115 @@ export const useDatabase = <T extends IAccountCard>() => {
 
     try {
       const db = await openDB();
-      const transaction = db.transaction(DB_KEYS.STORE_NAME, 'readonly');
-      const store = transaction.objectStore(DB_KEYS.STORE_NAME);
+      const transaction = db.transaction(COLLECTION_NAMES, 'readonly');
 
-      const data = await new Promise<T[]>((resolve, reject) => {
-        const request = store.getAll();
+      for (const collection of COLLECTION_KEYS) {
+        await new Promise<void>((resolve, reject) => {
+          const store = transaction.objectStore(getCollection(collection));
+          const request = store.getAll();
 
-        request.onsuccess = () => resolve(request.result as T[]);
-        request.onerror = () => reject(request.error);
-      });
+          request.onsuccess = () => {
+            const data = request.result as CombinedTypes[];
 
-      const sortedData = [...data].sort((a, b) => b.createdAt - a.createdAt);
-      setState(sortedData);
+            setState((prev) => ({
+              ...prev,
+              [collection]: data
+            }));
+
+            resolve();
+          };
+
+          request.onerror = () => reject(request.error);
+        });
+      }
     } catch (error) {
-      console.error('Error fetching users:', error);
+      console.error('Error fetching data from collections:', error);
     } finally {
       setLoading(false);
     }
   };
 
-  const add = async <D extends AccountCreate>(item: D) => {
+  const add = async <T>(collection: CollectionKey, data: T) => {
     setLoading(true);
 
     try {
       const db = await openDB();
-      const transaction = db.transaction(DB_KEYS.STORE_NAME, 'readwrite');
-      const store = transaction.objectStore(DB_KEYS.STORE_NAME);
+      const transaction = db.transaction(getCollection(collection), 'readwrite');
+      const store = transaction.objectStore(getCollection(collection));
 
-      await new Promise((resolve, reject) => {
-        const dbItem = { ...item, id: uniqueId(), createdAt: Date.now() };
+      await new Promise<void>((resolve, reject) => {
+        const dbItem = {
+          ...data,
+          createdAt: Date.now()
+        };
+
         const request = store.add(dbItem);
 
-        request.onsuccess = () => resolve(loadData());
-        request.onerror = () => reject(request.error);
+        request.onsuccess = () => {
+          loadData();
+          resolve();
+        };
+
+        request.onerror = () => {
+          reject(request.error);
+        };
       });
     } catch (error) {
-      console.error('Error adding item:', error);
+      console.error(`Error adding item to ${collection}:`, error);
     } finally {
       setLoading(false);
     }
   };
 
-  const remove = async (id: string) => {
+  const update = async (collection: string, updatedItem: CombinedTypes) => {
     setLoading(true);
 
     try {
       const db = await openDB();
-      const transaction = db.transaction(DB_KEYS.STORE_NAME, 'readwrite');
-      const store = transaction.objectStore(DB_KEYS.STORE_NAME);
+      const transaction = db.transaction(collection, 'readwrite');
+      const store = transaction.objectStore(collection);
+
+      await new Promise<void>((resolve, reject) => {
+        const request = store.put(updatedItem);
+
+        request.onsuccess = () => {
+          loadData();
+          resolve();
+        };
+
+        request.onerror = () => {
+          reject(request.error);
+        };
+      });
+    } catch (error) {
+      console.error(`Error updating item in ${collection}:`, error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const remove = async (collection: CollectionKey, id: number | string) => {
+    setLoading(true);
+
+    try {
+      const db = await openDB();
+      const transaction = db.transaction(getCollection(collection), 'readwrite');
+      const store = transaction.objectStore(getCollection(collection));
 
       await new Promise<void>((resolve, reject) => {
         const request = store.delete(id);
-        request.onsuccess = () => resolve(loadData());
-        request.onerror = () => reject(request.error);
+
+        request.onsuccess = () => {
+          loadData();
+          resolve();
+        };
+
+        request.onerror = () => {
+          reject(request.error);
+        };
       });
     } catch (error) {
-      console.error('Error deleting item:', error);
+      console.error(`Error removing item from ${collection}:`, error);
     } finally {
       setLoading(false);
     }
@@ -96,5 +170,5 @@ export const useDatabase = <T extends IAccountCard>() => {
     loadData();
   }, []);
 
-  return { state, loading, add, remove };
+  return { state, loading, add, update, remove };
 };

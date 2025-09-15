@@ -1,27 +1,17 @@
 import { FC } from 'react';
 import BankCard from '@/features/Cards/BankCard';
-import { IBankCard } from '@/shared/types/types';
+import { BankCardData } from '@/shared/types/types';
 
-interface Props {}
+interface Props {
+  cards: BankCardData[];
+  onDelete: (id: string) => void;
+}
 
-const test: IBankCard[] = [
-  {
-    id: '1',
-    title: 'Test Card',
-    cardNumber: '1234567812345678',
-    expirationDate: '12/25',
-    cvv: '123',
-    cardholder: 'John Doe',
-    notes: 'Test note',
-    createdAt: Date.now()
-  }
-];
-
-const BankCards: FC<Props> = ({}) => {
+const BankCards: FC<Props> = ({ cards, onDelete }) => {
   return (
     <div className="flex flex-wrap gap-4">
-      {test.map((card) => (
-        <BankCard key={card.id} {...card} onDelete={() => console.log('delete')} />
+      {cards.map((card) => (
+        <BankCard key={card.id} {...card} onDelete={() => onDelete(card.id)} />
       ))}
     </div>
   );

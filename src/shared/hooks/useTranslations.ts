@@ -1,5 +1,7 @@
 import { translations } from '../config/translations';
 
+export type Translation = (key: string) => string;
+
 export const useTranslations = () => {
   const userLanguage = 'en'; // get from user settings
 

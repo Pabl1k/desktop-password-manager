@@ -1,40 +1,17 @@
-import { FC, useState } from 'react';
-import CreateAccount from '@/features/Create/CreateAccount';
-import CreateBankCard from '@/features/Create/CreateBankCard';
-import CreateNote from '@/features/Create/CreateNote';
-import { AccountCreate } from '@/shared/types/types';
+import { FC } from 'react';
 import { MainView } from '@/shared/types/view';
-import CreateCardModal from '@/widgets/CreateCardModal';
+import CreateCardModal from '@/widgets/CreateCard/CreateCardModal';
+import { CollectionKey } from '@/shared/lib/db/dbConfig';
 
 interface Props {
   view: MainView;
-  onNewCardCreate: (newCard: AccountCreate) => Promise<void>;
+  onCardCreate: <T>(collection: CollectionKey, data: T) => Promise<void>;
 }
 
-const Toolbar: FC<Props> = ({ view, onNewCardCreate }) => {
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const closeModal = () => setModalOpen(false);
-
-  const displayContentByView = () => {
-    if (view === 'main-bank_cards') {
-      return <CreateBankCard onClose={closeModal} />;
-    }
-
-    if (view === 'main-notes') {
-      return <CreateNote onClose={closeModal} />;
-    }
-
-    return <CreateAccount onClose={closeModal} onSave={onNewCardCreate} />;
-  };
-
+const Toolbar: FC<Props> = ({ view, onCardCreate }) => {
   return (
     <div className="h-[85px] bg-bg-toolbar border-b border-section-border flex items-center p-6">
-      {view.startsWith('main-') && (
-        <CreateCardModal open={modalOpen} openModal={() => setModalOpen(true)} onClose={closeModal}>
-          {displayContentByView()}
-        </CreateCardModal>
-      )}
+      {view.startsWith('main-') && <CreateCardModal view={view} onCardCreate={onCardCreate} />}
     </div>
   );
 };

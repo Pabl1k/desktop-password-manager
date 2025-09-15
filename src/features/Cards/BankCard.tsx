@@ -3,13 +3,13 @@ import clsx from 'clsx';
 import { useTranslations } from '@/shared/hooks/useTranslations';
 import { uniqueId } from '@/shared/lib/utils/generate';
 import { copyToClipboard } from '@/shared/lib/utils/link';
-import { IBankCard } from '@/shared/types/types';
+import { BankCardData } from '@/shared/types/types';
 import CardNotes from '@/shared/ui/CardNotes';
 import DropdownMenu, { DropdownOption } from '@/shared/ui/DropdownMenu';
 import Icon from '@/shared/ui/Icon';
 import IconButton from '@/shared/ui/IconButton';
 
-interface Props extends IBankCard {
+interface Props extends BankCardData {
   onDelete: () => void;
 }
 

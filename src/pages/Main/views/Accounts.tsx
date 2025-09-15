@@ -1,19 +1,13 @@
 import { FC } from 'react';
 import AccountCard from '@/features/Cards/AccountCard';
-import { IAccountCard, AccountCreate } from '@/shared/types/types';
-import EmptyContent from '../EmptyContent';
+import { AccountCardData } from '@/shared/types/types';
 
 interface Props {
-  accounts: IAccountCard[];
-  onNewAccountCreate: (newCard: AccountCreate) => Promise<void>;
+  accounts: AccountCardData[];
   onDelete: (id: string) => void;
 }
 
-const Accounts: FC<Props> = ({ accounts, onNewAccountCreate, onDelete }) => {
-  if (!accounts.length) {
-    return <EmptyContent onNewCardCreate={onNewAccountCreate} />;
-  }
-
+const Accounts: FC<Props> = ({ accounts, onDelete }) => {
   return (
     <div className="flex flex-wrap gap-4">
       {accounts.map((item) => (

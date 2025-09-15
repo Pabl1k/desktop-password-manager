@@ -1,21 +1,17 @@
 import { FC } from 'react';
 import NoteCard from '@/features/Cards/NoteCard';
+import { NoteCardData } from '@/shared/types/types';
 
-interface Props {}
+interface Props {
+  card: NoteCardData[];
+  onDelete: (id: string) => void;
+}
 
-const test = [
-  {
-    id: '1',
-    title: 'Test Note',
-    content: 'This is a test note.'
-  }
-];
-
-const Notes: FC<Props> = ({}) => {
+const Notes: FC<Props> = ({ card, onDelete }) => {
   return (
     <div className="flex flex-wrap gap-4">
-      {test.map((note) => (
-        <NoteCard key={note.id} {...note} onDelete={() => console.log('delete')} />
+      {card.map(({ id, title, note }) => (
+        <NoteCard key={id} title={title} content={note} onDelete={() => onDelete(id)} />
       ))}
     </div>
   );

@@ -23,7 +23,7 @@ const App = () => {
       return <Settings />;
     }
 
-    return <Main view={view} />;
+    return <Main view={view} setView={setView} />;
   };
 
   return (

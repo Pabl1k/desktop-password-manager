@@ -59,6 +59,7 @@ const PasswordGeneratorModal: FC<Props> = ({ open, applyButton, onClose }) => {
       outsideClickClose={handleClose}
     >
       <span className="text-2xl flex justify-center">{t('generate_password')}</span>
+
       <div>
         <div className="border border-section-border rounded-field truncate pl-3 py-2 text-3xl">
           {value}
@@ -72,6 +73,7 @@ const PasswordGeneratorModal: FC<Props> = ({ open, applyButton, onClose }) => {
           />
         </div>
       </div>
+
       <div className="flex justify-end">
         <Button type="add" disabled={copied} onClick={handleApplyButtonClick}>
           {getApplyButtonText()}

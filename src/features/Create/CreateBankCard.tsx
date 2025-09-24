@@ -3,6 +3,7 @@ import CreateModalButtons from '@/features/Create/CreateModalButtons';
 import { useTranslations } from '@/shared/hooks/useTranslations';
 import { BankCardCreate } from '@/shared/types/types';
 import Input from '@/shared/ui/Input';
+import Switch from '@/shared/ui/Switch';
 
 interface Props {
   onClose: () => void;
@@ -15,7 +16,8 @@ const titleMapper: Record<keyof BankCardCreate, string> = {
   cardholder: 'cardholder',
   expirationDate: 'expiration_date',
   cvv: 'cvv',
-  notes: 'notes'
+  notes: 'notes',
+  safety: 'safety_mode'
 };
 
 const initialCardData: BankCardCreate = {
@@ -24,7 +26,8 @@ const initialCardData: BankCardCreate = {
   cardholder: '',
   expirationDate: '',
   cvv: '',
-  notes: ''
+  notes: '',
+  safety: false
 };
 
 const CreateBankCard: FC<Props> = ({ onClose, onSave}) => {
@@ -32,7 +35,7 @@ const CreateBankCard: FC<Props> = ({ onClose, onSave}) => {
 
   const [newCardData, setNewCardData] = useState(initialCardData);
 
-  const handleChange = (key: keyof BankCardCreate, value: string) => {
+  const handleChange = (key: keyof BankCardCreate, value: string | boolean) => {
     setNewCardData((prevData) => ({
       ...prevData,
       [key]: value
@@ -42,11 +45,11 @@ const CreateBankCard: FC<Props> = ({ onClose, onSave}) => {
   return (
     <>
       {Object.keys(initialCardData).map((field) => {
-        if (field === 'notes') {
+        if (field === 'notes' || field === 'safety') {
           return null;
         }
 
-        const fieldName = field as keyof Omit<BankCardCreate, 'notes'>;
+        const fieldName = field as keyof Omit<BankCardCreate, 'notes' | 'safety'>;
         const fieldTitle = t(titleMapper[fieldName]);
 
         return (
@@ -68,6 +71,14 @@ const CreateBankCard: FC<Props> = ({ onClose, onSave}) => {
           value={newCardData.notes}
           placeholder={t('enter_notes')}
           onChange={(e) => handleChange('notes', e.target.value)}
+        />
+      </div>
+
+      <div className="flex flex-col">
+        <span className="capitalize mb-1">{`${t('safety_mode')}: ${newCardData.safety ? "ON" : "OFF"}`}</span>
+        <Switch
+          checked={newCardData.safety}
+          onChange={(checked) => handleChange('safety', checked)}
         />
       </div>
 

@@ -3,6 +3,7 @@ import CreateModalButtons from '@/features/Create/CreateModalButtons';
 import { useTranslations } from '@/shared/hooks/useTranslations';
 import { NoteCardCreate } from '@/shared/types/types';
 import Input from '@/shared/ui/Input';
+import Switch from '@/shared/ui/Switch';
 
 interface Props {
   onClose: () => void;
@@ -11,10 +12,11 @@ interface Props {
 
 const initialCardData = {
   title: '',
-  note: ''
+  note: '',
+  safety: false
 };
 
-const CreateNote: FC<Props> = ({ onClose , onSave}) => {
+const CreateNote: FC<Props> = ({ onClose, onSave }) => {
   const { t } = useTranslations();
   const [newCardData, setNewCardData] = useState<NoteCardCreate>(initialCardData);
 
@@ -22,7 +24,7 @@ const CreateNote: FC<Props> = ({ onClose , onSave}) => {
     onSave(newCardData);
     onClose();
     setNewCardData(initialCardData);
-  }
+  };
 
   const handleCancel = () => {
     onClose();
@@ -52,11 +54,15 @@ const CreateNote: FC<Props> = ({ onClose , onSave}) => {
         />
       </div>
 
-      <CreateModalButtons
-        saveDisabled={false}
-        onSave={handleSave}
-        onCancel={handleCancel}
-      />
+      <div className="flex flex-col">
+        <span className="capitalize mb-1">{`${t('safety_mode')}: ${newCardData.safety ? 'ON' : 'OFF'}`}</span>
+        <Switch
+          checked={newCardData.safety}
+          onChange={(checked) => setNewCardData((prevState) => ({ ...prevState, safety: checked }))}
+        />
+      </div>
+
+      <CreateModalButtons saveDisabled={false} onSave={handleSave} onCancel={handleCancel} />
     </>
   );
 };

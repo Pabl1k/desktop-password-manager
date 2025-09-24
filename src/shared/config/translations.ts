@@ -53,6 +53,7 @@ export const translations: Translations = {
     expiration_date: 'Expiration date',
     add_account: 'Add account',
     add_bank_card: 'Add bank card',
-    add_note: 'Add note'
+    add_note: 'Add note',
+    safety_mode: "Safety mode"
   }
 };

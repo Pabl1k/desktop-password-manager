@@ -16,5 +16,5 @@ export const DB_COLLECTIONS: Collections = {
 export const DB_KEYS: DatabaseKeys = {
   NAME: 'password-manager-database',
   COLLECTIONS: DB_COLLECTIONS,
-  VERSION: 3
+  VERSION: 4
 } as const;

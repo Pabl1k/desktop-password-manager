@@ -4,14 +4,16 @@ import Accounts from '@/pages/Main/views/Accounts';
 import BankCards from '@/pages/Main/views/BankCards';
 import Notes from '@/pages/Main/views/Notes';
 import { StateType, useDatabase } from '@/shared/lib/db/useDatabase';
-import { MainView } from '@/shared/types/view';
+import { MainView as MainViewType } from '@/shared/types/view';
 import Toolbar from '@/widgets/Toolbar';
+import MainView from './views/MainView';
 
 interface Props {
-  view: MainView;
+  view: MainViewType;
+  setView: (view: MainViewType) => void;
 }
 
-const getStateKeyByView = (view: MainView): keyof StateType => {
+const getStateKeyByView = (view: MainViewType): keyof StateType => {
   if (view === 'main-bank_cards') {
     return 'bankCards';
   }
@@ -23,12 +25,16 @@ const getStateKeyByView = (view: MainView): keyof StateType => {
   return 'accounts';
 };
 
-const isViewStateEmpty = (state: StateType, view: MainView) => {
+const isViewStateEmpty = (state: StateType, view: MainViewType) => {
+  if (view === 'main') {
+    return Object.values(state).every((items) => !items.length);
+  }
+
   const stateKeyByView = getStateKeyByView(view);
   return state[stateKeyByView].length === 0;
 };
 
-const Main: FC<Props> = ({ view }) => {
+const Main: FC<Props> = ({ view , setView}) => {
   const { state, add, remove } = useDatabase();
 
   const renderContent = () => {
@@ -45,10 +51,17 @@ const Main: FC<Props> = ({ view }) => {
     }
 
     if (view === 'main-notes') {
-      return <Notes card={state.notes} onDelete={(id) => remove('notes', id)}  />;
+      return <Notes card={state.notes} onDelete={(id) => remove('notes', id)} />;
     }
 
-    return <div>Main page</div>;
+    return (
+      <MainView
+        accountsCount={state['accounts'].length}
+        bankCardsCount={state['bankCards'].length}
+        notesCount={state['notes'].length}
+        goToView={setView}
+      />
+    );
   };
 
   return (

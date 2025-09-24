@@ -1,10 +1,10 @@
-import { FC, MouseEvent, useState } from 'react';
+import { FC, useState } from 'react';
 import CreateModalButtons from '@/features/Create/CreateModalButtons';
 import { useTranslations } from '@/shared/hooks/useTranslations';
+import { generatePassword } from '@/shared/lib/utils/generate';
 import { AccountCardData, AccountCreate } from '@/shared/types/types';
 import Button from '@/shared/ui/Button';
 import Input from '@/shared/ui/Input';
-import PasswordGeneratorModal from '@/widgets/PasswordGeneratorModal';
 
 interface Props {
   onClose: () => void;
@@ -30,7 +30,6 @@ const initialCardData: AccountCreate = {
 const CreateAccount: FC<Props> = ({ onClose, onSave }) => {
   const { t } = useTranslations();
 
-  const [passwordGenerationModalOpen, setPasswordGenerationModalOpen] = useState(false);
   const [newCardData, setNewCardData] = useState(initialCardData);
 
   const fieldsEmpty = Object.values(newCardData).every((value) => !value);
@@ -57,24 +56,13 @@ const CreateAccount: FC<Props> = ({ onClose, onSave }) => {
     resetCardData();
   };
 
-  const openPasswordGenerationModal = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setPasswordGenerationModalOpen(true);
-  };
-
-  const handleGeneratedPassword = (password: string) => {
-    handleChange('password', password);
-    setPasswordGenerationModalOpen(false);
+  const setGeneratedPassword = () => {
+    const generatedPassword = generatePassword();
+    handleChange('password', generatedPassword);
   };
 
   return (
     <>
-      <PasswordGeneratorModal
-        open={passwordGenerationModalOpen}
-        applyButton={{ textKey: 'apply_password', onClick: handleGeneratedPassword }}
-        onClose={() => setPasswordGenerationModalOpen(false)}
-      />
-
       {Object.keys(initialCardData).map((field) => {
         if (field === 'notes') {
           return null;
@@ -83,7 +71,7 @@ const CreateAccount: FC<Props> = ({ onClose, onSave }) => {
         const fieldName = field as keyof Omit<AccountCreate, 'notes'>;
         const fieldTitle = t(titleMapper[fieldName]);
         const suffix = fieldName === 'password' && (
-          <Button type="default" className="px-0" onClick={openPasswordGenerationModal}>
+          <Button type="default" className="px-0" onClick={setGeneratedPassword}>
             {t('generate')}
           </Button>
         );

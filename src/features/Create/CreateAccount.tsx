@@ -1,16 +1,11 @@
-import { FC, useState } from 'react';
-import CreateModalButtons from '@/features/Create/CreateModalButtons';
+import { FC } from 'react';
 import { useTranslations } from '@/shared/hooks/useTranslations';
 import { generatePassword } from '@/shared/lib/utils/generate';
-import { AccountCardData, AccountCreate } from '@/shared/types/types';
+import { AccountCreate } from '@/shared/types/types';
 import Button from '@/shared/ui/Button';
 import Input from '@/shared/ui/Input';
 import Switch from '@/shared/ui/Switch';
-
-interface Props {
-  onClose: () => void;
-  onSave: (newCard: AccountCreate) => Promise<void>;
-}
+import { CreateCardProps } from '@/widgets/CreateCard/CreateCardModal';
 
 const titleMapper: Record<keyof AccountCreate, string> = {
   title: 'card_title',
@@ -21,54 +16,17 @@ const titleMapper: Record<keyof AccountCreate, string> = {
   safety: 'safety_mode'
 };
 
-const initialCardData: AccountCreate = {
-  title: '',
-  login: '',
-  password: '',
-  url: '',
-  notes: '',
-  safety: false
-};
-
-const CreateAccount: FC<Props> = ({ onClose, onSave }) => {
+const CreateAccount: FC<CreateCardProps<AccountCreate>> = ({ cardData, onChange }) => {
   const { t } = useTranslations();
-
-  const [newCardData, setNewCardData] = useState(initialCardData);
-
-  const fieldsEmpty = Object.keys(newCardData)
-    .filter((name) => name !== 'safety')
-    .every((name) => !newCardData[name as keyof AccountCreate]);
-
-  const handleChange = (key: keyof AccountCardData, value: string | boolean) => {
-    setNewCardData((prevData) => ({
-      ...prevData,
-      [key]: value
-    }));
-  };
-
-  const resetCardData = () => {
-    setNewCardData(initialCardData);
-  };
-
-  const handleSave = async () => {
-    await onSave(newCardData); // trim before save
-    onClose();
-    resetCardData();
-  };
-
-  const handleCancel = () => {
-    onClose();
-    resetCardData();
-  };
 
   const setGeneratedPassword = () => {
     const generatedPassword = generatePassword();
-    handleChange('password', generatedPassword);
+    onChange('password', generatedPassword);
   };
 
   return (
     <>
-      {Object.keys(initialCardData).map((field) => {
+      {Object.keys(cardData).map((field) => {
         if (field === 'notes' || field === 'safety') {
           return null;
         }
@@ -85,10 +43,10 @@ const CreateAccount: FC<Props> = ({ onClose, onSave }) => {
           <div key={fieldName} className="flex flex-col">
             <span className="capitalize mb-1">{fieldTitle}</span>
             <Input
-              value={newCardData[fieldName] ?? ''}
+              value={cardData[fieldName] ?? ''}
               placeholder={`${t('enter')} ${fieldTitle.toLowerCase()}`}
               suffix={suffix}
-              onChange={(newValue) => handleChange(fieldName, newValue)}
+              onChange={(newValue) => onChange(fieldName, newValue)}
             />
           </div>
         );
@@ -98,21 +56,16 @@ const CreateAccount: FC<Props> = ({ onClose, onSave }) => {
         <span className="capitalize mb-1">{t('notes')}</span>
         <textarea
           className="min-h-(--field-height) border border-border rounded-field px-3 py-2 outline-none hover:border-green-main focus-within:border-green-main overflow-hidden"
-          value={newCardData.notes}
+          value={cardData.notes}
           placeholder={t('enter_notes')}
-          onChange={(e) => handleChange('notes', e.target.value)}
+          onChange={(e) => onChange('notes', e.target.value)}
         />
       </div>
 
       <div className="flex flex-col">
-        <span className="capitalize mb-1">{`${t('safety_mode')}: ${newCardData.safety ? "ON" : "OFF"}`}</span>
-        <Switch
-          checked={newCardData.safety}
-          onChange={(checked) => handleChange('safety', checked)}
-        />
+        <span className="capitalize mb-1">{`${t('safety_mode')}: ${cardData.safety ? 'ON' : 'OFF'}`}</span>
+        <Switch checked={cardData.safety} onChange={(checked) => onChange('safety', checked)} />
       </div>
-
-      <CreateModalButtons saveDisabled={fieldsEmpty} onSave={handleSave} onCancel={handleCancel} />
     </>
   );
 };

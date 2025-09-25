@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import CreateAccount from '@/features/Create/CreateAccount';
 import CreateBankCard from '@/features/Create/CreateBankCard';
 import CreateModalButtons from '@/features/Create/CreateModalButtons';
@@ -10,12 +10,8 @@ import { MainView } from '@/shared/types/view';
 import Button from '@/shared/ui/Button';
 import Icon from '@/shared/ui/Icon';
 import Modal from '@/shared/ui/Modal';
-import {
-  CardState,
-  getCollectionNameByView,
-  getInitialStateByView,
-  getModalTitle
-} from '@/widgets/CreateCard/model';
+import { getModalTitle } from '@/widgets/CreateCard/model';
+import { useCreateCard } from '@/widgets/CreateCard/useCreateCard';
 
 export interface CreateCardProps<T> {
   cardData: T;
@@ -29,38 +25,17 @@ interface Props {
 
 const CreateCardModal: FC<Props> = ({ view, onCardCreate }) => {
   const { t } = useTranslations();
-  // move to hook
-  const [modalOpen, setModalOpen] = useState(false);
-  const [newCardData, setNewCardData] = useState<CardState | null>(null);
 
-  const addNewCard = () => {
-    setNewCardData(getInitialStateByView(view));
-    setModalOpen(true);
-  };
-
-  const handleFieldChange = (field: string, value: string | boolean) => {
-    setNewCardData((prevData) => {
-      if (!prevData) {
-        return prevData;
-      }
-
-      return {
-        ...prevData,
-        [field]: value
-      };
-    });
-  };
-
-  const handleClose = () => {
-    setModalOpen(false);
-    setNewCardData(null);
-  };
-
-  const handleSave = async () => {
-    const collection = getCollectionNameByView(view);
-    await onCardCreate(collection, newCardData); // trim before save
-    handleClose();
-  };
+  const {
+    modalOpen,
+    newCardData,
+    dirty,
+    addNewCard,
+    handleFieldChange,
+    handleSave,
+    handleClose,
+    handleOutsideClickClose
+  } = useCreateCard(view, onCardCreate);
 
   const displayContentByView = () => {
     if (view === 'main-bank_cards') {
@@ -78,12 +53,16 @@ const CreateCardModal: FC<Props> = ({ view, onCardCreate }) => {
 
   return (
     <>
-      <Modal open={modalOpen} className="p-4 flex flex-col gap-4" outsideClickClose={handleClose}>
+      <Modal
+        open={modalOpen}
+        className="p-4 flex flex-col gap-4"
+        outsideClickClose={handleOutsideClickClose}
+      >
         <span className="text-2xl">{getModalTitle(view, t)}</span>
 
         {displayContentByView()}
 
-        <CreateModalButtons saveDisabled={false} onSave={handleSave} onCancel={handleClose} />
+        <CreateModalButtons saveDisabled={!dirty} onSave={handleSave} onCancel={handleClose} />
       </Modal>
 
       <Button type="add" onClick={addNewCard}>

@@ -19,6 +19,20 @@ const isDirty = (state: CardState | null) => {
   return Object.values(stringState).some((value) => Boolean(value));
 };
 
+const trimCardData = (data: CardState) => {
+  const { safety, ...dataForTrim } = data;
+
+  const trimmedState = Object.entries(dataForTrim).reduce<Record<string, string>>(
+    (res, [key, value]) => {
+      res[key] = (value as string).trim();
+      return res;
+    },
+    {}
+  );
+
+  return { ...trimmedState, safety };
+};
+
 export const useCreateCard = (
   view: MainView,
   onCardCreate: <T>(collection: CollectionKey, data: T) => Promise<void>
@@ -60,8 +74,10 @@ export const useCreateCard = (
   };
 
   const handleSave = async () => {
+    const trimmedData = trimCardData(newCardData!);
     const collection = getCollectionNameByView(view);
-    await onCardCreate(collection, newCardData); // trim before save
+
+    await onCardCreate(collection, trimmedData);
     handleClose();
   };
 

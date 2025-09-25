@@ -10,8 +10,8 @@ interface Props {
 const Notes: FC<Props> = ({ card, onDelete }) => {
   return (
     <div className="flex flex-wrap gap-4">
-      {card.map(({ id, title, note }) => (
-        <NoteCard key={id} title={title} content={note} onDelete={() => onDelete(id)} />
+      {card.map((data) => (
+        <NoteCard key={data.id} {...data} onDelete={() => onDelete(data.id)} />
       ))}
     </div>
   );

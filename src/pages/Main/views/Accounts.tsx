@@ -10,16 +10,8 @@ interface Props {
 const Accounts: FC<Props> = ({ accounts, onDelete }) => {
   return (
     <div className="flex flex-wrap gap-4">
-      {accounts.map((item) => (
-        <AccountCard
-          key={item.id}
-          login={item.login}
-          link={item.url}
-          title={item.title}
-          password={item.password}
-          notes={item.notes}
-          onDelete={() => onDelete(item.id)}
-        />
+      {accounts.map((data) => (
+        <AccountCard key={data.id} {...data} onDelete={() => onDelete(data.id)} />
       ))}
     </div>
   );

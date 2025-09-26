@@ -1,24 +1,22 @@
 import { useState } from 'react';
 import { CACHE_KEYS } from '../lib/storage/storageKeys';
-import { Settings } from '../types/settings';
 import { useLocalStorage } from './useLocalStorage';
 
 export const useAuth = () => {
   const { get } = useLocalStorage();
-  const userSettings = get<Settings>('settings');
-  const userHasPasscode = userSettings?.passcode;
+  const loginCode = get<string>('loginCode');
 
   const [userLoggedIn, setLoggedIn] = useState<boolean>(() => {
-    const value = sessionStorage.getItem(CACHE_KEYS.login);
+    const value = sessionStorage.getItem(CACHE_KEYS.loggedIn);
 
     return value && JSON.parse(value);
   });
 
-  const loginRequired = Boolean(userHasPasscode) && !userLoggedIn;
+  const loginRequired = Boolean(loginCode) && !userLoggedIn;
 
   const handleLogin = () => {
     setLoggedIn(true);
-    sessionStorage.setItem(CACHE_KEYS.login, JSON.stringify(true));
+    sessionStorage.setItem(CACHE_KEYS.loggedIn, JSON.stringify(true));
   };
 
   return {

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useLocalStorage } from '@/shared/hooks/useLocalStorage';
 import { useTranslations } from '@/shared/hooks/useTranslations';
-import { Settings } from '@/shared/types/settings';
 import Button from '@/shared/ui/Button';
 import Input from '@/shared/ui/Input';
 
@@ -9,12 +8,12 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
   const { t } = useTranslations();
   const { get } = useLocalStorage();
 
-  const settings = get<Settings>('settings');
+  const loginCode = get<string>('loginCode');
   const [enteredPasscode, setEnteredPasscode] = useState('');
   const [showError, setShowError] = useState(false);
 
   const handleLogin = () => {
-    if (settings.passcode === enteredPasscode) {
+    if (loginCode === enteredPasscode) {
       setShowError(false);
       onLogin();
     } else {

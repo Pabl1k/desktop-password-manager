@@ -1,4 +1,4 @@
-import { FC, ReactNode, MouseEvent } from 'react';
+import { FC, MouseEvent, ReactNode } from 'react';
 import clsx from 'clsx';
 
 type ButtonType = 'add' | 'cancel' | 'transparent' | 'default';
@@ -7,6 +7,7 @@ interface Props {
   type?: ButtonType;
   className?: string;
   disabled?: boolean;
+  noTab?: boolean;
   children: ReactNode;
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
 }
@@ -24,7 +25,14 @@ const getStylesByType = (type: ButtonType) => {
   }
 };
 
-const Button: FC<Props> = ({ type = 'cancel', className, disabled = false, children, onClick }) => {
+const Button: FC<Props> = ({
+  type = 'cancel',
+  className,
+  disabled = false,
+  noTab = false,
+  children,
+  onClick
+}) => {
   const pxInClassName = className?.includes('px-');
 
   return (
@@ -35,6 +43,7 @@ const Button: FC<Props> = ({ type = 'cancel', className, disabled = false, child
         !pxInClassName && 'px-6',
         className
       )}
+      tabIndex={noTab ? -1 : 0}
       disabled={disabled}
       onClick={onClick}
     >

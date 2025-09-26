@@ -8,6 +8,7 @@ interface Props {
   className?: string;
   placeholder?: string;
   suffix?: ReactNode;
+  disabled?: boolean;
   onEnterPress?: () => void;
   onChange: (value: string) => void;
 }
@@ -18,6 +19,7 @@ const Input: FC<Props> = ({
   className,
   placeholder,
   suffix,
+  disabled = false,
   onEnterPress,
   onChange
 }) => {
@@ -27,7 +29,8 @@ const Input: FC<Props> = ({
     <div
       className={clsx(
         className,
-        'h-(--field-height) flex items-center border border-border rounded-field px-3 cursor-pointer hover:border-green-main focus-within:border-green-main'
+        'h-(--field-height) flex items-center border border-border rounded-field px-3 cursor-pointer',
+        !disabled && 'hover:border-green-main focus-within:border-green-main'
       )}
     >
       <input
@@ -35,7 +38,8 @@ const Input: FC<Props> = ({
         value={value}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full h-full focus:outline-none"
+        className={clsx('w-full h-full focus:outline-none', disabled && 'cursor-not-allowed')}
+        disabled={disabled}
         onKeyDown={(e) => {
           if (e.key === 'Enter' && onEnterPress) {
             e.preventDefault();

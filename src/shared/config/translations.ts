@@ -29,11 +29,12 @@ export const translations: Translations = {
     edit: 'Edit',
     open_in_browser: 'Open in browser',
     version: 'Version',
-    empty_overview_placeholder: "No cards found. Select a category and click 'Add' to create a new card",
+    empty_overview_placeholder:
+      "No cards found. Select a category and click 'Add' to create a new card",
     empty_accounts_placeholder: "No Account cards found. Click 'Add' to create a new card",
     empty_bankCards_placeholder: "No Bank cards found. Click 'Add' to create a new card",
     empty_notes_placeholder: "No Notes found. Click 'Add' to create a new card",
-    setup_passcode: 'Setup passcode',
+    setup_passcode: 'Setup login passcode',
     enter_passcode: 'Enter passcode',
     reset_passcode: 'Reset passcode',
     update_passcode: 'Update passcode',
@@ -53,6 +54,12 @@ export const translations: Translations = {
     expiration_date: 'Expiration date',
     add_account: 'Add account',
     add_bank_card: 'Add bank card',
-    add_note: 'Add note'
+    add_note: 'Add note',
+    safety_mode: 'Safety mode',
+    setup_safety_passcode: 'Setup safety passcode',
+    safety_passcode: 'Safety passcode',
+    safety_passcode_tooltip:
+      'By entering the safety passcode, marked cards will be deleted on enter',
+    safety_no_login_placeholder: 'Login passcode required'
   }
 };

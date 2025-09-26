@@ -9,6 +9,7 @@ export interface AccountCreate {
   password: string;
   url: string;
   notes: string;
+  safety: boolean;
 }
 
 export type AccountCardData = AccountCreate & InitialDBData;
@@ -20,6 +21,7 @@ export interface BankCardCreate {
   expirationDate: string;
   cvv: string;
   notes: string;
+  safety: boolean;
 }
 
 export type BankCardData = BankCardCreate & InitialDBData;
@@ -27,6 +29,7 @@ export type BankCardData = BankCardCreate & InitialDBData;
 export interface NoteCardCreate {
   title: string;
   note: string;
+  safety: boolean;
 }
 
 export type NoteCardData = NoteCardCreate & InitialDBData;

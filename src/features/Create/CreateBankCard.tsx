@@ -1,13 +1,9 @@
-import { FC, useState } from 'react';
-import CreateModalButtons from '@/features/Create/CreateModalButtons';
+import { FC } from 'react';
 import { useTranslations } from '@/shared/hooks/useTranslations';
 import { BankCardCreate } from '@/shared/types/types';
 import Input from '@/shared/ui/Input';
-
-interface Props {
-  onClose: () => void;
-  onSave: (newCard: BankCardCreate) => Promise<void>;
-}
+import Switch from '@/shared/ui/Switch';
+import { CreateCardProps } from '@/widgets/CreateCard/CreateCardModal';
 
 const titleMapper: Record<keyof BankCardCreate, string> = {
   title: 'card_title',
@@ -15,47 +11,30 @@ const titleMapper: Record<keyof BankCardCreate, string> = {
   cardholder: 'cardholder',
   expirationDate: 'expiration_date',
   cvv: 'cvv',
-  notes: 'notes'
+  notes: 'notes',
+  safety: 'safety_mode'
 };
 
-const initialCardData: BankCardCreate = {
-  title: '',
-  cardNumber: '',
-  cardholder: '',
-  expirationDate: '',
-  cvv: '',
-  notes: ''
-};
-
-const CreateBankCard: FC<Props> = ({ onClose, onSave}) => {
+const CreateBankCard: FC<CreateCardProps<BankCardCreate>> = ({ cardData, onChange }) => {
   const { t } = useTranslations();
-
-  const [newCardData, setNewCardData] = useState(initialCardData);
-
-  const handleChange = (key: keyof BankCardCreate, value: string) => {
-    setNewCardData((prevData) => ({
-      ...prevData,
-      [key]: value
-    }));
-  };
 
   return (
     <>
-      {Object.keys(initialCardData).map((field) => {
-        if (field === 'notes') {
+      {Object.keys(cardData).map((field) => {
+        if (field === 'notes' || field === 'safety') {
           return null;
         }
 
-        const fieldName = field as keyof Omit<BankCardCreate, 'notes'>;
+        const fieldName = field as keyof Omit<BankCardCreate, 'notes' | 'safety'>;
         const fieldTitle = t(titleMapper[fieldName]);
 
         return (
           <div key={fieldName} className="flex flex-col">
             <span className="capitalize mb-1">{fieldTitle}</span>
             <Input
-              value={newCardData[fieldName] ?? ''}
+              value={cardData[fieldName] ?? ''}
               placeholder={`${t('enter')} ${fieldTitle.toLowerCase()}`}
-              onChange={(newValue) => handleChange(fieldName, newValue)}
+              onChange={(newValue) => onChange(fieldName, newValue)}
             />
           </div>
         );
@@ -65,17 +44,16 @@ const CreateBankCard: FC<Props> = ({ onClose, onSave}) => {
         <span className="mb-1">{t('notes')}</span>
         <textarea
           className="min-h-(--field-height) border border-border rounded-field px-3 py-2 outline-none hover:border-green-main focus-within:border-green-main overflow-hidden"
-          value={newCardData.notes}
+          value={cardData.notes}
           placeholder={t('enter_notes')}
-          onChange={(e) => handleChange('notes', e.target.value)}
+          onChange={(e) => onChange('notes', e.target.value)}
         />
       </div>
 
-      <CreateModalButtons
-        saveDisabled={false}
-        onSave={() => onSave(newCardData)}
-        onCancel={onClose}
-      />
+      <div className="flex flex-col">
+        <span className="capitalize mb-1">{`${t('safety_mode')}: ${cardData.safety ? 'ON' : 'OFF'}`}</span>
+        <Switch checked={cardData.safety} onChange={(checked) => onChange('safety', checked)} />
+      </div>
     </>
   );
 };

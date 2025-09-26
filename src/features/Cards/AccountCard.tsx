@@ -3,23 +3,19 @@ import CardTitle from '@/features/Cards/CardTitle';
 import { useTranslations } from '@/shared/hooks/useTranslations';
 import { uniqueId } from '@/shared/lib/utils/generate';
 import { copyToClipboard, openExternally } from '@/shared/lib/utils/link';
+import { AccountCardData } from '@/shared/types/types';
 import Button from '@/shared/ui/Button';
 import CardNotes from '@/shared/ui/CardNotes';
 import { DropdownOption } from '@/shared/ui/DropdownMenu';
 import IconButton from '@/shared/ui/IconButton';
 
-interface Props {
-  title: string;
-  link: string;
-  login: string;
-  password: string;
-  notes: string;
+interface Props extends AccountCardData {
   onDelete: () => void;
 }
 
 const hiddenPassword = Array.from({ length: 16 }).map(() => <span key={uniqueId()}>&#x2022;</span>);
 
-const AccountCard: FC<Props> = ({ title, link, login, password, notes, onDelete }) => {
+const AccountCard: FC<Props> = ({ title, url, login, password, notes, safety, onDelete }) => {
   const { t } = useTranslations();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -33,8 +29,8 @@ const AccountCard: FC<Props> = ({ title, link, login, password, notes, onDelete 
     },
     {
       labelKey: 'copy_link',
-      visible: Boolean(link),
-      onClick: () => copyToClipboard(link)
+      visible: Boolean(url),
+      onClick: () => copyToClipboard(url)
     },
     {
       labelKey: 'delete',
@@ -49,7 +45,7 @@ const AccountCard: FC<Props> = ({ title, link, login, password, notes, onDelete 
 
   return (
     <div className="w-[280px] h-[320px] bg-bg-card rounded-modal flex flex-col gap-10">
-      <CardTitle title={title} link={link} cardOptions={menuOptions} />
+      <CardTitle title={title} link={url} safety={safety} cardOptions={menuOptions} />
 
       {displayNotes ? (
         <CardNotes text={notes} onClose={() => setDisplayNotes(false)} />
@@ -78,9 +74,9 @@ const AccountCard: FC<Props> = ({ title, link, login, password, notes, onDelete 
       )}
 
       {!displayNotes && (
-        <div className="w-full flex justify-center" title={link}>
-          {link && (
-            <Button className="mb-4" onClick={() => openExternally(link)}>
+        <div className="w-full flex justify-center" title={url}>
+          {url && (
+            <Button className="mb-4" onClick={() => openExternally(url)}>
               {t('open_in_browser')}
             </Button>
           )}

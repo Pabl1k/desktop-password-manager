@@ -1,4 +1,5 @@
 export const CACHE_KEYS = {
-  settings: 'pm.user.settings',
-  login: 'pm.user.logged.in'
+  loggedIn: 'pm.user.logged.in',
+  loginCode: 'pm.user.login.code',
+  safetyCode: 'pm.user.safety.code'
 } as const;

@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, memo, useState } from 'react';
 import clsx from 'clsx';
 import { useTranslations } from '@/shared/hooks/useTranslations';
 import { uniqueId } from '@/shared/lib/utils/generate';
@@ -119,4 +119,4 @@ const BankCard: FC<Props> = ({
   );
 };
 
-export default BankCard;
+export default memo(BankCard, () => true);

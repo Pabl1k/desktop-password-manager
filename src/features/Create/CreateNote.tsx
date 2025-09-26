@@ -1,44 +1,21 @@
-import { FC, useState } from 'react';
-import CreateModalButtons from '@/features/Create/CreateModalButtons';
+import { FC } from 'react';
 import { useTranslations } from '@/shared/hooks/useTranslations';
 import { NoteCardCreate } from '@/shared/types/types';
 import Input from '@/shared/ui/Input';
+import Switch from '@/shared/ui/Switch';
+import { CreateCardProps } from '@/widgets/CreateCard/CreateCardModal';
 
-interface Props {
-  onClose: () => void;
-  onSave: (card: NoteCardCreate) => void;
-}
-
-const initialCardData = {
-  title: '',
-  note: ''
-};
-
-const CreateNote: FC<Props> = ({ onClose , onSave}) => {
+const CreateNote: FC<CreateCardProps<NoteCardCreate>> = ({ cardData, onChange }) => {
   const { t } = useTranslations();
-  const [newCardData, setNewCardData] = useState<NoteCardCreate>(initialCardData);
-
-  const handleSave = () => {
-    onSave(newCardData);
-    onClose();
-    setNewCardData(initialCardData);
-  }
-
-  const handleCancel = () => {
-    onClose();
-    setNewCardData(initialCardData);
-  };
 
   return (
     <>
       <div className="flex flex-col">
         <span className="capitalize mb-1">{t('card_title')}</span>
         <Input
-          value={newCardData.title}
+          value={cardData.title}
           placeholder={`${t('enter')} ${t('card_title')}`}
-          onChange={(newValue) =>
-            setNewCardData((prevState) => ({ ...prevState, title: newValue }))
-          }
+          onChange={(newValue) => onChange('title', newValue)}
         />
       </div>
 
@@ -46,17 +23,16 @@ const CreateNote: FC<Props> = ({ onClose , onSave}) => {
         <span className="capitalize mb-1">{t('note')}</span>
         <textarea
           className="min-h-(--field-height) border border-border rounded-field px-3 py-2 outline-none hover:border-green-main focus-within:border-green-main overflow-hidden"
-          value={newCardData.note}
+          value={cardData.note}
           placeholder={t('enter_notes')}
-          onChange={(e) => setNewCardData((prevState) => ({ ...prevState, note: e.target.value }))}
+          onChange={(e) => onChange('note', e.target.value)}
         />
       </div>
 
-      <CreateModalButtons
-        saveDisabled={false}
-        onSave={handleSave}
-        onCancel={handleCancel}
-      />
+      <div className="flex flex-col">
+        <span className="capitalize mb-1">{`${t('safety_mode')}: ${cardData.safety ? 'ON' : 'OFF'}`}</span>
+        <Switch checked={cardData.safety} onChange={(checked) => onChange('safety', checked)} />
+      </div>
     </>
   );
 };

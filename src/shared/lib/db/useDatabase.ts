@@ -6,7 +6,7 @@ export type StateType = {
   accounts: AccountCardData[];
   bankCards: BankCardData[];
   notes: NoteCardData[];
-}
+};
 
 const COLLECTION_KEYS = Object.keys(DB_COLLECTIONS) as CollectionKey[];
 const COLLECTION_NAMES = Object.values(DB_COLLECTIONS);
@@ -17,7 +17,7 @@ const initialState: StateType = {
   notes: []
 };
 
-const getCollection = (name: CollectionKey) => DB_COLLECTIONS[name];
+export const getCollection = (name: CollectionKey) => DB_COLLECTIONS[name];
 
 export const useDatabase = () => {
   const [state, setState] = useState<StateType>(initialState);

@@ -24,6 +24,7 @@ const Sidebar: FC<Props> = ({ selectedView, setView }) => {
   const { t } = useTranslations();
 
   const [passwordGeneratorModalOpen, setPasswordGeneratorModalOpen] = useState(false);
+  const submenuOpen = selectedView.includes('main');
 
   const mainSubMenu: MenuOption[] = [
     { labelKey: 'accounts', onClick: () => setView('main-accounts') },
@@ -54,6 +55,7 @@ const Sidebar: FC<Props> = ({ selectedView, setView }) => {
   const renderOption = ({ labelKey, onClick }: MenuOption) => (
     <Button
       key={labelKey}
+      noTab={!submenuOpen}
       type="transparent"
       className="font-semibold text-start"
       onClick={onClick}
@@ -76,7 +78,7 @@ const Sidebar: FC<Props> = ({ selectedView, setView }) => {
             <div
               className={`
             ml-4 flex flex-col overflow-hidden transition-all duration-500 
-            ${selectedView.includes('main') && option.subMenu ? 'opacity-100 translate-y-0 max-h-96' : 'opacity-0 -translate-y-2 max-h-0'}
+            ${submenuOpen && option.subMenu ? 'opacity-100 translate-y-0 max-h-96' : 'opacity-0 -translate-y-2 max-h-0'}
           `}
             >
               {option.subMenu?.map((subOption) => renderOption(subOption))}

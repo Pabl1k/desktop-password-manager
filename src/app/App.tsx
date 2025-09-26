@@ -8,7 +8,7 @@ import Sidebar from '@/widgets/Sidebar';
 
 const App = () => {
   const [view, setView] = useState<ContentView>('main');
-  const { loginRequired, handleLogin } = useAuth();
+  const { loginRequired, showError, handlePasscode } = useAuth();
 
   const displayContentByView = () => {
     if (view === 'recently-deleted') {
@@ -29,7 +29,7 @@ const App = () => {
   return (
     <div className="bg-bg-main text-text-main overflow-hidden flex min-h-screen">
       {loginRequired ? (
-        <Login onLogin={handleLogin} />
+        <Login showError={showError} onEnter={handlePasscode} />
       ) : (
         <>
           <Sidebar selectedView={view} setView={setView} />

@@ -56,8 +56,10 @@ export const translations: Translations = {
     add_bank_card: 'Add bank card',
     add_note: 'Add note',
     safety_mode: 'Safety mode',
+    setup_safety_passcode: 'Setup safety passcode',
     safety_passcode: 'Safety passcode',
     safety_passcode_tooltip:
-      'By entering the safety passcode, marked cards will be deleted on enter'
+      'By entering the safety passcode, marked cards will be deleted on enter',
+    safety_no_login_placeholder: 'Login passcode required'
   }
 };

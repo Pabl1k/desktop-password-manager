@@ -15,6 +15,7 @@ const Passcodes = () => {
     safetyFieldDisabled,
     loginResetDisabled,
     safetyResetDisabled,
+    showSafetyCodeError,
     handleChange,
     saveLoginPasscode,
     saveSafetyPasscode,
@@ -41,14 +42,24 @@ const Passcodes = () => {
           </Tooltip>
         </div>
 
-        <div className="flex mt-2 gap-2">
-          <Input
-            type="password"
-            value={value}
-            placeholder={t(type === 'loginCode' ? 'enter_passcode' : safetyPlaceholderKey)}
-            disabled={inputDisabled}
-            onChange={(newValue) => handleChange(type, newValue)}
-          />
+        <div className="flex mt-2 gap-2 max-lg:flex-col">
+          <div className="flex flex-col">
+            <Input
+              type="password"
+              className="w-[350px]"
+              value={value}
+              placeholder={t(type === 'loginCode' ? 'enter_passcode' : safetyPlaceholderKey)}
+              disabled={inputDisabled}
+              onChange={(newValue) => handleChange(type, newValue)}
+            />
+            {type === 'safetyCode' && (
+              <div className="h-4">
+                {showSafetyCodeError && (
+                  <span className="text-sm text-text-error">{t('safety_code_error')}</span>
+                )}
+              </div>
+            )}
+          </div>
 
           <Button type="add" disabled={saveDisabled} onClick={save}>
             {t('save')}

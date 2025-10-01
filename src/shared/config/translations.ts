@@ -60,6 +60,7 @@ export const translations: Translations = {
     safety_passcode: 'Safety passcode',
     safety_passcode_tooltip:
       'By entering the safety passcode, marked cards will be deleted on enter',
-    safety_no_login_placeholder: 'Login passcode required'
+    safety_no_login_placeholder: 'Login passcode required',
+    safety_code_error: 'Safety passcode cannot be the same as login passcode'
   }
 };

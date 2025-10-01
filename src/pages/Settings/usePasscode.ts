@@ -13,12 +13,14 @@ const initialValues: Passcodes = { loginCode: '', safetyCode: '' };
 export const usePasscode = () => {
   const { get, set, remove } = useLocalStorage();
 
-  const loginExist = Boolean(get<string>('loginCode'));
+  const loginPasscode = get<string>('loginCode');
+  const loginExist = Boolean(loginPasscode);
   const safetyExist = Boolean(get<string>('safetyCode'));
 
   const [values, setValues] = useState<Passcodes>(initialValues);
   const [resetDisabled, setResetDisabled] = useState({ login: !loginExist, safety: !safetyExist });
   const [safetyFieldDisabled, setSafetyFieldDisabled] = useState(!loginExist);
+  const [showSafetyCodeError, setShowSafetyCodeError] = useState(false);
 
   const handleChange = (codeType: CodeType, newValue: string) => {
     setValues((prevState) => ({ ...prevState, [codeType]: newValue }));
@@ -35,6 +37,11 @@ export const usePasscode = () => {
   };
 
   const saveSafetyPasscode = () => {
+    if (loginPasscode === values.safetyCode) {
+      setShowSafetyCodeError(true);
+      return;
+    }
+
     if (values.safetyCode) {
       set('safetyCode', values.safetyCode);
     }
@@ -66,6 +73,7 @@ export const usePasscode = () => {
     loginResetDisabled: resetDisabled.login,
     safetyResetDisabled: resetDisabled.safety,
     safetyFieldDisabled,
+    showSafetyCodeError,
     handleChange,
     saveLoginPasscode,
     saveSafetyPasscode,

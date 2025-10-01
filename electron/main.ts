@@ -12,7 +12,10 @@ app.on('ready', () => {
     frame: true,
     autoHideMenuBar: true,
     show: false,
-    icon: getIconPath()
+    icon: getIconPath(),
+    webPreferences: {
+      devTools: devMode
+    }
   });
 
   mainWindow.on('ready-to-show', () => mainWindow.show());
@@ -26,13 +29,26 @@ app.on('ready', () => {
 
   if (devMode) {
     mainWindow.loadURL(`http://localhost:${PORT}`);
-    mainWindow.webContents.openDevTools();
-  } else {
-    mainWindow.loadFile(path.join('dist-react', 'index.html'));
 
+    mainWindow.webContents.openDevTools();
     globalShortcut.register('Control+Shift+I', () => {
       if (mainWindow) {
         mainWindow.webContents.toggleDevTools();
+      }
+    });
+  } else {
+    mainWindow.loadFile(path.join('dist-react', 'index.html'));
+
+    mainWindow.webContents.on('devtools-opened', () => {
+      mainWindow.webContents.closeDevTools();
+    });
+
+    mainWindow.webContents.on('before-input-event', (event, input) => {
+      if (
+        ((input.control || input.meta) && input.shift && input.key.toLowerCase() === 'i') ||
+        input.key.toLowerCase() === 'f12'
+      ) {
+        event.preventDefault();
       }
     });
 

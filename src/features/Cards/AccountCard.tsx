@@ -10,12 +10,22 @@ import { DropdownOption } from '@/shared/ui/DropdownMenu';
 import IconButton from '@/shared/ui/IconButton';
 
 interface Props extends AccountCardData {
+  onEdit: () => void;
   onDelete: () => void;
 }
 
 const hiddenPassword = Array.from({ length: 16 }).map(() => <span key={uniqueId()}>&#x2022;</span>);
 
-const AccountCard: FC<Props> = ({ title, url, login, password, notes, safety, onDelete }) => {
+const AccountCard: FC<Props> = ({
+  title,
+  url,
+  login,
+  password,
+  notes,
+  safety,
+  onEdit,
+  onDelete
+}) => {
   const { t } = useTranslations();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -31,6 +41,11 @@ const AccountCard: FC<Props> = ({ title, url, login, password, notes, safety, on
       labelKey: 'copy_link',
       visible: Boolean(url),
       onClick: () => copyToClipboard(url)
+    },
+    {
+      labelKey: 'edit',
+      visible: true,
+      onClick: onEdit
     },
     {
       labelKey: 'delete',

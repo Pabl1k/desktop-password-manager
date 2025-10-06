@@ -5,6 +5,7 @@ import BankCards from '@/pages/Main/views/BankCards';
 import Notes from '@/pages/Main/views/Notes';
 import { StateType, useDatabase } from '@/shared/lib/db/useDatabase';
 import { MainView as MainViewType } from '@/shared/types/view';
+import { useCreateCard } from '@/widgets/CreateCard/useCreateCard';
 import Toolbar from '@/widgets/Toolbar';
 import MainView from './views/MainView';
 
@@ -34,16 +35,24 @@ const isViewStateEmpty = (state: StateType, view: MainViewType) => {
   return state[stateKeyByView].length === 0;
 };
 
-const Main: FC<Props> = ({ view , setView}) => {
+const Main: FC<Props> = ({ view, setView }) => {
   const { state, add, remove } = useDatabase();
+
+  const createCard = useCreateCard(view, add);
 
   const renderContent = () => {
     if (isViewStateEmpty(state, view)) {
-      return <EmptyContent view={view} onCardCreate={add} />;
+      return <EmptyContent view={view} createCard={createCard} />;
     }
 
     if (view === 'main-accounts') {
-      return <Accounts accounts={state.accounts} onDelete={(id) => remove('accounts', id)} />;
+      return (
+        <Accounts
+          accounts={state.accounts}
+          onEdit={(id) => console.log('edit', id)}
+          onDelete={(id) => remove('accounts', id)}
+        />
+      );
     }
 
     if (view === 'main-bank_cards') {
@@ -66,7 +75,7 @@ const Main: FC<Props> = ({ view , setView}) => {
 
   return (
     <div className="w-full">
-      <Toolbar view={view} onCardCreate={add} />
+      <Toolbar view={view} createCard={createCard} />
       <div className="h-[calc(100vh-85px)] p-6 overflow-auto custom-scroll">{renderContent()}</div>
     </div>
   );

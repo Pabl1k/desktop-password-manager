@@ -4,14 +4,13 @@ import CreateBankCard from '@/features/Create/CreateBankCard';
 import CreateModalButtons from '@/features/Create/CreateModalButtons';
 import CreateNote from '@/features/Create/CreateNote';
 import { useTranslations } from '@/shared/hooks/useTranslations';
-import { CollectionKey } from '@/shared/lib/db/dbConfig';
 import { AccountCreate, BankCardCreate, NoteCardCreate } from '@/shared/types/types';
 import { MainView } from '@/shared/types/view';
 import Button from '@/shared/ui/Button';
 import Icon from '@/shared/ui/Icon';
 import Modal from '@/shared/ui/Modal';
 import { getModalTitle } from '@/widgets/CreateCard/model';
-import { useCreateCard } from '@/widgets/CreateCard/useCreateCard';
+import { CreateCardReturn } from '@/widgets/CreateCard/useCreateCard';
 
 export interface CreateCardProps<T> {
   cardData: T;
@@ -20,10 +19,10 @@ export interface CreateCardProps<T> {
 
 interface Props {
   view: MainView;
-  onCardCreate: <T>(collection: CollectionKey, data: T) => Promise<void>;
+  createCard: CreateCardReturn;
 }
 
-const CreateCardModal: FC<Props> = ({ view, onCardCreate }) => {
+const CreateCardModal: FC<Props> = ({ view, createCard }) => {
   const { t } = useTranslations();
 
   const {
@@ -35,7 +34,7 @@ const CreateCardModal: FC<Props> = ({ view, onCardCreate }) => {
     handleSave,
     handleClose,
     handleOutsideClickClose
-  } = useCreateCard(view, onCardCreate);
+  } = createCard;
 
   const displayContentByView = () => {
     if (view === 'main-bank_cards') {

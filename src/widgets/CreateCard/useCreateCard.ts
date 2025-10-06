@@ -7,6 +7,8 @@ import {
   getInitialStateByView
 } from '@/widgets/CreateCard/model';
 
+export type CreateCardReturn = ReturnType<typeof useCreateCard>;
+
 const isDirty = (state: CardState | null) => {
   if (!state) {
     return false;

@@ -1,15 +1,15 @@
 import { FC } from 'react';
 import { useTranslations } from '@/shared/hooks/useTranslations';
-import { CollectionKey } from '@/shared/lib/db/dbConfig';
 import { MainView } from '@/shared/types/view';
 import CreateCardModal from '@/widgets/CreateCard/CreateCardModal';
+import { CreateCardReturn } from '@/widgets/CreateCard/useCreateCard';
 
 interface Props {
   view: MainView;
-  onCardCreate: <T>(collection: CollectionKey, data: T) => Promise<void>;
+  createCard: CreateCardReturn;
 }
 
-const EmptyContent: FC<Props> = ({ view, onCardCreate }) => {
+const EmptyContent: FC<Props> = ({ view, createCard }) => {
   const { t } = useTranslations();
 
   const textMapper: Record<MainView, string> = {
@@ -24,7 +24,7 @@ const EmptyContent: FC<Props> = ({ view, onCardCreate }) => {
       <div className="w-[50vw] flex flex-col items-center mt-6 gap-4">
         <span className="text-2xl text-center">{t(textMapper[view])}</span>
 
-        {view !== 'main' && <CreateCardModal view={view} onCardCreate={onCardCreate} />}
+        {view !== 'main' && <CreateCardModal view={view} createCard={createCard} />}
       </div>
     </div>
   );

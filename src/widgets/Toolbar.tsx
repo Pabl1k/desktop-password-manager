@@ -1,17 +1,17 @@
 import { FC } from 'react';
 import { MainView } from '@/shared/types/view';
 import CreateCardModal from '@/widgets/CreateCard/CreateCardModal';
-import { CollectionKey } from '@/shared/lib/db/dbConfig';
+import { CreateCardReturn } from '@/widgets/CreateCard/useCreateCard';
 
 interface Props {
   view: MainView;
-  onCardCreate: <T>(collection: CollectionKey, data: T) => Promise<void>;
+  createCard: CreateCardReturn;
 }
 
-const Toolbar: FC<Props> = ({ view, onCardCreate }) => {
+const Toolbar: FC<Props> = ({ view, createCard }) => {
   return (
     <div className="h-[85px] bg-bg-toolbar border-b border-section-border flex items-center p-6">
-      {view.startsWith('main-') && <CreateCardModal view={view} onCardCreate={onCardCreate} />}
+      {view.startsWith('main-') && <CreateCardModal view={view} createCard={createCard} />}
     </div>
   );
 };

@@ -9,6 +9,7 @@ interface Props {
   placeholder?: string;
   suffix?: ReactNode;
   disabled?: boolean;
+  autoFocus?: boolean;
   onEnterPress?: () => void;
   onChange: (value: string) => void;
 }
@@ -20,6 +21,7 @@ const Input: FC<Props> = ({
   placeholder,
   suffix,
   disabled = false,
+  autoFocus = false,
   onEnterPress,
   onChange
 }) => {
@@ -40,6 +42,7 @@ const Input: FC<Props> = ({
         onChange={(e) => onChange(e.target.value)}
         className={clsx('w-full h-full focus:outline-none', disabled && 'cursor-not-allowed')}
         disabled={disabled}
+        autoFocus={autoFocus}
         onKeyDown={(e) => {
           if (e.key === 'Enter' && onEnterPress) {
             e.preventDefault();

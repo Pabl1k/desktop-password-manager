@@ -20,7 +20,7 @@ const CreateBankCard: FC<CreateCardProps<BankCardCreate>> = ({ cardData, onChang
 
   return (
     <>
-      {Object.keys(cardData).map((field) => {
+      {Object.keys(cardData).map((field, i) => {
         if (field === 'notes' || field === 'safety') {
           return null;
         }
@@ -34,6 +34,7 @@ const CreateBankCard: FC<CreateCardProps<BankCardCreate>> = ({ cardData, onChang
             <Input
               value={cardData[fieldName] ?? ''}
               placeholder={`${t('enter')} ${fieldTitle.toLowerCase()}`}
+              autoFocus={i === 0}
               onChange={(newValue) => onChange(fieldName, newValue)}
             />
           </div>

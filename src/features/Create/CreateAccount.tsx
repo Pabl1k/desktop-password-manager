@@ -26,7 +26,7 @@ const CreateAccount: FC<CreateCardProps<AccountCreate>> = ({ cardData, onChange 
 
   return (
     <>
-      {Object.keys(cardData).map((field) => {
+      {Object.keys(cardData).map((field, i) => {
         if (field === 'notes' || field === 'safety') {
           return null;
         }
@@ -46,6 +46,7 @@ const CreateAccount: FC<CreateCardProps<AccountCreate>> = ({ cardData, onChange 
               value={cardData[fieldName] ?? ''}
               placeholder={`${t('enter')} ${fieldTitle.toLowerCase()}`}
               suffix={suffix}
+              autoFocus={i === 0}
               onChange={(newValue) => onChange(fieldName, newValue)}
             />
           </div>

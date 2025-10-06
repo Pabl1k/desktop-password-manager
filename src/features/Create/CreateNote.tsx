@@ -15,6 +15,7 @@ const CreateNote: FC<CreateCardProps<NoteCardCreate>> = ({ cardData, onChange })
         <Input
           value={cardData.title}
           placeholder={`${t('enter')} ${t('card_title')}`}
+          autoFocus
           onChange={(newValue) => onChange('title', newValue)}
         />
       </div>

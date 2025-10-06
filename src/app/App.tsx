@@ -32,7 +32,7 @@ const App = () => {
         <Login showError={showError} onEnter={handlePasscode} />
       ) : (
         <>
-          <Sidebar selectedView={view} setView={setView} />
+          <Sidebar view={view} setView={setView} />
           {displayContentByView()}
         </>
       )}

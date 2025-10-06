@@ -1,16 +1,18 @@
 import { FC, Fragment, useState } from 'react';
+import clsx from 'clsx';
 import { useTranslations } from '@/shared/hooks/useTranslations';
 import { ContentView } from '@/shared/types/view';
 import Button from '@/shared/ui/Button';
 import PasswordGeneratorModal from './PasswordGeneratorModal';
 
 interface Props {
-  selectedView: ContentView;
+  view: ContentView;
   setView: (view: ContentView) => void;
 }
 
 interface MenuOption {
   labelKey: string;
+  viewKey?: ContentView;
   onClick: () => void;
 }
 
@@ -20,21 +22,26 @@ interface SidebarMenuOption extends MenuOption {
 
 const APP_VERSION = __APP_VERSION__;
 
-const Sidebar: FC<Props> = ({ selectedView, setView }) => {
+const Sidebar: FC<Props> = ({ view, setView }) => {
   const { t } = useTranslations();
 
   const [passwordGeneratorModalOpen, setPasswordGeneratorModalOpen] = useState(false);
-  const submenuOpen = selectedView.includes('main');
+  const submenuOpen = view.includes('main');
 
   const mainSubMenu: MenuOption[] = [
-    { labelKey: 'accounts', onClick: () => setView('main-accounts') },
-    { labelKey: 'bank_cards', onClick: () => setView('main-bank_cards') },
-    { labelKey: 'notes', onClick: () => setView('main-notes') }
+    { labelKey: 'accounts', viewKey: 'main-accounts', onClick: () => setView('main-accounts') },
+    {
+      labelKey: 'bank_cards',
+      viewKey: 'main-bank_cards',
+      onClick: () => setView('main-bank_cards')
+    },
+    { labelKey: 'notes', viewKey: 'main-notes', onClick: () => setView('main-notes') }
   ];
 
   const menu: SidebarMenuOption[] = [
     {
       labelKey: 'main',
+      viewKey: 'main',
       subMenu: mainSubMenu,
       onClick: () => setView('main')
     },
@@ -44,20 +51,22 @@ const Sidebar: FC<Props> = ({ selectedView, setView }) => {
     },
     {
       labelKey: 'recently_deleted',
+      viewKey: 'recently-deleted',
       onClick: () => setView('recently-deleted')
     },
     {
       labelKey: 'settings',
+      viewKey: 'settings',
       onClick: () => setView('settings')
     }
   ];
 
-  const renderOption = ({ labelKey, onClick }: MenuOption) => (
+  const renderOption = ({ labelKey, viewKey, onClick }: MenuOption) => (
     <Button
       key={labelKey}
       noTab={!submenuOpen}
       type="transparent"
-      className="font-semibold text-start"
+      className={clsx('font-semibold text-start', view === viewKey && 'bg-bg-main')}
       onClick={onClick}
     >
       {t(labelKey)}

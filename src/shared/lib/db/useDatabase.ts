@@ -112,13 +112,13 @@ export const useDatabase = () => {
     }
   };
 
-  const update = async (collection: string, updatedItem: CombinedTypes) => {
+  const update = async <T>(collection: CollectionKey, updatedItem: T) => {
     setLoading(true);
 
     try {
       const db = await openDB();
-      const transaction = db.transaction(collection, 'readwrite');
-      const store = transaction.objectStore(collection);
+      const transaction = db.transaction(getCollection(collection), 'readwrite');
+      const store = transaction.objectStore(getCollection(collection));
 
       await new Promise<void>((resolve, reject) => {
         const request = store.put(updatedItem);
@@ -167,7 +167,7 @@ export const useDatabase = () => {
   };
 
   useEffect(() => {
-    loadData();
+    void loadData();
   }, []);
 
   return { state, loading, add, update, remove };

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { MainView } from '@/shared/types/view';
 import CreateCardModal from '@/widgets/CreateCard/CreateCardModal';
-import { CreateCardReturn } from '@/widgets/CreateCard/useCreateCard';
+import { CreateCardReturn } from '@/widgets/CreateCard/useCardsManagement';
 
 interface Props {
   view: MainView;

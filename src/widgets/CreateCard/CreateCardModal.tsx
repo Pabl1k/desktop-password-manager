@@ -10,7 +10,7 @@ import Button from '@/shared/ui/Button';
 import Icon from '@/shared/ui/Icon';
 import Modal from '@/shared/ui/Modal';
 import { getModalTitle } from '@/widgets/CreateCard/model';
-import { CreateCardReturn } from '@/widgets/CreateCard/useCreateCard';
+import { CreateCardReturn } from '@/widgets/CreateCard/useCardsManagement';
 
 export interface CreateCardProps<T> {
   cardData: T;

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CollectionKey } from '@/shared/lib/db/dbConfig';
+import { useDatabase } from '@/shared/lib/db/useDatabase';
 import { MainView } from '@/shared/types/view';
 import {
   CardState,
@@ -7,7 +7,7 @@ import {
   getInitialStateByView
 } from '@/widgets/CreateCard/model';
 
-export type CreateCardReturn = ReturnType<typeof useCreateCard>;
+export type CreateCardReturn = ReturnType<typeof useCardsManagement>;
 
 const isDirty = (state: CardState | null) => {
   if (!state) {
@@ -35,10 +35,9 @@ const trimCardData = (data: CardState) => {
   return { ...trimmedState, safety };
 };
 
-export const useCreateCard = (
-  view: MainView,
-  onCardCreate: <T>(collection: CollectionKey, data: T) => Promise<void>
-) => {
+export const useCardsManagement = (view: MainView) => {
+  const { state, add, remove } = useDatabase();
+
   const [modalOpen, setModalOpen] = useState(false);
   const [newCardData, setNewCardData] = useState<CardState | null>(null);
 
@@ -75,20 +74,27 @@ export const useCreateCard = (
     handleClose();
   };
 
+  const handleDelete = async (id: string) => {
+    const collection = getCollectionNameByView(view);
+    await remove(collection, id);
+  };
+
   const handleSave = async () => {
     const trimmedData = trimCardData(newCardData!);
     const collection = getCollectionNameByView(view);
 
-    await onCardCreate(collection, trimmedData);
+    await add(collection, trimmedData);
     handleClose();
   };
 
   return {
+    state,
     modalOpen,
     newCardData,
     dirty,
     addNewCard,
     handleFieldChange,
+    handleDelete,
     handleSave,
     handleClose,
     handleOutsideClickClose

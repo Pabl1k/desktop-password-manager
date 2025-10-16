@@ -3,9 +3,9 @@ import EmptyContent from '@/pages/Main/EmptyContent';
 import Accounts from '@/pages/Main/views/Accounts';
 import BankCards from '@/pages/Main/views/BankCards';
 import Notes from '@/pages/Main/views/Notes';
-import { StateType, useDatabase } from '@/shared/lib/db/useDatabase';
+import { StateType } from '@/shared/lib/db/useDatabase';
 import { MainView as MainViewType } from '@/shared/types/view';
-import { useCreateCard } from '@/widgets/CreateCard/useCreateCard';
+import { useCardsManagement } from '@/widgets/CreateCard/useCardsManagement';
 import Toolbar from '@/widgets/Toolbar';
 import MainView from './views/MainView';
 
@@ -36,13 +36,12 @@ const isViewStateEmpty = (state: StateType, view: MainViewType) => {
 };
 
 const Main: FC<Props> = ({ view, setView }) => {
-  const { state, add, remove } = useDatabase();
-
-  const createCard = useCreateCard(view, add);
+  const cardsManagement = useCardsManagement(view);
+  const { state, handleDelete } = cardsManagement;
 
   const renderContent = () => {
     if (isViewStateEmpty(state, view)) {
-      return <EmptyContent view={view} createCard={createCard} />;
+      return <EmptyContent view={view} createCard={cardsManagement} />;
     }
 
     if (view === 'main-accounts') {
@@ -50,17 +49,17 @@ const Main: FC<Props> = ({ view, setView }) => {
         <Accounts
           accounts={state.accounts}
           onEdit={(id) => console.log('edit', id)}
-          onDelete={(id) => remove('accounts', id)}
+          onDelete={handleDelete}
         />
       );
     }
 
     if (view === 'main-bank_cards') {
-      return <BankCards cards={state.bankCards} onDelete={(id) => remove('bankCards', id)} />;
+      return <BankCards cards={state.bankCards} onDelete={handleDelete} />;
     }
 
     if (view === 'main-notes') {
-      return <Notes card={state.notes} onDelete={(id) => remove('notes', id)} />;
+      return <Notes card={state.notes} onDelete={handleDelete} />;
     }
 
     return (
@@ -75,7 +74,7 @@ const Main: FC<Props> = ({ view, setView }) => {
 
   return (
     <div className="w-full">
-      <Toolbar view={view} createCard={createCard} />
+      <Toolbar view={view} createCard={cardsManagement} />
       <div className="h-[calc(100vh-85px)] p-6 overflow-auto custom-scroll">{renderContent()}</div>
     </div>
   );

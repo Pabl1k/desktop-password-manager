@@ -4,13 +4,17 @@ import CreateBankCard from '@/features/Create/CreateBankCard';
 import CreateModalButtons from '@/features/Create/CreateModalButtons';
 import CreateNote from '@/features/Create/CreateNote';
 import { useTranslations } from '@/shared/hooks/useTranslations';
-import { AccountCreate, BankCardCreate, NoteCardCreate } from '@/shared/types/types';
+import { AccountCreate, BankCardCreate, InitialDBData, NoteCardCreate } from '@/shared/types/types';
 import { MainView } from '@/shared/types/view';
 import Button from '@/shared/ui/Button';
 import Icon from '@/shared/ui/Icon';
 import Modal from '@/shared/ui/Modal';
 import { getModalTitle } from '@/widgets/CreateCard/model';
 import { CreateCardReturn } from '@/widgets/CreateCard/useCardsManagement';
+
+export type AccountCreateData = AccountCreate & Partial<InitialDBData>;
+export type BankCardCreateData = BankCardCreate & Partial<InitialDBData>;
+export type NotesCreateData = NoteCardCreate & Partial<InitialDBData>;
 
 export interface CreateCardProps<T> {
   cardData: T;
@@ -39,15 +43,17 @@ const CreateCardModal: FC<Props> = ({ view, createCard }) => {
   const displayContentByView = () => {
     if (view === 'main-bank_cards') {
       return (
-        <CreateBankCard cardData={newCardData as BankCardCreate} onChange={handleFieldChange} />
+        <CreateBankCard cardData={newCardData as BankCardCreateData} onChange={handleFieldChange} />
       );
     }
 
     if (view === 'main-notes') {
-      return <CreateNote cardData={newCardData as NoteCardCreate} onChange={handleFieldChange} />;
+      return <CreateNote cardData={newCardData as NotesCreateData} onChange={handleFieldChange} />;
     }
 
-    return <CreateAccount cardData={newCardData as AccountCreate} onChange={handleFieldChange} />;
+    return (
+      <CreateAccount cardData={newCardData as AccountCreateData} onChange={handleFieldChange} />
+    );
   };
 
   return (

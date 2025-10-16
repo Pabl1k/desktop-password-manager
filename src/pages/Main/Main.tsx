@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { getStateKeyByView } from '@/features/Create/model';
 import EmptyContent from '@/pages/Main/EmptyContent';
 import Accounts from '@/pages/Main/views/Accounts';
 import BankCards from '@/pages/Main/views/BankCards';
@@ -14,18 +15,6 @@ interface Props {
   setView: (view: MainViewType) => void;
 }
 
-const getStateKeyByView = (view: MainViewType): keyof StateType => {
-  if (view === 'main-bank_cards') {
-    return 'bankCards';
-  }
-
-  if (view === 'main-notes') {
-    return 'notes';
-  }
-
-  return 'accounts';
-};
-
 const isViewStateEmpty = (state: StateType, view: MainViewType) => {
   if (view === 'main') {
     return Object.values(state).every((items) => !items.length);
@@ -37,7 +26,7 @@ const isViewStateEmpty = (state: StateType, view: MainViewType) => {
 
 const Main: FC<Props> = ({ view, setView }) => {
   const cardsManagement = useCardsManagement(view);
-  const { state, handleDelete } = cardsManagement;
+  const { state, handleEditStart, handleDelete } = cardsManagement;
 
   const renderContent = () => {
     if (isViewStateEmpty(state, view)) {
@@ -46,20 +35,16 @@ const Main: FC<Props> = ({ view, setView }) => {
 
     if (view === 'main-accounts') {
       return (
-        <Accounts
-          accounts={state.accounts}
-          onEdit={(id) => console.log('edit', id)}
-          onDelete={handleDelete}
-        />
+        <Accounts accounts={state.accounts} onEdit={handleEditStart} onDelete={handleDelete} />
       );
     }
 
     if (view === 'main-bank_cards') {
-      return <BankCards cards={state.bankCards} onDelete={handleDelete} />;
+      return <BankCards cards={state.bankCards} onEdit={handleEditStart} onDelete={handleDelete} />;
     }
 
     if (view === 'main-notes') {
-      return <Notes card={state.notes} onDelete={handleDelete} />;
+      return <Notes card={state.notes} onEdit={handleEditStart} onDelete={handleDelete} />;
     }
 
     return (

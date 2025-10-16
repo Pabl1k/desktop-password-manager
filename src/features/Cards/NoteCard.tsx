@@ -3,11 +3,17 @@ import CardTitle from '@/features/Cards/CardTitle';
 import { NoteCardData } from '@/shared/types/types';
 
 interface Props extends NoteCardData {
+  onEdit: () => void;
   onDelete: () => void;
 }
 
-const NoteCard: FC<Props> = ({ title, note, safety, onDelete }) => {
+const NoteCard: FC<Props> = ({ title, note, safety, onEdit, onDelete }) => {
   const menuOptions = [
+    {
+      labelKey: 'edit',
+      visible: true,
+      onClick: onEdit
+    },
     {
       labelKey: 'delete',
       visible: true,

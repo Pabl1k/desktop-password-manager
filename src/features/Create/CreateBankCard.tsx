@@ -1,9 +1,10 @@
 import { FC } from 'react';
+import { removeDBData } from '@/features/Create/model';
 import { useTranslations } from '@/shared/hooks/useTranslations';
 import { BankCardCreate } from '@/shared/types/types';
 import Input from '@/shared/ui/Input';
 import Switch from '@/shared/ui/Switch';
-import { CreateCardProps } from '@/widgets/CreateCard/CreateCardModal';
+import { BankCardCreateData, CreateCardProps } from '@/widgets/CreateCard/CreateCardModal';
 
 const titleMapper: Record<keyof BankCardCreate, string> = {
   title: 'card_title',
@@ -15,12 +16,14 @@ const titleMapper: Record<keyof BankCardCreate, string> = {
   safety: 'safety_mode'
 };
 
-const CreateBankCard: FC<CreateCardProps<BankCardCreate>> = ({ cardData, onChange }) => {
+const CreateBankCard: FC<CreateCardProps<BankCardCreateData>> = ({ cardData, onChange }) => {
   const { t } = useTranslations();
+
+  const data = removeDBData<BankCardCreateData>(cardData);
 
   return (
     <>
-      {Object.keys(cardData).map((field, i) => {
+      {Object.keys(data).map((field, i) => {
         if (field === 'notes' || field === 'safety') {
           return null;
         }
@@ -32,7 +35,7 @@ const CreateBankCard: FC<CreateCardProps<BankCardCreate>> = ({ cardData, onChang
           <div key={fieldName} className="flex flex-col">
             <span className="capitalize mb-1">{fieldTitle}</span>
             <Input
-              value={cardData[fieldName] ?? ''}
+              value={data[fieldName] ?? ''}
               placeholder={`${t('enter')} ${fieldTitle.toLowerCase()}`}
               autoFocus={i === 0}
               onChange={(newValue) => onChange(fieldName, newValue)}
@@ -45,15 +48,15 @@ const CreateBankCard: FC<CreateCardProps<BankCardCreate>> = ({ cardData, onChang
         <span className="mb-1">{t('notes')}</span>
         <textarea
           className="min-h-(--field-height) border border-border rounded-field px-3 py-2 outline-none hover:border-green-main focus-within:border-green-main overflow-hidden"
-          value={cardData.notes}
+          value={data.notes}
           placeholder={t('enter_notes')}
           onChange={(e) => onChange('notes', e.target.value)}
         />
       </div>
 
       <div className="flex flex-col">
-        <span className="capitalize mb-1">{`${t('safety_mode')}: ${cardData.safety ? 'ON' : 'OFF'}`}</span>
-        <Switch checked={cardData.safety} onChange={(checked) => onChange('safety', checked)} />
+        <span className="capitalize mb-1">{`${t('safety_mode')}: ${data.safety ? 'ON' : 'OFF'}`}</span>
+        <Switch checked={data.safety} onChange={(checked) => onChange('safety', checked)} />
       </div>
     </>
   );

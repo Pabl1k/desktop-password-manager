@@ -10,6 +10,7 @@ import Icon from '@/shared/ui/Icon';
 import IconButton from '@/shared/ui/IconButton';
 
 interface Props extends BankCardData {
+  onEdit: () => void;
   onDelete: () => void;
 }
 
@@ -34,6 +35,7 @@ const BankCard: FC<Props> = ({
   cvv,
   cardholder,
   notes,
+  onEdit,
   onDelete
 }) => {
   const { t } = useTranslations();
@@ -47,6 +49,11 @@ const BankCard: FC<Props> = ({
       labelKey: 'open_notes',
       visible: Boolean(notes),
       onClick: () => setShowNotes(true)
+    },
+    {
+      labelKey: 'edit',
+      visible: true,
+      onClick: onEdit
     },
     {
       labelKey: 'delete',

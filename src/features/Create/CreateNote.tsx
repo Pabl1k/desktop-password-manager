@@ -1,11 +1,10 @@
 import { FC } from 'react';
 import { useTranslations } from '@/shared/hooks/useTranslations';
-import { NoteCardCreate } from '@/shared/types/types';
 import Input from '@/shared/ui/Input';
 import Switch from '@/shared/ui/Switch';
-import { CreateCardProps } from '@/widgets/CreateCard/CreateCardModal';
+import { CreateCardProps, NotesCreateData } from '@/widgets/CreateCard/CreateCardModal';
 
-const CreateNote: FC<CreateCardProps<NoteCardCreate>> = ({ cardData, onChange }) => {
+const CreateNote: FC<CreateCardProps<NotesCreateData>> = ({ cardData, onChange }) => {
   const { t } = useTranslations();
 
   return (

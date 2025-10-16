@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { getStateKeyByView } from '@/features/Create/model';
 import { useDatabase } from '@/shared/lib/db/useDatabase';
 import { MainView } from '@/shared/types/view';
 import {
@@ -39,6 +40,7 @@ export const useCardsManagement = (view: MainView) => {
   const { state, add, remove } = useDatabase();
 
   const [modalOpen, setModalOpen] = useState(false);
+  const [modalMode, setModalMode] = useState<'create' | 'edit'>('create'); // refactor to single state with modalOpen
   const [newCardData, setNewCardData] = useState<CardState | null>(null);
 
   const dirty = isDirty(newCardData);
@@ -59,6 +61,19 @@ export const useCardsManagement = (view: MainView) => {
         [field]: value
       };
     });
+  };
+
+  const handleEditStart = (id: string) => {
+    const type = getStateKeyByView(view);
+    const selectedData = state[type].find((item) => item.id === id);
+
+    if (!selectedData) {
+      return;
+    }
+
+    setModalMode('edit');
+    setNewCardData(selectedData);
+    setModalOpen(true);
   };
 
   const handleClose = () => {
@@ -94,6 +109,7 @@ export const useCardsManagement = (view: MainView) => {
     dirty,
     addNewCard,
     handleFieldChange,
+    handleEditStart,
     handleDelete,
     handleSave,
     handleClose,
